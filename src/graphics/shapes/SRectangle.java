@@ -25,11 +25,13 @@ public class SRectangle extends Shape {
 	@Override
 	public void setLoc(Point p) {
 		this.rect.setLocation(p);
+		this.notifyObserver();
 	}
 
 	@Override
 	public void translate(int dx, int dy) {
 		this.rect.translate(dx, dy);
+		this.notifyObserver();
 	}
 
 	@Override

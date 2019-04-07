@@ -14,7 +14,7 @@ public class SText extends Shape {
 		super();
 		this.text = text;
 		this.loc = loc;
-		}
+	}
 
 	public String getText() {
 		return this.text;
@@ -22,6 +22,7 @@ public class SText extends Shape {
 
 	public void setText(String text) {
 		this.text = text;
+		this.notifyObserver();
 	}
 
 	@Override
@@ -32,11 +33,13 @@ public class SText extends Shape {
 	@Override
 	public void setLoc(Point p) {
 		this.loc = p;
+		this.notifyObserver();
 	}
 
 	@Override
 	public void translate(int dx, int dy) {
 		this.loc.translate(dx, dy);
+		this.notifyObserver();
 	}
 
 	@Override

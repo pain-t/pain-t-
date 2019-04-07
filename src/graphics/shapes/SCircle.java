@@ -20,6 +20,7 @@ public class SCircle extends Shape {
 	
 	public void setRadius(int radius) {
 		this.radius = radius;
+		this.notifyObserver();
 	}
 
 	@Override
@@ -30,11 +31,13 @@ public class SCircle extends Shape {
 	@Override
 	public void setLoc(Point p) {
 		this.loc.setLocation(p);
+		this.notifyObserver();
 	}
 
 	@Override
 	public void translate(int dx, int dy) {
 		this.loc.translate(dx, dy);
+		this.notifyObserver();
 	}
 
 	@Override

@@ -52,6 +52,7 @@ public class ColorAttributes extends Attributes {
 
 	public void setFilledColor(Color color) {
 		this.filledColor = color;
+		this.notifyObserver();
 	}
 
 }
