@@ -2,15 +2,14 @@ package graphics.shapes;
 
 import java.awt.Color;
 import java.awt.Point;
-import java.util.ArrayList;
 
+import graphics.shapes.attributes.Attributes;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.ui.Observer;
 
-public class ShapeModel {
-	
+public class ShapeModel{
 	private SCollection model;
 	
 	public ShapeModel() {
@@ -56,10 +55,8 @@ public class ShapeModel {
 	}
 	
 	public void register(Observer o) {
-		this.getData().getShapes().forEach(x->x.register(o));
-		for(Shape s : this.getData().getShapes()) {
-			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-			sa.register(o);
+		for(Shape s:this.getData().getShapes()) {
+			s.register(o);
 		}
 	}
 	

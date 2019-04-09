@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import graphics.shapes.attributes.Attributes;
-import graphics.shapes.attributes.AttributesObserver;
-import graphics.shapes.ui.ShapesObserver;
 import graphics.ui.Observer;
 
 public abstract class Shape {
@@ -28,8 +26,16 @@ public abstract class Shape {
 	public Attributes getAttributes(String id) {
 		return this.attributes.get(id);
 	}
+	
+	public Map<String,Attributes> getAttributes(){
+		return this.attributes;
+	}
+	
 	public void register(Observer o) {
 		this.obs.add(o);
+		for(Attributes a : this.getAttributes().values()) {
+			if(a!=null)a.register(o);
+		}
 	}
 	
 	public void notifyObserver() {

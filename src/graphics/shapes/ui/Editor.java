@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 public class Editor extends JFrame
 {
 	ShapesView sview;
+	BannerView bview;
 	ShapeModel model;
 	
 	public Editor()
@@ -21,9 +22,17 @@ public class Editor extends JFrame
 			}
 		});
 		this.model = new ShapeModel();
+		
+		this.bview = new BannerView(this.model);
+		//TODO north pblm
+		this.getContentPane().add(this.bview, java.awt.BorderLayout.SOUTH);
+
+		
 		this.sview = new ShapesView(this.model);
 		this.sview.setPreferredSize(new Dimension(300,300));
 		this.model.register(new ShapesObserver(this.sview));
+		
+		
 		this.getContentPane().add(this.sview, java.awt.BorderLayout.CENTER);
 	}
 

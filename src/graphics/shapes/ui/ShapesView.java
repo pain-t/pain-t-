@@ -1,8 +1,11 @@
 package graphics.shapes.ui;
 
+import java.awt.Color;
 import java.awt.Graphics;
+
+import javax.swing.BorderFactory;
+
 import graphics.shapes.SCollection;
-import graphics.shapes.Shape;
 import graphics.shapes.ShapeModel;
 import graphics.shapes.ShapeVisitor;
 import graphics.ui.Controller;
@@ -14,6 +17,7 @@ public class ShapesView extends View{
 
 	public ShapesView(ShapeModel model) {
 		super(model);
+		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
 	@Override

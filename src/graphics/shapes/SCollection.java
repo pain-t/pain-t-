@@ -15,7 +15,7 @@ public class SCollection extends Shape {
 	public SCollection() {
 		super();
 		this.shapes = new ArrayList<Shape>();
-		this.loc= new Point();
+		this.loc = new Point();
 	}
 	
 	public ArrayList<Shape> getShapes() {
