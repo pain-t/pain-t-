@@ -16,14 +16,17 @@ public class SelectionAttributes extends Attributes {
 
 	public void select() {
 		this.selected = true;
+		this.notifyObserver();
 	}
 
 	public void unselect() {
 		this.selected = false;
+		this.notifyObserver();
 	}
 
 	public void toggleSelection() {
 		this.selected = !this.selected;
+		this.notifyObserver();
 	}
 
 	@Override

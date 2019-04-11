@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 
 import graphics.shapes.SCollection;
 import graphics.shapes.Shape;
+import graphics.shapes.ShapeModel;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.ui.Controller;
 
@@ -22,24 +23,20 @@ public class ShapesController extends Controller {
 	public void mouseDragged(MouseEvent evt) {
 		super.mouseDragged(evt);
 		translateSelected(evt.getPoint());
-		this.getView().invalidate();
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		super.mousePressed(e);
 		this.lastPoint.setLocation(e.getX(), e.getY());
-		this.getView().invalidate();
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		super.mouseClicked(e);
-
 		Shape s = this.getTarget(e);
 		if(!e.isShiftDown())this.unselectAll();
 		if(s != null) this.getAttributes(s).toggleSelection();
-		this.getView().invalidate();
 	}
 
 	private SelectionAttributes getAttributes(Shape s) {
@@ -47,8 +44,7 @@ public class ShapesController extends Controller {
 	}
 
 	private void translateSelected(Point p) {
-
-		for(Shape s: ((SCollection)this.getModel()).getShapes()) {
+		for(Shape s: ((SCollection)((ShapeModel) this.getModel()).getData()).getShapes()) {
 			SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 			if (sa.isSelected()) {
 				s.translate(p.x-this.lastPoint.x, p.y-this.lastPoint.y);
@@ -58,7 +54,7 @@ public class ShapesController extends Controller {
 	}
 
 	private Shape getTarget(MouseEvent e) {
-		for(Shape s: ((SCollection)this.getModel()).getShapes()) {
+		for(Shape s: ((SCollection)((ShapeModel) this.getModel()).getData()).getShapes()) {
 			if(s.getBounds().contains(e.getX(),e.getY())) {
 				return s;
 			}
@@ -67,7 +63,7 @@ public class ShapesController extends Controller {
 	}
 
 	private void unselectAll() {
-		for(Shape s: ((SCollection)this.getModel()).getShapes()) {
+		for(Shape s: ((SCollection)((ShapeModel) this.getModel()).getData()).getShapes()) {
 			SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 			sa.unselect();
 		}
