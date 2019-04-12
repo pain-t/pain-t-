@@ -3,7 +3,6 @@ package graphics.shapes;
 import java.awt.Color;
 import java.awt.Point;
 
-import graphics.shapes.attributes.Attributes;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
