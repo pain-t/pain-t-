@@ -15,13 +15,15 @@ import javax.swing.JButton;
 public class ButtonColor extends JButton {
 	
 	
+	private Color current;
+
 	private static final Color DEFAULT_COLOR = Color.LIGHT_GRAY;
 	private static final int SPACE5 = 5;
 	private static final int SPACE10 = 10;
 	private static final int SPACE20 = 20;
+	private static final int SPACE40 = 40;
 	private static final int DEFAULTPOS = 0;
 
-	private Color current;
 	
 	public ButtonColor(Icon icon,ActionListener c) {
 		super(icon);
@@ -30,7 +32,7 @@ public class ButtonColor extends JButton {
 	}
 	
 	private void init(ActionListener c) {
-		this.setPreferredSize(new Dimension(SPACE20*2,this.getPreferredSize().height+SPACE20));
+		this.setPreferredSize(new Dimension(SPACE40,this.getPreferredSize().height+SPACE20));
 		this.addActionListener(c);
 		this.cursor();
 		
@@ -38,7 +40,7 @@ public class ButtonColor extends JButton {
 	
 	private void cursor() {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		this.setCursor(toolkit.createCustomCursor(((ImageIcon)this.getIcon()).getImage(), new Point(0,0), "test"));
+		this.setCursor(toolkit.createCustomCursor(((ImageIcon)this.getIcon()).getImage(), new Point(DEFAULTPOS,DEFAULTPOS), "CURSOR"));
 	}
 	
 	@Override
