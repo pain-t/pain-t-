@@ -56,9 +56,11 @@ public class ButtonColor extends JButton {
     	int posXColorRectangle = centerX-(widthColorRectangle/2);
     	int posYColorRectangle  = this.getHeight()-SPACE20;
     	int heightColorRectangle = this.getWidth()-SPACE20-SPACE10;
+    	
     	g2.setColor(current);
     	g2.fillRect(posXColorRectangle, posYColorRectangle, widthColorRectangle, heightColorRectangle );
-	    
+	    g2.setColor(Color.black);
+	    g2.drawRect(posXColorRectangle, posYColorRectangle, widthColorRectangle, heightColorRectangle );
 	    if (this.getIcon()!=null) {
 	    	this.getIcon().paintIcon(this, g2, centerX-(this.getIcon().getIconWidth()/2), SPACE5);
 	    }
