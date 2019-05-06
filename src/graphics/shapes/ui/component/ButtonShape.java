@@ -11,6 +11,10 @@ import javax.swing.JButton;
 
 public class ButtonShape extends JButton {
 	
+	private static final int DEFAULTPOS = 0;
+	private static final String CURS_NAME = "CURSOR";
+
+	
 	public ButtonShape(Icon icon,ActionListener action){
 		super(icon);
 		init(action);
@@ -24,6 +28,6 @@ public class ButtonShape extends JButton {
 	
 	private void cursor() {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		this.setCursor(toolkit.createCustomCursor(((ImageIcon)this.getIcon()).getImage(), new Point(0,0), "CURSOR"));
+		this.setCursor(toolkit.createCustomCursor(((ImageIcon)this.getIcon()).getImage(), new Point(DEFAULTPOS,DEFAULTPOS), CURS_NAME));
 	}
 }

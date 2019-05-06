@@ -20,7 +20,6 @@ public class ColorChooser extends JColorChooser {
 	
 	private static final String OK =  "Ok";
 	private static final String ABORT =  "Abort";
-
 	
 	public ColorChooser(BannerController contr) {
 		super();
@@ -42,17 +41,24 @@ public class ColorChooser extends JColorChooser {
 		//remove sliding bar
 		this.getChooserPanels()[0].getComponent(0).setVisible(false);
 		
+		final int yPosGrid = 2;
+		final int xPosGridBtn1 = 0;
+		final int xPosGridBtn2 = 3;
+		final int NULLMARGE = 0;
+		final int MARGE_50 = 50;
+		final int MARGE_10 = 10;
+
 		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = 0;
-		c.gridy = 2;
+		c.gridx = xPosGridBtn1;
+		c.gridy = yPosGrid;
 		c.fill = GridBagConstraints.NONE;
-		c.insets = new Insets(0,50,10,0);
+		c.insets = new Insets(NULLMARGE,MARGE_50,MARGE_10,NULLMARGE);
 
 		// add our components
 		this.getChooserPanels()[0].add(this.ok,c);
-		c.gridx = 3;
-		c.gridy = 2;
-		c.insets = new Insets(0,0,10,50);
+		c.gridx = xPosGridBtn2;
+		c.gridy = yPosGrid;
+		c.insets = new Insets(NULLMARGE,NULLMARGE,MARGE_10,MARGE_50);
 		this.getChooserPanels()[0].add(this.abort,c);
 		
 		this.ok.addActionListener(contr.closePopAndSetColor());

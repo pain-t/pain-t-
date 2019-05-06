@@ -1,22 +1,17 @@
 package graphics.shapes.ui;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-import javax.swing.border.CompoundBorder;
 
 import graphics.shapes.ui.component.ButtonColor;
 import graphics.shapes.ui.component.ButtonShape;
-import graphics.shapes.ui.component.ColorChooser;
+import graphics.shapes.ui.component.PanelCreate;
+import graphics.shapes.ui.component.PanelColor;
 import graphics.ui.Controller;
 import graphics.ui.View;
 import utils.Utils;
@@ -24,17 +19,12 @@ import utils.Utils;
 public class BannerView extends View {
 
 
-	private ButtonColor btnc;
-	private ButtonColor btnc2;
 	private JPanel panelSelect;
 	private JPanel panelCreate;
 	private JPanel panelColor;
-	private JPopupMenu jpopupFill;
-	private JPopupMenu jpopupStroke;
 	
-	private final static int GRIDROW = 2;
-	private final static int GRIDCOLUMN = 2;
-
+	private static final Dimension JSEP_DIM = new Dimension(3,50);
+	private static final Color JSEP_COLOR = Color.black;
 	
 	public BannerView(Object model) {
 		super(model);
@@ -60,37 +50,13 @@ public class BannerView extends View {
 	
 	private JSeparator getSeparator() {
 		JSeparator js = new JSeparator(SwingConstants.VERTICAL);
-        js.setPreferredSize(new Dimension(3,50));
-        js.setForeground(Color.black);
+        js.setPreferredSize(JSEP_DIM);
+        js.setForeground(JSEP_COLOR);
         return js;
 	}
 	
 	private void initPanelColor(){
-		this.panelColor = new JPanel();
-		jpopupFill = new JPopupMenu("Fill Color");
-		jpopupStroke = new JPopupMenu("StrokeColor");
-		jpopupFill.add(new ColorChooser((BannerController)getController()));
-		jpopupStroke.add(new ColorChooser((BannerController)getController()));
-		ButtonColor b =new ButtonColor(Utils.getIcon("fill.png"),((BannerController)this.getController()).doPrint());
-		ButtonColor b2 =new ButtonColor(Utils.getIcon("bounds.jpg"),((BannerController)this.getController()).doPrint());
-		this.btnc =b;
-		this.btnc2 = b2;
-		this.btnc.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				jpopupFill.show((Component) e.getSource(), 0, -100);
-			}
-		});
-		this.btnc2.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				jpopupStroke.show((Component) e.getSource(), 0, -100);
-			}
-		});
-		this.panelColor.add(this.btnc);
-		this.panelColor.add(this.btnc2);
+		this.panelColor = new PanelColor((BannerController)getController());
 	}
 
 	private void initPanelSelect(){
@@ -100,22 +66,7 @@ public class BannerView extends View {
 	}
 	
 	private void initPanelCreate(){
-		GridLayout grid = new GridLayout(GRIDROW,GRIDCOLUMN);
-		final int gap = 5;
-		grid.setHgap(gap);
-		grid.setVgap(gap);
-		this.panelCreate = new JPanel(grid);
-		this.panelCreate.setBackground(Color.white);
-		this.panelCreate.setBorder(new CompoundBorder(BorderFactory.createLineBorder(Color.black), BorderFactory.createEmptyBorder(5,5,5,5)));
-		this.panelCreate.add(new ButtonShape(Utils.getIcon("rectangle.png"),((BannerController)this.getController()).doPrint()));
-		this.panelCreate.add(new ButtonShape(Utils.getIcon("circle.png"),((BannerController)this.getController()).doPrint()));
-		this.panelCreate.add(new ButtonShape(Utils.getIcon("text.png"),((BannerController)this.getController()).doPrint()));
-		this.panelCreate.add(new ButtonShape(Utils.getIcon("line.png"),((BannerController)this.getController()).doPrint()));
-		this.panelCreate.add(new ButtonShape(Utils.getIcon(""),((BannerController)this.getController()).doPrint()));
-		this.panelCreate.add(new ButtonShape(Utils.getIcon(""),((BannerController)this.getController()).doPrint()));
-		this.panelCreate.add(new ButtonShape(Utils.getIcon(""),((BannerController)this.getController()).doPrint()));
-		this.panelCreate.add(new ButtonShape(Utils.getIcon(""),((BannerController)this.getController()).doPrint()));
-
+		this.panelCreate = new PanelCreate((BannerController)getController());
 	}
 	
 	@Override
@@ -125,19 +76,19 @@ public class BannerView extends View {
 	
 	
 	public ButtonColor getFillBtn() {
-		return this.btnc;
+		return ((PanelColor)this.panelColor).getBtnc();
 	}
 
 	public ButtonColor getStrokeBtn() {
-		return this.btnc2;
+		return ((PanelColor)this.panelColor).getBtnc2();
 	}
 	
 	public JPopupMenu getJpopupFill() {
-		return jpopupFill;
+		return ((PanelColor)this.panelColor).getJpopupFill();
 	}
 
 	public JPopupMenu getJpopupStroke() {
-		return jpopupStroke;
+		return ((PanelColor)this.panelColor).getJpopupStroke();
 	}
 
 }
