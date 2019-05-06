@@ -57,7 +57,7 @@ public class BannerController extends Controller {
 					((BannerView)getView()).getJpopupStroke().setVisible(false);
 					((BannerView)getView()).getStrokeBtn().setColor(((ColorChooser)((BannerView)getView()).getJpopupStroke().getComponent(0)).getColor());
 				}
-				//TODO setColor btn & selected shapes
+				//TODO setColor btn & selected shape
 			}
 		};
 	}
