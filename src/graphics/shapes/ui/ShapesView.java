@@ -36,7 +36,8 @@ public class ShapesView extends View{
 		sv = new ShapeDraftman(g);
 		((SCollection)((ShapeModel)this.getModel()).getData()).accept(sv);
 	}
-
+	
+	@Override
 	public void invalidate() {
 		this.paintImmediately(getBounds());
 	}

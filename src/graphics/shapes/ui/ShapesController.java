@@ -1,6 +1,7 @@
 package graphics.shapes.ui;
 
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import graphics.shapes.SCollection;
@@ -21,22 +22,26 @@ public class ShapesController extends Controller {
 
 	@Override
 	public void mouseDragged(MouseEvent evt) {
-		super.mouseDragged(evt);
 		translateSelected(evt.getPoint());
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		super.mousePressed(e);
 		this.lastPoint.setLocation(e.getX(), e.getY());
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		super.mouseClicked(e);
 		Shape s = this.getTarget(e);
 		if(!e.isShiftDown())this.unselectAll();
 		if(s != null) this.getAttributes(s).toggleSelection();
+	}
+
+	
+	
+	@Override
+	public void keyTyped(KeyEvent evt) {
+		System.out.println(evt.getKeyChar());
 	}
 
 	private SelectionAttributes getAttributes(Shape s) {

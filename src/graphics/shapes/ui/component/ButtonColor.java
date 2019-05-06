@@ -23,6 +23,7 @@ public class ButtonColor extends JButton {
 	private static final int SPACE20 = 20;
 	private static final int SPACE40 = 40;
 	private static final int DEFAULTPOS = 0;
+	private static final String CURS_NAME = "CURSOR";
 
 	
 	public ButtonColor(Icon icon,ActionListener c) {
@@ -40,7 +41,7 @@ public class ButtonColor extends JButton {
 	
 	private void cursor() {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		this.setCursor(toolkit.createCustomCursor(((ImageIcon)this.getIcon()).getImage(), new Point(DEFAULTPOS,DEFAULTPOS), "CURSOR"));
+		this.setCursor(toolkit.createCustomCursor(((ImageIcon)this.getIcon()).getImage(), new Point(DEFAULTPOS,DEFAULTPOS), CURS_NAME));
 	}
 	
 	@Override
