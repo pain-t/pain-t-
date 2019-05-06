@@ -19,7 +19,9 @@ public class ShapeDraftman implements ShapeVisitor {
 
 	public static final ColorAttributes DEFAULTCOLORATTRIBUTES = new ColorAttributes();
 	public static final FontAttributes DEFAULTFONTATTRIBUTES = new FontAttributes();
-
+	public static final int DEFAULTSELECTIONRECTSIZE = 5;
+	public static final Color DEFUALTCOLORSELECTIONRECT = Color.black;
+	
 	private Graphics2D g2d;
 
 	public ShapeDraftman(Graphics g) {
@@ -101,8 +103,8 @@ public class ShapeDraftman implements ShapeVisitor {
 	}
 
 	private void drawSelection(Shape s) {
-		this.g2d.setColor(Color.BLACK);
-		this.g2d.drawRect(s.getBounds().x-5, s.getBounds().y-5, 5, 5);
-		this.g2d.drawRect(s.getBounds().x+s.getBounds().width, s.getBounds().y+s.getBounds().height, 5, 5);
+		this.g2d.setColor(DEFUALTCOLORSELECTIONRECT);
+		this.g2d.drawRect(s.getBounds().x-DEFAULTSELECTIONRECTSIZE, s.getBounds().y-DEFAULTSELECTIONRECTSIZE, DEFAULTSELECTIONRECTSIZE, DEFAULTSELECTIONRECTSIZE);
+		this.g2d.drawRect(s.getBounds().x+s.getBounds().width, s.getBounds().y+s.getBounds().height, DEFAULTSELECTIONRECTSIZE, DEFAULTSELECTIONRECTSIZE);
 	}
 }
