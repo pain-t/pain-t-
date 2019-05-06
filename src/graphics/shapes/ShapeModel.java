@@ -46,6 +46,11 @@ public class ShapeModel{
 		c.addAttributes(new ColorAttributes(false,true,Color.BLUE,Color.DARK_GRAY));
 		c.addAttributes(new SelectionAttributes());
 		sc.add(c);
+		t = new SText(new Point(100,10),"coucou");
+		t.addAttributes(new ColorAttributes(true,true,Color.YELLOW,Color.BLUE));
+		t.addAttributes(new FontAttributes());
+		t.addAttributes(new SelectionAttributes());
+		sc.add(t);
 		this.model.add(sc);
 	}
 	
