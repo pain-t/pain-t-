@@ -12,7 +12,7 @@ public class Editor extends JFrame
 	
 	public Editor()
 	{
-		super("Pain(t)");
+		super("Pain-t-");
 
 		this.addWindowListener(new java.awt.event.WindowAdapter()
 		{
