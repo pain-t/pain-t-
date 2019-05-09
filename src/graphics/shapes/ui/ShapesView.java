@@ -29,12 +29,16 @@ public class ShapesView extends View{
 	public boolean isFocusTraversable() {
 		return true;
 	}
-
+	
+    public ShapeModel getModel() {
+    	return (ShapeModel)super.getModel();
+    }
+    
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		sv = new ShapeDraftman(g);
-		((SCollection)((ShapeModel)this.getModel()).getData()).accept(sv);
+		getModel().getData().accept(sv);
 	}
 	
 	@Override

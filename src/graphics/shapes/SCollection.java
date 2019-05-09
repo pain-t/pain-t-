@@ -48,7 +48,7 @@ public class SCollection extends Shape {
 		for(Shape s  : this.shapes) {
 			s.translate(dx, dy);
 		}
-		updateContainer();
+		this.loc.translate(dx, dy);
 		this.notifyObserver();
 	}
 
@@ -63,7 +63,7 @@ public class SCollection extends Shape {
 	}
 
 	private void updateContainer() {
-		Point top = new Point(2000,2000);
+		Point top = new Point(Integer.MAX_VALUE,Integer.MAX_VALUE);
 		Point bottom = new Point(0,0);
 		for(Shape s : this.shapes) {
 			if (s.getLoc().y < top.y) {
