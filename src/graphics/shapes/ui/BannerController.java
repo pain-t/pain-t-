@@ -13,6 +13,9 @@ public class BannerController extends Controller {
 		super(newModel);
 	}
 	
+	final public BannerView getView() {
+		return (BannerView)super.getView();
+	}
 	
 	public ActionListener doPrint() {
 		return new ActionListener() {
@@ -33,11 +36,20 @@ public class BannerController extends Controller {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//TODO better way ?
+				//1 ColorChooserPanel
+				//2 gridbagpanel
+				//3 tab panel
+				//4 colorchooser
 				ColorChooser c = (ColorChooser)((Component)e.getSource()).getParent().getParent().getParent().getParent();
-				if(c.equals(((BannerView)getView()).getJpopupFill().getComponent(0)))
-					((BannerView)getView()).getJpopupFill().setVisible(false);
-				else if(c.equals(((BannerView)getView()).getJpopupStroke().getComponent(0)))
-					((BannerView)getView()).getJpopupStroke().setVisible(false);
+				System.out.println(((Component)e.getSource()).getParent().getClass());
+				System.out.println(((Component)e.getSource()).getParent().getParent().getClass());
+				System.out.println(((Component)e.getSource()).getParent().getParent().getParent().getClass());
+				System.out.println(((Component)e.getSource()).getParent().getParent().getParent().getParent().getClass());
+
+				if(c.equals(getView().getJPopupFill().getComponent(0)))
+					getView().getJPopupFill().setVisible(false);
+				else if(c.equals(getView().getJPopupStroke().getComponent(0)))
+					getView().getJPopupStroke().setVisible(false);
 			}
 		};
 	}
@@ -48,14 +60,14 @@ public class BannerController extends Controller {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ColorChooser c = (ColorChooser)((Component)e.getSource()).getParent().getParent().getParent().getParent();
-				if(c.equals(((BannerView)getView()).getJpopupFill().getComponent(0))) {
-					((BannerView)getView()).getJpopupFill().setVisible(false);
-					((BannerView)getView()).getFillBtn().setColor(((ColorChooser)((BannerView)getView()).getJpopupFill().getComponent(0)).getColor());
+				if(c.equals(getView().getJPopupFill().getComponent(0))) {
+					getView().getJPopupFill().setVisible(false);
+					getView().getFillBtn().setColor(((ColorChooser)getView().getJPopupFill().getComponent(0)).getColor());
 
 				}
-				else if(c.equals(((BannerView)getView()).getJpopupStroke().getComponent(0))) {
-					((BannerView)getView()).getJpopupStroke().setVisible(false);
-					((BannerView)getView()).getStrokeBtn().setColor(((ColorChooser)((BannerView)getView()).getJpopupStroke().getComponent(0)).getColor());
+				else if(c.equals(getView().getJPopupStroke().getComponent(0))) {
+					getView().getJPopupStroke().setVisible(false);
+					getView().getStrokeBtn().setColor(((ColorChooser)getView().getJPopupStroke().getComponent(0)).getColor());
 				}
 				//TODO setColor btn & selected shape
 			}
