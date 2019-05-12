@@ -3,51 +3,68 @@ package graphics.shapes;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-public class SCircle extends Shape {
+public class SCircle extends SOval {
 
-	private int radius;
-	private Point loc;
-
-	public SCircle(Point loc, int radius) {
-		super();
-		this.radius = radius;
-		this.loc = loc;
+	public SCircle(Point loc, int diameter) {
+		super(loc, diameter, diameter);
 	}
 	
-	public int getRadius() {
-		return this.radius;
+	public SCircle(int x, int y, int diameter) {
+		this(new Point(x, y), diameter);
 	}
 	
-	public void setRadius(int radius) {
-		this.radius = radius;
-		this.notifyObserver();
-	}
-
+	// --------------------------------------------------------------------
+	
 	@Override
-	public Point getLoc() {
-		return this.loc;
+	public void resize(Point cursor, int dx, int dy, int handler) {
+		if(handler == 0) resizeTL(cursor, dx, dy);
+		else if(handler == 1) resizeTR(cursor, dx, dy);
+		else if(handler == 2) resizeBL(cursor, dx, dy);
+		else if(handler == 3) resizeBR(cursor, dx, dy);
 	}
-
-	@Override
-	public void setLoc(Point p) {
-		this.loc.setLocation(p);
-		this.notifyObserver();
+	
+	private void resizeTL(Point cursor, int dx, int dy) {
+		Rectangle bounds = this.getBounds();
+		int off;
+		
+		if(cursor.y < bounds.y || cursor.x < bounds.x) off = Math.max(-dx, -dy);
+		else off = Math.min(-dx, -dy);
+		
+		if(cursor.x > bounds.x + bounds.width && cursor.y > bounds.y + bounds.height) off = 0;
+			
+		this.setBounds(bounds.x - off, bounds.y - off, bounds.width + off, bounds.height + off);
 	}
-
-	@Override
-	public void translate(int dx, int dy) {
-		this.loc.translate(dx, dy);
-		this.notifyObserver();
+	private void resizeTR(Point cursor, int dx, int dy) {
+		Rectangle bounds = this.getBounds();
+		int off;
+		
+		if(cursor.y < bounds.y || cursor.x > bounds.x + bounds.width) off = Math.max(dx, -dy);
+		else off = Math.min(dx,  -dy);
+		
+		if(cursor.x < bounds.x && cursor.y > bounds.y + bounds.height) off = 0;
+			
+		this.setBounds(bounds.x, bounds.y - off, bounds.width + off, bounds.height + off);
 	}
-
-	@Override
-	public Rectangle getBounds() {
-		return new Rectangle(this.loc.x,this.loc.y,this.radius*2,this.radius*2);
+	private void resizeBL(Point cursor, int dx, int dy) {
+		Rectangle bounds = this.getBounds();
+		int off;
+		
+		if(cursor.y > bounds.y + bounds.height || cursor.x < bounds.x) off = Math.max(-dx, dy);
+		else off = Math.min(-dx,  dy);
+		
+		if(cursor.x > bounds.x + bounds.width && cursor.y < bounds.y) off = 0;
+			
+		this.setBounds(bounds.x - off, bounds.y, bounds.width + off, bounds.height + off);
 	}
-
-	@Override
-	public void accept(ShapeVisitor sv) {
-		sv.visitCircle(this);
+	private void resizeBR(Point cursor, int dx, int dy) {
+		Rectangle bounds = this.getBounds();
+		int off;
+		
+		if(cursor.y > bounds.y + bounds.height || cursor.x > bounds.x + bounds.width) off = Math.max(dx, dy);
+		else off = Math.min(dx,  dy);
+		
+		if(cursor.x < bounds.x && cursor.y < bounds.y) off = 0;
+			
+		this.setBounds(bounds.x, bounds.y, bounds.width + off, bounds.height + off);
 	}
-
 }
