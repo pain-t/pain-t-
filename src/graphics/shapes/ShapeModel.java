@@ -46,7 +46,7 @@ public class ShapeModel{
 		c.addAttributes(new ColorAttributes(false,true,Color.BLUE,Color.DARK_GRAY));
 		c.addAttributes(new SelectionAttributes());
 		sc.add(c);
-		t = new SText(new Point(10,10),"fromage");
+		t = new SText(new Point(300,300),"fromage");
 		t.addAttributes(new ColorAttributes(true,true,Color.RED,Color.MAGENTA));
 		t.addAttributes(new FontAttributes());
 		t.addAttributes(new SelectionAttributes());

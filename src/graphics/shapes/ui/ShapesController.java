@@ -20,6 +20,10 @@ public class ShapesController extends Controller {
 		this.lastPoint = new Point();
 	}
 
+    public ShapeModel getModel() {
+    	return (ShapeModel)super.getModel();
+    }
+	
 	@Override
 	public void mouseDragged(MouseEvent evt) {
 		translateSelected(evt.getPoint());
@@ -32,24 +36,18 @@ public class ShapesController extends Controller {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Shape s = this.getTarget(e);
+		Shape s = this.getTarget(e.getPoint());
 		if(!e.isShiftDown())this.unselectAll();
 		if(s != null) this.getAttributes(s).toggleSelection();
 	}
 
-	
-	
-	@Override
-	public void keyTyped(KeyEvent evt) {
-		System.out.println(evt.getKeyChar());
-	}
 
 	private SelectionAttributes getAttributes(Shape s) {
 		return (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
 	}
 
 	private void translateSelected(Point p) {
-		for(Shape s: ((SCollection)((ShapeModel) this.getModel()).getData()).getShapes()) {
+		for(Shape s: this.getModel().getData().getShapes()) {
 			SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 			if (sa.isSelected()) {
 				s.translate(p.x-this.lastPoint.x, p.y-this.lastPoint.y);
@@ -58,9 +56,9 @@ public class ShapesController extends Controller {
 		this.lastPoint.setLocation(p);
 	}
 
-	private Shape getTarget(MouseEvent e) {
-		for(Shape s: ((SCollection)((ShapeModel) this.getModel()).getData()).getShapes()) {
-			if(s.getBounds().contains(e.getX(),e.getY())) {
+	private Shape getTarget(Point p) {
+		for(Shape s: this.getModel().getData().getShapes()) {
+			if(s.getBounds().contains(p.getX(),p.getY())) {
 				return s;
 			}
 		}
@@ -68,7 +66,7 @@ public class ShapesController extends Controller {
 	}
 
 	private void unselectAll() {
-		for(Shape s: ((SCollection)((ShapeModel) this.getModel()).getData()).getShapes()) {
+		for(Shape s: this.getModel().getData().getShapes()) {
 			SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 			sa.unselect();
 		}
