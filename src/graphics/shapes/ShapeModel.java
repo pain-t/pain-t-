@@ -38,7 +38,7 @@ public class ShapeModel{
 
 		SCollection sc = new SCollection();
 		sc.addAttributes(new SelectionAttributes());
-		r= new SRectangle(new Point(20,30),30,30);
+		r = new SRectangle(new Point(20,30),30,30);
 		r.addAttributes(new ColorAttributes(true,false,Color.MAGENTA,Color.BLUE));
 		r.addAttributes(new SelectionAttributes());
 		sc.add(r);

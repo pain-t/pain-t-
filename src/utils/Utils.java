@@ -23,14 +23,15 @@ public class Utils {
 	public static ImageIcon getIcon(String s) {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		InputStream input = classLoader.getResourceAsStream(s);
-		ImageIcon i =null;
+		ImageIcon i = null;
 
 		try {
-			 i= new ImageIcon(ImageIO.read(input));
+			 i = new ImageIcon(ImageIO.read(input));
 		}
 		catch(Exception e){
 			try {
-				i = new ImageIcon(ImageIO.read(classLoader.getResourceAsStream(DEFAULT_IMAGE)));
+				input = classLoader.getResourceAsStream(DEFAULT_IMAGE);
+				i = new ImageIcon(ImageIO.read(input));
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
