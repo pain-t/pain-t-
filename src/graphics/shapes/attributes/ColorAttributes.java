@@ -14,6 +14,8 @@ public class ColorAttributes extends Attributes {
 	private Color filledColor;
 	private Color strokedColor;
 
+	// --------------------------------------------------------------------
+	
 	public ColorAttributes(boolean filled, boolean stroked, Color filledColor, Color strokedColor) {
 
 		this.filled = filled;
@@ -28,6 +30,9 @@ public class ColorAttributes extends Attributes {
 		this.filledColor = FILLED_DEFAULT_COLOR;
 		this.strokedColor = STROKED_DEFAULT_COLOR;
 	}
+	
+	// --------------------------------------------------------------------
+	
 
 	@Override
 	public String getId() {
@@ -54,5 +59,9 @@ public class ColorAttributes extends Attributes {
 		this.filledColor = color;
 		this.notifyObserver();
 	}
-
+	
+	@Override
+	public Attributes clone() {
+		return new ColorAttributes(this.filled, this.stroked, this.filledColor, this.strokedColor);
+	}
 }

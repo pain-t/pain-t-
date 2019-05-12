@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import graphics.shapes.SCircle;
+import graphics.shapes.SOval;
 import graphics.shapes.SCollection;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
@@ -20,18 +20,23 @@ public class ShapeDraftman implements ShapeVisitor {
 	public static final ColorAttributes DEFAULTCOLORATTRIBUTES = new ColorAttributes();
 	public static final FontAttributes DEFAULTFONTATTRIBUTES = new FontAttributes();
 	public static final int DEFAULTSELECTIONRECTSIZE = 5;
-	public static final Color DEFUALTCOLORSELECTIONRECT = Color.black;
+	public static final Color DEFAULTCOLORSELECTIONRECT = Color.black;
 	
 	private Graphics2D g2d;
+
+	// --------------------------------------------------------------------
 
 	public ShapeDraftman(Graphics g) {
 		this.g2d =(Graphics2D)g;
 	}
+	
+	// --------------------------------------------------------------------
 
+	
 	@Override
 	public void visitRectangle(SRectangle rect) {
-		Rectangle r = rect.getRect();
-		ColorAttributes fc = (ColorAttributes)rect.getAttributes(ColorAttributes.ID);
+		Rectangle r = rect.getBounds();
+		ColorAttributes fc = (ColorAttributes) rect.getAttributes(ColorAttributes.ID);
 		if(fc == null) fc = DEFAULTCOLORATTRIBUTES;
 
 		if(fc.filled())	{
@@ -41,7 +46,7 @@ public class ShapeDraftman implements ShapeVisitor {
 
 		if(fc.stroked()) {
 			g2d.setColor(fc.strokedColor());
-			g2d.drawRect(r.x, r.y, r.width,r.height);
+			g2d.drawRect(r.x, r.y, r.width, r.height);
 		}
 
 		SelectionAttributes sa = (SelectionAttributes)(rect.getAttributes(SelectionAttributes.ID));
@@ -49,47 +54,49 @@ public class ShapeDraftman implements ShapeVisitor {
 	}
 
 	@Override
-	public void visitCircle(SCircle circle) {
-		ColorAttributes fc = (ColorAttributes)circle.getAttributes(ColorAttributes.ID);
+	public void visitOval(SOval oval) {
+		Rectangle r = oval.getBounds();
+		ColorAttributes fc = (ColorAttributes) oval.getAttributes(ColorAttributes.ID);
 
 		if(fc == null) fc = DEFAULTCOLORATTRIBUTES;
 		if(fc.filled())	{
 			this.g2d.setColor(fc.filledColor());
-			this.g2d.fillOval(circle.getLoc().x,circle.getLoc().y, circle.getRadius()*2, circle.getRadius()*2);
+			this.g2d.fillOval(r.x, r.y, r.width, r.height);
 		}
 
 		if(fc.stroked()) {
 			this.g2d.setColor(fc.strokedColor());
-			this.g2d.drawOval(circle.getLoc().x,circle.getLoc().y, circle.getRadius()*2, circle.getRadius()*2);
+			this.g2d.drawOval(r.x, r.y, r.width, r.height);
 		}
-		SelectionAttributes sa = (SelectionAttributes)(circle.getAttributes(SelectionAttributes.ID));
-		if(sa.isSelected()) this.drawSelection(circle);
-
+		
+		SelectionAttributes sa = (SelectionAttributes) oval.getAttributes(SelectionAttributes.ID);
+		if(sa.isSelected()) this.drawSelection(oval);
 	}
 
 	@Override
 	public void visitText(SText text) {
-
+		Rectangle r = text.getBounds();
 		ColorAttributes fc = (ColorAttributes)text.getAttributes(ColorAttributes.ID);
+
 		if(fc == null) fc = DEFAULTCOLORATTRIBUTES;
 
 		FontAttributes fa = (FontAttributes)text.getAttributes(FontAttributes.ID);
 		if(fa == null) fa = DEFAULTFONTATTRIBUTES;
-		Rectangle r = fa.getBounds(text.getText());
 
 		if(fc.filled())	{
 			g2d.setColor(fc.filledColor());
-			g2d.fillRect(text.getLoc().x, text.getLoc().y, r.width, r.height);
+			g2d.fillRect(r.x, r.y, r.width, r.height);
 		}
 		if(fc.stroked())	{
 			this.g2d.setColor(fc.strokedColor());
-			this.g2d.drawRect(text.getLoc().x, text.getLoc().y, r.width, r.height);
+			this.g2d.drawRect(r.x, r.y, r.width, r.height);
 		}
 
 		this.g2d.setFont(fa.font());
 		this.g2d.setColor(fa.fontColor());
-		this.g2d.drawString(text.getText(), text.getLoc().x, text.getLoc().y+r.height);
-		SelectionAttributes sa = (SelectionAttributes)(text.getAttributes(SelectionAttributes.ID));
+		this.g2d.drawString(text.getText(), r.x, r.y + r.height);
+		
+		SelectionAttributes sa = (SelectionAttributes) text.getAttributes(SelectionAttributes.ID);
 		if(sa.isSelected()) this.drawSelection(text);
 	}
 
@@ -98,13 +105,37 @@ public class ShapeDraftman implements ShapeVisitor {
 		for(Shape s : collection.getShapes()) {
 			s.accept(this);
 		}
-		SelectionAttributes sa = (SelectionAttributes)(collection.getAttributes(SelectionAttributes.ID));
+		SelectionAttributes sa = (SelectionAttributes) collection.getAttributes(SelectionAttributes.ID);
 		if(sa.isSelected()) this.drawSelection(collection);
 	}
 
 	private void drawSelection(Shape s) {
-		this.g2d.setColor(DEFUALTCOLORSELECTIONRECT);
-		this.g2d.drawRect(s.getBounds().x-DEFAULTSELECTIONRECTSIZE, s.getBounds().y-DEFAULTSELECTIONRECTSIZE, DEFAULTSELECTIONRECTSIZE, DEFAULTSELECTIONRECTSIZE);
-		this.g2d.drawRect(s.getBounds().x+s.getBounds().width, s.getBounds().y+s.getBounds().height, DEFAULTSELECTIONRECTSIZE, DEFAULTSELECTIONRECTSIZE);
+//		this.g2d.setColor(DEFAULTCOLORSELECTIONRECT);
+//		this.g2d.drawRect(s.getBounds().x-DEFAULTSELECTIONRECTSIZE, s.getBounds().y-DEFAULTSELECTIONRECTSIZE, DEFAULTSELECTIONRECTSIZE, DEFAULTSELECTIONRECTSIZE);
+//		this.g2d.drawRect(s.getBounds().x+s.getBounds().width, s.getBounds().y+s.getBounds().height, DEFAULTSELECTIONRECTSIZE, DEFAULTSELECTIONRECTSIZE);
+		
+		Rectangle r = s.getBounds();
+//		Stroke tmp = g2d.getStroke();
+		g2d.setColor(Color.LIGHT_GRAY);
+//		float[] dash = { 5F, 5F };
+//		g2d.setStroke( new BasicStroke( 1F, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER, 3F, dash, 0F));
+		g2d.drawRect(r.x - 1, r.y - 1, r.width + 1, r.height + 1);
+//		g2d.setStroke(tmp);
+		
+		Rectangle corner = s.getTLhandler(r);
+		g2d.fillRect(corner.x, corner.y, corner.width, corner.height);
+		corner = s.getTRhandler(r);
+		g2d.fillRect(corner.x, corner.y, corner.width, corner.height);
+		corner = s.getBLhandler(r);
+		g2d.fillRect(corner.x, corner.y, corner.width, corner.height);
+		corner = s.getBRhandler(r);
+		g2d.fillRect(corner.x, corner.y, corner.width, corner.height);
+	}
+	
+	public void drawLasso(Rectangle lasso) {
+		g2d.setColor(new Color(50, 50, 255, 128));
+		g2d.fillRect(lasso.x, lasso.y, lasso.width, lasso.height);
+		g2d.setColor(Color.BLUE);
+		g2d.drawRect(lasso.x, lasso.y, lasso.width, lasso.height);
 	}
 }
