@@ -19,18 +19,18 @@ public class ShapeModel{
 		this.model = new SCollection();
 		this.model.addAttributes(new SelectionAttributes());
 
-		SRectangle r = new SRectangle(new Point(10,10),20,30);
+		SRectangle r = new SRectangle(new Point(20,20),20,30);
 		r.addAttributes(new ColorAttributes(true,false,Color.BLUE,Color.BLUE));
 		r.addAttributes(new SelectionAttributes());
 		
 		this.model.add(r);
 
-		SCircle c = new SCircle(new Point(100,100),10);
+		SOval c = new SOval(new Point(70,20),20, 25);
 		c.addAttributes(new ColorAttributes(false,true,Color.BLUE,Color.BLUE));
 		c.addAttributes(new SelectionAttributes());
 		this.model.add(c);
 
-		SText t = new SText(new Point(100,100),"hello");
+		SText t = new SText(new Point(120,20),"hello");
 		t.addAttributes(new ColorAttributes(true,true,Color.YELLOW,Color.BLUE));
 		t.addAttributes(new FontAttributes());
 		t.addAttributes(new SelectionAttributes());
@@ -38,15 +38,15 @@ public class ShapeModel{
 
 		SCollection sc = new SCollection();
 		sc.addAttributes(new SelectionAttributes());
-		r = new SRectangle(new Point(20,30),30,30);
+		r = new SRectangle(new Point(100,90),30,30);
 		r.addAttributes(new ColorAttributes(true,false,Color.MAGENTA,Color.BLUE));
 		r.addAttributes(new SelectionAttributes());
 		sc.add(r);
-		c = new SCircle(new Point(150,100),20);
+		c = new SOval(new Point(150,100),20, 25);
 		c.addAttributes(new ColorAttributes(false,true,Color.BLUE,Color.DARK_GRAY));
 		c.addAttributes(new SelectionAttributes());
 		sc.add(c);
-		t = new SText(new Point(300,300),"fromage");
+		t = new SText(new Point(200,200),"fromage");
 		t.addAttributes(new ColorAttributes(true,true,Color.RED,Color.MAGENTA));
 		t.addAttributes(new FontAttributes());
 		t.addAttributes(new SelectionAttributes());
