@@ -76,11 +76,11 @@ public class SRectangle extends Shape {
 		int y = this.rect.y;
 		int width = this.rect.width;
 		int height = this.rect.height;
-		if(cursor.x < x + width) {
+		if(cursor.x < x + width && width - dx > 0) {
 			x += dx;
 			width -= dx;
 		}
-		if(cursor.y < y + height) {
+		if(cursor.y < y + height && height - dy > 0) {
 			y += dy;
 			height -= dy;
 		}
@@ -92,10 +92,10 @@ public class SRectangle extends Shape {
 		int y = this.rect.y;
 		int width = this.rect.width;
 		int height = this.rect.height;
-		if(cursor.x > x) {
+		if(cursor.x > x && width + dx > 0) {
 			width += dx;
 		}
-		if(cursor.y < y + height) {
+		if(cursor.y < y + height && height - dy > 0) {
 			y += dy;
 			height -= dy;
 		}
@@ -107,11 +107,11 @@ public class SRectangle extends Shape {
 		int y = this.rect.y;
 		int width = this.rect.width;
 		int height = this.rect.height;
-		if(cursor.x < x + width) {
+		if(cursor.x < x + width && width - dx > 0) {
 			x += dx;
 			width -= dx; 
 		}
-		if(cursor.y > y) {
+		if(cursor.y > y && height + dy > 0) {
 			height += dy;
 		}
 		
@@ -122,10 +122,10 @@ public class SRectangle extends Shape {
 		int y = this.rect.y;
 		int width = this.rect.width;
 		int height = this.rect.height;
-		if(cursor.x > x) {
+		if(cursor.x > x&& width + dx > 0) {
 			width += dx;
 		}
-		if(cursor.y > y) {
+		if(cursor.y > y && height + dy > 0) {
 			height += dy;
 		}
 		this.setBounds(x, y, width, height);
