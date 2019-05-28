@@ -120,7 +120,7 @@ public class ShapesController extends Controller {
 	
 
 	public void keyPressed(KeyEvent evt) {
-  		SCollection model = (SCollection)((ShapeModel) this.getModel()).getData();
+  		SCollection model = this.getModel().getData();
     /*if (evt.getKeyChar() == KeyEvent.VK_DELETE) {
 			System.out.println("supp");
 			SCollection model = (SCollection)((ShapeModel) this.getModel()).getData();
@@ -176,13 +176,14 @@ public class ShapesController extends Controller {
 		
 		else if(evt.getKeyCode() == KeyEvent.VK_TAB) {
 			unselectAll();
-    }
-			SCollection model = this.getModel().getData();
+		       
 			Shape si = model.getShape(0); 
 			selection(si).select();
 			model.first(si);
-		}
-		 
+    }
+			
+		
+	
 		else if(evt.getKeyCode() == KeyEvent.VK_ESCAPE)
 			unselectAll();
     else if(evt.getKeyCode() == KeyEvent.VK_C ){
@@ -197,6 +198,7 @@ public class ShapesController extends Controller {
 					}
 				}
 			}
+    }
       else if(evt.getKeyCode() == KeyEvent.VK_X){
         if(evt.isControlDown()) {
           for (ListIterator<Shape> it = model.iterator() ; it.hasNext();) {
@@ -217,9 +219,8 @@ public class ShapesController extends Controller {
             int tmp  = model.getShapes().indexOf(selectedShape.get(i));
             model.getShapes().get(tmp).register(new ShapesObserver((ShapesView) this.getView()));
           }
-			  }
+        }
       }
-      
 	}
 		
 

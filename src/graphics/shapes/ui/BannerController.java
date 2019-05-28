@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
-import graphics.shapes.SCircle;
+import graphics.shapes.SOval;
 import graphics.shapes.SCollection;
 import graphics.shapes.SRectangle;
 import graphics.shapes.Shape;
@@ -119,7 +119,7 @@ public class BannerController extends Controller {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SCircle c = new SCircle(null, 10);
+				SOval c = new SOval(new Point(100,100) , 50, 50);
 				c.addAttributes(new SelectionAttributes());
 				c.addAttributes(new ColorAttributes());
 				((ShapeModel)getModel()).add(c);
@@ -132,8 +132,8 @@ public class BannerController extends Controller {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Point p = new Point(10,10);	
-				SRectangle r = new SRectangle(p, 0, 0);
+				Point p = new Point(100,100);	
+				SRectangle r = new SRectangle(p, 50, 50);
 				r.addAttributes(new SelectionAttributes());
 				r.addAttributes(new ColorAttributes());
 				((ShapeModel)getModel()).add(r);
