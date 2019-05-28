@@ -6,10 +6,18 @@ public class SelectionAttributes extends Attributes {
 
 	private boolean selected;
 	
-	public SelectionAttributes() {
-		this.selected = false;
+	// --------------------------------------------------------------------
+	
+	public SelectionAttributes(boolean selected) {
+		this.selected = selected;
 	}
-
+	
+	public SelectionAttributes() {
+		this(false);
+	}
+	
+	// --------------------------------------------------------------------
+	
 	public boolean isSelected() {
 		return this.selected;
 	}
@@ -34,4 +42,8 @@ public class SelectionAttributes extends Attributes {
 		return ID;
 	}
 
+	@Override
+	public Attributes clone() {
+		return new SelectionAttributes(this.selected);
+	}
 }
