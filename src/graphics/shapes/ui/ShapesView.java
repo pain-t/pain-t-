@@ -16,8 +16,9 @@ public class ShapesView extends View{
 
 	private ShapeDraftman sdm;
 
-	public ShapesView(ShapeModel model) {
+	public ShapesView(ShapeModel model, BannerController bc) {
 		super(model);
+		this.addMouseListener(bc);
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 

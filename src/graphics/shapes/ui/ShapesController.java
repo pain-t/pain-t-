@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ListIterator;
 
 import graphics.shapes.SCollection;
@@ -22,6 +24,7 @@ public class ShapesController extends Controller {
 	private boolean rightDown;
 	
 	private Point lastPoint;
+	private ArrayList <Shape> selectedShape;
 	
 	private Shape current;
 	
@@ -35,7 +38,9 @@ public class ShapesController extends Controller {
 	public ShapesController(Object model) {
 		super(model);
 		this.lastPoint = new Point();
+		selectedShape = new ArrayList<Shape>();
 	}
+	
 
     // -----------------------------------------------------------------------------------------------------------------------
 	
@@ -113,8 +118,21 @@ public class ShapesController extends Controller {
 //		if(s != null) this.selection(s).toggleSelection();
 //	}
 	
-	@Override
+
 	public void keyPressed(KeyEvent evt) {
+  		SCollection model = this.getModel().getData();
+    /*if (evt.getKeyChar() == KeyEvent.VK_DELETE) {
+			System.out.println("supp");
+			SCollection model = (SCollection)((ShapeModel) this.getModel()).getData();
+			for (ListIterator<Shape> it = model.iterator() ; it.hasNext();) {
+				SelectionAttributes sa = (SelectionAttributes)it.next().getAttributes(SelectionAttributes.ID);
+				if (sa.isSelected()) {
+					it.remove();
+				}
+				this.getView().invalidate();
+			}
+		}*/
+    //TODO keychar or keycode ?
 		 if(evt.getKeyCode() == KeyEvent.VK_DELETE)
 			deleteSelected();
 		
@@ -158,15 +176,53 @@ public class ShapesController extends Controller {
 		
 		else if(evt.getKeyCode() == KeyEvent.VK_TAB) {
 			unselectAll();
-			SCollection model = this.getModel().getData();
+		       
 			Shape si = model.getShape(0); 
 			selection(si).select();
 			model.first(si);
-		}
-		 
+    }
+			
+		
+	
 		else if(evt.getKeyCode() == KeyEvent.VK_ESCAPE)
 			unselectAll();
+    else if(evt.getKeyCode() == KeyEvent.VK_C ){
+			if(evt.isControlDown()) {
+				System.out.println("ctrl c");
+				for (ListIterator<Shape> it = model.iterator() ; it.hasNext();) {
+					Shape s = it.next();
+					SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
+					if(sa.isSelected()) {
+						selectedShape.add(s);
+						//System.out.println(s);
+					}
+				}
+			}
+    }
+      else if(evt.getKeyCode() == KeyEvent.VK_X){
+        if(evt.isControlDown()) {
+          for (ListIterator<Shape> it = model.iterator() ; it.hasNext();) {
+            Shape s = it.next();
+            SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
+            if(sa.isSelected()) {
+              selectedShape.add(s);
+              it.remove();
+            }
+          }
+          this.getView().invalidate();
+        }
+		  }
+      else if(evt.getKeyCode() == KeyEvent.VK_V){
+        if(evt.isControlDown()) {
+          for (int i = 0 ; i < selectedShape.size() ; i++) {
+            model.add(selectedShape.get(i));
+            int tmp  = model.getShapes().indexOf(selectedShape.get(i));
+            model.getShapes().get(tmp).register(new ShapesObserver((ShapesView) this.getView()));
+          }
+        }
+      }
 	}
+		
 
 	@Override
 	public void keyReleased(KeyEvent evt)

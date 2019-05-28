@@ -32,14 +32,13 @@ public class PanelCreate extends JPanel {
 		this.setLayout(grid);
 		this.setBackground(WHITE);
 		this.setBorder(new CompoundBorder(BorderFactory.createLineBorder(BORDERCOLOR), BorderFactory.createEmptyBorder(PADDING,PADDING,PADDING,PADDING)));
-		this.add(new ButtonShape(Utils.getIcon(Utils.RECTANGLE),controller.doPrint()));
-		this.add(new ButtonShape(Utils.getIcon(Utils.CIRCLE),controller.doPrint()));
+		this.add(new ButtonShape(Utils.getIcon(Utils.RECTANGLE),controller.createRectangle()));
+		this.add(new ButtonShape(Utils.getIcon(Utils.CIRCLE),controller.createCircle()));
 		this.add(new ButtonShape(Utils.getIcon(Utils.TEXT),controller.doPrint()));
 		this.add(new ButtonShape(Utils.getIcon(Utils.LINE),controller.doPrint()));
 		this.add(new ButtonShape(Utils.getIcon(Utils.DEFAULT_IMAGE),controller.doPrint()));
 		this.add(new ButtonShape(Utils.getIcon(Utils.DEFAULT_IMAGE),controller.doPrint()));
 		this.add(new ButtonShape(Utils.getIcon(Utils.DEFAULT_IMAGE),controller.doPrint()));
 		this.add(new ButtonShape(Utils.getIcon(Utils.DEFAULT_IMAGE),controller.doPrint()));
-
 	}
 }

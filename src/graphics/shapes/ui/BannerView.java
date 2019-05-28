@@ -83,11 +83,11 @@ public class BannerView extends View {
 		return ((PanelColor)this.panelColor).getBtnc2();
 	}
 	
-	public JPopupMenu getJPopupFill() {
+	public JPopupMenu getJpopupFill() {
 		return ((PanelColor)this.panelColor).getJpopupFill();
 	}
 
-	public JPopupMenu getJPopupStroke() {
+	public JPopupMenu getJpopupStroke() {
 		return ((PanelColor)this.panelColor).getJpopupStroke();
 	}
 
