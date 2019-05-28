@@ -163,10 +163,6 @@ public class SCollection extends Shape {
 	public void accept(ShapeVisitor sv) {
 		sv.visitCollection(this);
 	}
-	
-	public int size() {
-		return this.shapes.size();
-	}
 
 	private void updateContainer() {
 		Point top = new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);

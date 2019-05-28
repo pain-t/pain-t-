@@ -110,10 +110,7 @@ public class ShapeDraftman implements ShapeVisitor {
 	}
 
 	private void drawSelection(Shape s) {
-//		this.g2d.setColor(DEFAULTCOLORSELECTIONRECT);
-//		this.g2d.drawRect(s.getBounds().x-DEFAULTSELECTIONRECTSIZE, s.getBounds().y-DEFAULTSELECTIONRECTSIZE, DEFAULTSELECTIONRECTSIZE, DEFAULTSELECTIONRECTSIZE);
-//		this.g2d.drawRect(s.getBounds().x+s.getBounds().width, s.getBounds().y+s.getBounds().height, DEFAULTSELECTIONRECTSIZE, DEFAULTSELECTIONRECTSIZE);
-		
+	
 		Rectangle r = s.getBounds();
 //		Stroke tmp = g2d.getStroke();
 		g2d.setColor(Color.LIGHT_GRAY);
