@@ -55,4 +55,11 @@ public class ColorAttributes extends Attributes {
 		this.notifyObserver();
 	}
 
+	public void setStrokedColor(Color color) {
+		this.strokedColor = color;
+		this.notifyObserver();
+	}
+	
+	
+
 }

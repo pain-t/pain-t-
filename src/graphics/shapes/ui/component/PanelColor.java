@@ -71,4 +71,5 @@ public class PanelColor extends JPanel {
 		return btnc2;
 	}
 	
+	// TODO : ajouter accesseur sur colorchooser
 }

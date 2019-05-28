@@ -28,7 +28,7 @@ public class Editor extends JFrame
 		this.getContentPane().add(this.bview, java.awt.BorderLayout.SOUTH);
 
 		
-		this.sview = new ShapesView(this.model);
+		this.sview = new ShapesView(this.model, (BannerController) this.bview.getController());
 		this.sview.setPreferredSize(new Dimension(300,300));
 		this.model.register(new ShapesObserver(this.sview));
 		

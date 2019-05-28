@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.ListIterator;
 
 public class SCollection extends Shape {
 
@@ -22,15 +23,23 @@ public class SCollection extends Shape {
 		return shapes;
 	}
 	
-	public Iterator<Shape> iterator() {
-		return this.shapes.iterator();
+	public ListIterator<Shape> iterator() {
+		return this.shapes.listIterator();
 	}
-
+	
 	public void add(Shape s) {
 		this.shapes.add(s);
 		this.updateContainer();
 		this.notifyObserver();
 	}
+	
+	public void remove(Shape s) {
+		this.shapes.remove(s);
+		this.updateContainer();
+		this.notifyObserver();
+		
+	}
+	
 
 	@Override
 	public Point getLoc() {
@@ -60,6 +69,10 @@ public class SCollection extends Shape {
 	@Override
 	public void accept(ShapeVisitor sv) {
 		sv.visitCollection(this);
+	}
+	
+	public int size() {
+		return this.shapes.size();
 	}
 
 	private void updateContainer() {
