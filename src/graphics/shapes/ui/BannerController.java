@@ -4,6 +4,10 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import graphics.shapes.SCircle;
+import graphics.shapes.ShapeModel;
+import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.component.ColorChooser;
 import graphics.ui.Controller;
 
