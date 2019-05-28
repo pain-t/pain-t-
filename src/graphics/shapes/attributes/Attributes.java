@@ -6,5 +6,5 @@ public abstract class Attributes implements Observable {
 	
 	public abstract String getId();
 	
-	
+	public abstract Attributes clone();
 }
