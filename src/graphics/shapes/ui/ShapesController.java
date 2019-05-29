@@ -164,7 +164,7 @@ public class ShapesController extends Controller {
 			this.leftDown = true;
 		}
 		
-		else if ((evt.getKeyCode() == KeyEvent.VK_A) && ((evt.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0))
+		else if ((evt.getKeyChar() == KeyEvent.VK_A) && ((evt.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0))
 			selectAll();
 		
 		else if (evt.getKeyChar() == KeyEvent.VK_1) {
