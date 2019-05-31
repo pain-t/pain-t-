@@ -54,8 +54,7 @@ public class SCollection extends Shape {
 	public void remove(Shape s) {
 		this.shapes.remove(s);
 		this.updateContainer();
-		this.notifyObserver();
-		
+		this.notifyObserver();	
 	}
 	
 	public void empty() {

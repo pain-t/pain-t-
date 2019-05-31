@@ -49,13 +49,45 @@ Voici la liste exhaustive des fonctionnalités :
 
 ## Choix de l'implantation
 
+Dans le projet initial, le modèle ne notifiait pas la vue d'un éventuel changement. La première modification a donc été de rajouter cette fonctionnalité. Pour ce faire, la classe [**ShapeModel**](./src/graphics/shapes/ShapeModel.java) a été ajouté. Elle contient notemment la création des différentes formes de base et la récupération de ces formes. Dans les classes concernant le modèle, (les formes et les attributs), le design pattern observer a été implanté.
+
+![](./resources/Observer.png)
+
+Les méthodes de modifications de ces classes apellent la méthode **notifyObservers()** qui apelle a son tour la méthode **notify()** de l'observer, qui raffraichit la fênetre pour mettre a jour la vue.
+
 **Nico, tu écriras ton bordel.<br/>**
 Afin de supporter les nouvelles fonctionnalités, l'interface a subit de nombreux changement (développement par *Nicolas Herr*).
+Pour pouvoir modifier plus facilement les shapes, un bandeau de contrôle a été ajouté.
+
+![](./resources/bandeau.png)
+
+Il est décomposé en trois **JPanel**.
+* Le panel pour la création de formes de bases.
+* Le panel pour la modification des couleurs des formes.
+* Le panel de modification des attributs texte (disponible uniquement qd une forme texte est selctionné).
+
+Dans le premier **JPanel**, les formes sont créés. Voir [Partie leslie](#leslie)
+
+Dans le second, nos avons toutes les modificateurs liées à la couleurs. Lors d'un click sur une formes, les éléments vont s'adapter en fonction de la forme selectionnée. Si la couleur de remplissage est activé, la **JCheckBox** sera cochée.
+Le bouton de remplissage et le bouton de contour, sont des **JButton** customisés.
+La méthode **paintComponent()** a été réécrite. Le petit rectangle gris sur l'image indique la couleur en cours.
+
+![](./resources/popup.png)
+
+Lors du click sur un bouton, un menu **JPopupMenu** s'ouvre. Cette popup contient un élément permettant de choisir la couleur voulu ainsi qu'un bouton de validation et un d'abbandon.  
+Le selectionneur de couleur est un **JColorChooser** customisé [voir **ColorChooser**](./src/graphics/shapes/ui/component/ColorChooser.java).
+
+* Le bouton **OK** permet  d'appliquer la couleur a la forme selectionnée.
+* Le bouton **ABORT** permet de fermer la popup sans rien modifier.
+
+Dans le dernier, ...
 
 **Manon, tu écriras ton bordel.<br/>**
 Les formes retenues sont le **SRectangle**, le **SOval**, le **SText** et la **SCollection**. Le SCircle a été remplacé par le SOval, puisque plus logique au niveau du programme. L'objet **Graphics2D** au niveau du **ShapesDraftman** dessine les formes selon leurs limites, selon le cadre les contenant. Ainsi, en implantant le SOval comme une classe fille de SRectangle, SOval peut hériter de ses comportements (comme le redimensionnement via les handlers).
 
 **JN, tu écriras ton bordel.<br/>**
+
+### <a name="leslie"></a>
 
 **Leslie, tu écriras ton bordel.<br/>**
 

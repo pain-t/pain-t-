@@ -1,8 +1,11 @@
 package graphics.shapes.ui;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 
+import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
@@ -11,6 +14,7 @@ import javax.swing.SwingConstants;
 import graphics.shapes.ui.component.ButtonColor;
 import graphics.shapes.ui.component.ButtonShape;
 import graphics.shapes.ui.component.PanelCreate;
+import graphics.shapes.ui.component.PanelModification;
 import graphics.shapes.ui.component.PanelColor;
 import graphics.ui.Controller;
 import graphics.ui.View;
@@ -22,6 +26,7 @@ public class BannerView extends View {
 	private JPanel panelSelect;
 	private JPanel panelCreate;
 	private JPanel panelColor;
+	private JPanel panelModification;
 	
 	private static final Dimension JSEP_DIM = new Dimension(3,50);
 	private static final Color JSEP_COLOR = Color.black;
@@ -40,14 +45,21 @@ public class BannerView extends View {
 		this.initPanelSelect();
 		this.initPanelCreate();
 		this.initPanelColor();
-		this.add(this.panelSelect); 
+		this.initPanelModification();
+		//this.add(this.panelSelect); 
         this.add(getSeparator());
 		this.add(this.panelCreate); 
         this.add(getSeparator());
-		this.add(this.panelColor); 
+		this.add(this.panelColor);
+		this.add(getSeparator());
+		this.add(this.panelModification);
 		
 	}
 	
+	private void initPanelModification() {
+		this.panelModification = new PanelModification(getController());
+	}
+
 	private JSeparator getSeparator() {
 		JSeparator js = new JSeparator(SwingConstants.VERTICAL);
         js.setPreferredSize(JSEP_DIM);
@@ -56,17 +68,17 @@ public class BannerView extends View {
 	}
 	
 	private void initPanelColor(){
-		this.panelColor = new PanelColor((BannerController)getController());
+		this.panelColor = new PanelColor(getController());
 	}
 
 	private void initPanelSelect(){
 		this.panelSelect = new JPanel();
-		this.panelSelect.add(new ButtonShape(Utils.getIcon("mouse.png"),((BannerController)this.getController()).doPrint()));
-		this.panelSelect.add(new ButtonShape(Utils.getIcon("selection.png"),((BannerController)this.getController()).doPrint()));
+		this.panelSelect.add(new ButtonShape(Utils.getIcon("mouse.png"),this.getController().doPrint()));
+		this.panelSelect.add(new ButtonShape(Utils.getIcon("selection.png"),this.getController().doPrint()));
 	}
 	
 	private void initPanelCreate(){
-		this.panelCreate = new PanelCreate((BannerController)getController());
+		this.panelCreate = new PanelCreate(getController());
 	}
 	
 	@Override
@@ -74,6 +86,9 @@ public class BannerView extends View {
 		return new BannerController(model);
 	}
 	
+	public BannerController getController() {
+		return (BannerController) super.getController();
+	}
 	
 	public ButtonColor getFillBtn() {
 		return ((PanelColor)this.panelColor).getBtnc();
@@ -91,4 +106,17 @@ public class BannerView extends View {
 		return ((PanelColor)this.panelColor).getJpopupStroke();
 	}
 
+	public JPopupMenu getJpopupText() {
+		return ((PanelModification)this.panelModification).getJpopupText();
+	}
+
+	public ButtonColor getTextBtn() {
+		return ((PanelModification)this.panelModification).getBtnc();
+	}
+	public JComboBox<Integer> getFontSizeBox(){
+		return ((PanelModification)this.panelModification).getFontSizeBox();
+	}
+	public JComboBox<String> getFontFamilyBox(){
+		return ((PanelModification)this.panelModification).getFontFamilyBox();
+	}
 }
