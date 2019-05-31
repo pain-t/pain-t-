@@ -8,20 +8,33 @@ import java.awt.image.BufferedImage;
 
 
 public class FontAttributes extends Attributes{
-
+	
+	/** Id of the FontAttributes. */
 	public static final String ID = "FontAttributes";
+	/** Default font. */
 	public static final Font DEFAULT_FONT = new Font("Arial", 0, 12);
+	/** Default color font. */
 	public static final Color DEFAULT_COLOR = Color.BLACK;
 
+	/** Font. */
 	private Font font;
+	/** Color font. */
 	private Color fontColor;
 
 	// --------------------------------------------------------------------
 
+	/**
+	 * Constructs a default FontAttribute.
+	 */
 	public FontAttributes() {
 		this(DEFAULT_FONT, DEFAULT_COLOR);
 	}
 	
+	/**
+	 * Constructs a FontAttribute.
+	 * @param font Font.
+	 * @param fontColor Font color.
+	 */
 	public FontAttributes(Font font, Color fontColor) {
 		this.font = font;
 		this.fontColor = fontColor;
@@ -29,14 +42,27 @@ public class FontAttributes extends Attributes{
 
 	// --------------------------------------------------------------------
 
+	/**
+	 * Returns the font.
+	 * @return The font.
+	 */
 	public Font font() {
 		return this.font;
 	}
 	
+	/**
+	 * Return the color font.
+	 * @return The color font.
+	 */
 	public Color fontColor() {
 		return this.fontColor;
 	}
 	
+	/**
+	 * Return the bounds with the specified text with this font configuration.
+	 * @param str Text with which to compute the bounds.
+	 * @return The bounds with the specified text with this font configuration.
+	 */
 	public Rectangle getBounds(String str) {
 		BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
 		FontMetrics fm = img.getGraphics().getFontMetrics(this.font);
