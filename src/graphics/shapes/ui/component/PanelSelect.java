@@ -6,7 +6,7 @@ import graphics.shapes.ui.BannerController;
 import utils.Utils;
 
 public class PanelSelect extends JPanel {
-	
+	// NOT USED
 	public PanelSelect(BannerController controller) {
 		super();
 		init(controller);

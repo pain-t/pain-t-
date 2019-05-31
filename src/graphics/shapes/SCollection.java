@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
-
 import graphics.shapes.attributes.Attributes;
 
 public class SCollection extends Shape {
@@ -68,7 +67,7 @@ public class SCollection extends Shape {
 	public ListIterator<Shape> iterator(int index) {
 		return this.shapes.listIterator(index);
 	}
-	
+  
 	/**
 	 * Appends the specified shape to the end of the list of shapes.
 	 * @param s Shape to be appened to the end of the list.
@@ -82,7 +81,13 @@ public class SCollection extends Shape {
 	/**
 	 * Removes all the elements from the list of shapes. 
 	 */
-	public void clear() {
+	public void remove(Shape s) {
+		this.shapes.remove(s);
+		this.updateContainer();
+		this.notifyObserver();	
+	}
+	
+	public void empty() {
 		this.shapes.clear();
 //		this.updateContainer();
 		this.notifyObserver();

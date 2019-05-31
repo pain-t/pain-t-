@@ -20,7 +20,10 @@ public class ColorChooser extends JColorChooser {
 	
 	private static final String OK =  "Ok";
 	private static final String ABORT =  "Abort";
-	
+	/**
+	 * Create a colorchooser.
+	 * @param contr The banner controller which have the function for the OK and ABORT button. 
+	 */
 	public ColorChooser(BannerController contr) {
 		super();
 		this.ok = new JButton(OK);
@@ -28,9 +31,12 @@ public class ColorChooser extends JColorChooser {
 		init(contr);
 	}
 	
-	
+	/**
+	 * Initialize the Color chooser.
+	 * @param contr The banner controller which have the function for the OK and ABORT button. 
+	 */
 	private void init(BannerController contr) {
-		//TODO a preview Panel ? 
+		//remove the preview panel.
 		this.setPreviewPanel(new JPanel());
 		//Only get the wanted color panel
 		AbstractColorChooserPanel[] tab = this.getChooserPanels();
@@ -47,11 +53,12 @@ public class ColorChooser extends JColorChooser {
 		final int NULLMARGE = 0;
 		final int MARGE_50 = 50;
 		final int MARGE_10 = 10;
-
+		//layout to set the components correctly.
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = xPosGridBtn1;
 		c.gridy = yPosGrid;
 		c.fill = GridBagConstraints.NONE;
+		//padding
 		c.insets = new Insets(NULLMARGE,MARGE_50,MARGE_10,NULLMARGE);
 
 		// add our components

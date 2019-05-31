@@ -78,4 +78,14 @@ public class FontAttributes extends Attributes{
 	public Attributes clone() {
 		return new FontAttributes(this.font, this.fontColor);
 	}
+
+	public void setFontColor(Color fontColor) {
+		this.fontColor = fontColor;
+		this.notifyObserver();
+	}
+	
+	public void setFont(Font font) {
+		this.font = font;
+		this.notifyObserver();
+	}
 }

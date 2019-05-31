@@ -63,6 +63,11 @@ public class ShapeModel{
 			s.register(o);
 		}
 	}
+
+	public void add(Shape s) {
+		this.model.add(s);
+		
+	}
 	
 	
 	

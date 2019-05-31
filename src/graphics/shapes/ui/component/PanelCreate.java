@@ -19,12 +19,18 @@ public class PanelCreate extends JPanel {
 	private final static int PADDING = 5;
 	private final static int GAP = 5;
 	
-	
+	/**
+	 * Create the panel who can create the shapes.
+	 * @param controller 
+	 */
 	public PanelCreate(BannerController controller) {
 		super();
 		init(controller);
 	}
-	
+	/**
+	 * Initialize the shape creator panel.
+	 * @param controller
+	 */
 	private void init(BannerController controller) {
 		GridLayout grid = new GridLayout(GRIDROW,GRIDCOLUMN);
 		grid.setHgap(GAP);
@@ -32,14 +38,13 @@ public class PanelCreate extends JPanel {
 		this.setLayout(grid);
 		this.setBackground(WHITE);
 		this.setBorder(new CompoundBorder(BorderFactory.createLineBorder(BORDERCOLOR), BorderFactory.createEmptyBorder(PADDING,PADDING,PADDING,PADDING)));
-		this.add(new ButtonShape(Utils.getIcon(Utils.RECTANGLE),controller.doPrint()));
-		this.add(new ButtonShape(Utils.getIcon(Utils.CIRCLE),controller.doPrint()));
+		this.add(new ButtonShape(Utils.getIcon(Utils.RECTANGLE),controller.createRectangle()));
+		this.add(new ButtonShape(Utils.getIcon(Utils.CIRCLE),controller.createCircle()));
 		this.add(new ButtonShape(Utils.getIcon(Utils.TEXT),controller.doPrint()));
 		this.add(new ButtonShape(Utils.getIcon(Utils.LINE),controller.doPrint()));
 		this.add(new ButtonShape(Utils.getIcon(Utils.DEFAULT_IMAGE),controller.doPrint()));
 		this.add(new ButtonShape(Utils.getIcon(Utils.DEFAULT_IMAGE),controller.doPrint()));
 		this.add(new ButtonShape(Utils.getIcon(Utils.DEFAULT_IMAGE),controller.doPrint()));
 		this.add(new ButtonShape(Utils.getIcon(Utils.DEFAULT_IMAGE),controller.doPrint()));
-
 	}
 }

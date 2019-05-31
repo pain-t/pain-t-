@@ -19,12 +19,22 @@ public class PanelColor extends JPanel {
 	private ButtonColor btnc;
 	private ButtonColor btnc2;
 	
+	/**
+	 * Create the panel with the color modification.
+	 * @param controller
+	 */
 	public PanelColor(BannerController controller) {
 		super();
 		init(controller);
 	}
 	
+	/**
+	 * Initilaize the panel.
+	 * @param contr
+	 */
 	private void init(BannerController contr) {
+		
+		//The color chooser is displayed in a JPopupMenu.
 		this.jpopupFill = new JPopupMenu();
 		this.jpopupFill.add(new ColorChooser(contr));
 		this.btnc = new ButtonColor(Utils.getIcon(Utils.FILL_IMG),contr.doPrint());
@@ -54,21 +64,34 @@ public class PanelColor extends JPanel {
 		this.add(strokeBox);
 		this.add(this.btnc2);
 	}
-
+	/**
+	 * Return the popup with the fill color chooser. 
+	 * @return the popup with the fill color chooser.
+	 */
 	public JPopupMenu getJpopupFill() {
 		return jpopupFill;
 	}
-
+	/**
+	 * Return the popup with the stroke color chooser.
+	 * @return the popup with the stroke color chooser.
+	 */
 	public JPopupMenu getJpopupStroke() {
 		return jpopupStroke;
 	}
-
+	/**
+	 * Return the fill color button.
+	 * @return the fill color button.
+	 */
 	public ButtonColor getBtnc() {
 		return btnc;
 	}
-
+	/**
+	 * Return the stroke color button.
+	 * @return the stroke color button.
+	 */
 	public ButtonColor getBtnc2() {
 		return btnc2;
 	}
 	
+	// TODO : ajouter accesseur sur colorchooser
 }
