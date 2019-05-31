@@ -1,10 +1,13 @@
 package graphics.shapes.ui;
 
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+
+import javax.swing.text.AttributeSet.FontAttribute;
 
 import graphics.shapes.SOval;
 import graphics.shapes.SCollection;
@@ -12,6 +15,7 @@ import graphics.shapes.SRectangle;
 import graphics.shapes.Shape;
 import graphics.shapes.ShapeModel;
 import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.component.ColorChooser;
 import graphics.ui.Controller;
@@ -97,6 +101,18 @@ public class BannerController extends Controller {
 						}
 					}
 				}
+				else if(c.equals(getView().getJpopupText().getComponent(0))) {
+					getView().getJpopupText().setVisible(false);
+					getView().getTextBtn().setColor(((ColorChooser)getView().getJpopupText().getComponent(0)).getColor());
+					
+					for(Shape s : model.getShapes() ) {
+						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
+						if(sa.isSelected()) {
+							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
+							fa.setFontColor(c.getColor());
+						}
+					}
+				}
 				
 			}
 		};
@@ -116,9 +132,18 @@ public class BannerController extends Controller {
 		
 		if (s!= null) {
 			ColorAttributes co = (ColorAttributes) s.getAttributes(ColorAttributes.ID);
-		    ((BannerView)this.getView()).getFillBtn().setColor(co.filledColor());
-		    ((BannerView)this.getView()).getStrokeBtn().setColor(co.strokedColor());
-			this.getView().repaint();
+			if(co!=null) {
+			    this.getView().getFillBtn().setColor(co.filledColor());
+			    this.getView().getStrokeBtn().setColor(co.strokedColor());
+
+			}
+			FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
+			if(fa!=null) {
+				this.getView().getTextBtn().setColor(fa.fontColor());
+				this.getView().getFontFamilyBox().getModel().setSelectedItem(fa.font().getFontName());
+				this.getView().getFontSizeBox().getModel().setSelectedItem(fa.font().getSize());
+			}
+		    this.getView().repaint();
 			
 			
 		}
@@ -147,6 +172,32 @@ public class BannerController extends Controller {
 				r.addAttributes(new ColorAttributes());
 				((ShapeModel)getModel()).add(r);
 				
+			}
+		};
+	}
+
+	public ActionListener updateBox() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource().equals(getView().getFontFamilyBox())) {
+					for(Shape s : ((ShapeModel)getModel()).getData().getShapes() ) {
+						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
+						if(sa.isSelected()) {
+							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
+							fa.setFont(new Font((String)getView().getFontFamilyBox().getSelectedItem(),0,(int) getView().getFontSizeBox().getSelectedItem()));
+						}
+					}
+				}
+				else if(e.getSource().equals(getView().getFontSizeBox())) {
+					for(Shape s : ((ShapeModel)getModel()).getData().getShapes()) {
+						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
+						if(sa.isSelected()) {
+							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
+							fa.setFont(new Font((String)getView().getFontFamilyBox().getSelectedItem(),0,(int) getView().getFontSizeBox().getSelectedItem()));
+						}
+					}
+				}
 			}
 		};
 	}
