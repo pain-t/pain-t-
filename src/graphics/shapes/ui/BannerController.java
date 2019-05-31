@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
-import javax.swing.text.AttributeSet.FontAttribute;
 
 import graphics.shapes.SOval;
 import graphics.shapes.SCollection;
@@ -140,8 +139,8 @@ public class BannerController extends Controller {
 			FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
 			if(fa!=null) {
 				this.getView().getTextBtn().setColor(fa.fontColor());
-				this.getView().getFontFamilyBox().getModel().setSelectedItem(fa.font().getFontName());
 				this.getView().getFontSizeBox().getModel().setSelectedItem(fa.font().getSize());
+				this.getView().getFontFamilyBox().getModel().setSelectedItem(fa.font().getFontName());
 			}
 		    this.getView().repaint();
 			
@@ -185,7 +184,7 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
-							fa.setFont(new Font((String)getView().getFontFamilyBox().getSelectedItem(),0,(int) getView().getFontSizeBox().getSelectedItem()));
+							fa.setFont(new Font((String)getView().getFontFamilyBox().getSelectedItem(),0,fa.font().getSize()));
 						}
 					}
 				}
@@ -194,7 +193,7 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
-							fa.setFont(new Font((String)getView().getFontFamilyBox().getSelectedItem(),0,(int) getView().getFontSizeBox().getSelectedItem()));
+							fa.setFont(new Font(fa.font().getFontName(),0,(int) getView().getFontSizeBox().getSelectedItem()));
 						}
 					}
 				}
