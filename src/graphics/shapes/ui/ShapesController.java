@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ListIterator;
 
 import graphics.shapes.SCollection;
@@ -104,35 +103,16 @@ public class ShapesController extends Controller {
 	public void mouseReleased(MouseEvent e) {
 		if(this.lasso != null) {
 			removeLasso();
-			this.getView().invalidate();		// TODO: adapter
+			this.getView().invalidate();		
 		}
 		if(!handler.equals(Handler.NULL)) {
 			handler = Handler.NULL;
 		}
 	}
 	
-//	@Override
-//	public void mouseClicked(MouseEvent e) {
-//		Shape s = this.getTarget(e.getPoint());
-//		if(!e.isShiftDown())this.unselectAll();
-//		if(s != null) this.selection(s).toggleSelection();
-//	}
-	
 
 	public void keyPressed(KeyEvent evt) {
   		SCollection model = this.getModel().getData();
-    /*if (evt.getKeyChar() == KeyEvent.VK_DELETE) {
-			System.out.println("supp");
-			SCollection model = (SCollection)((ShapeModel) this.getModel()).getData();
-			for (ListIterator<Shape> it = model.iterator() ; it.hasNext();) {
-				SelectionAttributes sa = (SelectionAttributes)it.next().getAttributes(SelectionAttributes.ID);
-				if (sa.isSelected()) {
-					it.remove();
-				}
-				this.getView().invalidate();
-			}
-		}*/
-    //TODO keychar or keycode ?
 		 if(evt.getKeyCode() == KeyEvent.VK_DELETE)
 			deleteSelected();
 		
@@ -188,30 +168,28 @@ public class ShapesController extends Controller {
 			unselectAll();
     else if(evt.getKeyCode() == KeyEvent.VK_C ){
 			if(evt.isControlDown()) {
-				System.out.println("ctrl c");
 				for (ListIterator<Shape> it = model.iterator() ; it.hasNext();) {
 					Shape s = it.next();
 					SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 					if(sa.isSelected()) {
 						selectedShape.add(s);
-						//System.out.println(s);
 					}
 				}
 			}
     }
       else if(evt.getKeyCode() == KeyEvent.VK_X){
         if(evt.isControlDown()) {
-          for (ListIterator<Shape> it = model.iterator() ; it.hasNext();) {
-            Shape s = it.next();
-            SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
-            if(sa.isSelected()) {
-              selectedShape.add(s);
-              it.remove();
-            }
-          }
-          this.getView().invalidate();
+        	
+    		for(int i = model.getShapes().size()-1 ; i > -1  ;i--) {
+        		SelectionAttributes sa =(SelectionAttributes)model.getShape(i).getAttributes(SelectionAttributes.ID);
+    			if(sa.isSelected()) {
+    	            selectedShape.add(model.getShape(i));
+    				model.remove(model.getShape(i));
+    			}
+    			
+        	}
         }
-		  }
+	  }
       else if(evt.getKeyCode() == KeyEvent.VK_V){
         if(evt.isControlDown()) {
           for (int i = 0 ; i < selectedShape.size() ; i++) {
@@ -292,12 +270,14 @@ public class ShapesController extends Controller {
 	}
 	
 	private void deleteSelected() {
-		for(ListIterator<Shape> it = this.getModel().getData().iterator() ; it.hasNext();) {
-			if(selection(it.next()).isSelected())
-				it.remove();
-		}
-		
-		this.getView().invalidate();	// TODO: adapter (avec Leslie)
+		SCollection model = this.getModel().getData();
+		for(int i = model.getShapes().size()-1 ; i > -1  ;i--) {
+    		SelectionAttributes sa =(SelectionAttributes)model.getShape(i).getAttributes(SelectionAttributes.ID);
+			if(sa.isSelected()) {
+				model.remove(model.getShape(i));
+			}
+			
+    	}
 	}
 
 

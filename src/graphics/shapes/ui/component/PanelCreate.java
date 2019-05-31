@@ -19,12 +19,18 @@ public class PanelCreate extends JPanel {
 	private final static int PADDING = 5;
 	private final static int GAP = 5;
 	
-	
+	/**
+	 * Create the panel who can create the shapes.
+	 * @param controller 
+	 */
 	public PanelCreate(BannerController controller) {
 		super();
 		init(controller);
 	}
-	
+	/**
+	 * Initialize the shape creator panel.
+	 * @param controller
+	 */
 	private void init(BannerController controller) {
 		GridLayout grid = new GridLayout(GRIDROW,GRIDCOLUMN);
 		grid.setHgap(GAP);

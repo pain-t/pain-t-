@@ -25,13 +25,21 @@ public class ButtonColor extends JButton {
 	private static final int DEFAULTPOS = 0;
 	private static final String CURS_NAME = "CURSOR";
 
-	
+	/**
+	 * 
+	 * @param icon The displayed icon.
+	 * @param c The action to do when it is pressed.
+	 */
 	public ButtonColor(Icon icon,ActionListener c) {
 		super(icon);
 		this.current = DEFAULT_COLOR;
 		init(c);
 	}
 	
+	/**
+	 * Initialize the button.
+	 * @param c The action to do when it is pressed.
+	 */
 	private void init(ActionListener c) {
 		this.setPreferredSize(new Dimension(SPACE40,this.getPreferredSize().height+SPACE20));
 		this.addActionListener(c);
@@ -39,6 +47,9 @@ public class ButtonColor extends JButton {
 		
 	}
 	
+	/**
+	 * Set the icon on the cursor when over.
+	 */
 	private void cursor() {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		this.setCursor(toolkit.createCustomCursor(((ImageIcon)this.getIcon()).getImage(), new Point(DEFAULTPOS,DEFAULTPOS), CURS_NAME));
@@ -69,7 +80,10 @@ public class ButtonColor extends JButton {
 	    g2.dispose();
 	}
 	
-	
+	/**
+	 * Set the displayed color.
+	 * @param c The displayed color.
+	 */
 	public void setColor(Color c) {
 		this.current = c;
 	}

@@ -11,6 +11,7 @@ import javax.swing.SwingConstants;
 import graphics.shapes.ui.component.ButtonColor;
 import graphics.shapes.ui.component.ButtonShape;
 import graphics.shapes.ui.component.PanelCreate;
+import graphics.shapes.ui.component.PanelModification;
 import graphics.shapes.ui.component.PanelColor;
 import graphics.ui.Controller;
 import graphics.ui.View;
@@ -22,6 +23,7 @@ public class BannerView extends View {
 	private JPanel panelSelect;
 	private JPanel panelCreate;
 	private JPanel panelColor;
+	private JPanel panelModification;
 	
 	private static final Dimension JSEP_DIM = new Dimension(3,50);
 	private static final Color JSEP_COLOR = Color.black;
@@ -40,14 +42,21 @@ public class BannerView extends View {
 		this.initPanelSelect();
 		this.initPanelCreate();
 		this.initPanelColor();
-		this.add(this.panelSelect); 
+		this.initPanelModification();
+		//this.add(this.panelSelect); 
         this.add(getSeparator());
 		this.add(this.panelCreate); 
         this.add(getSeparator());
-		this.add(this.panelColor); 
+		this.add(this.panelColor);
+		this.add(getSeparator());
+		this.add(this.panelModification);
 		
 	}
 	
+	private void initPanelModification() {
+		this.panelModification = new PanelModification();
+	}
+
 	private JSeparator getSeparator() {
 		JSeparator js = new JSeparator(SwingConstants.VERTICAL);
         js.setPreferredSize(JSEP_DIM);
