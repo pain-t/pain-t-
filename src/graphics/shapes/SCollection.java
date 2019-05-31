@@ -9,25 +9,38 @@ import graphics.shapes.attributes.Attributes;
 
 public class SCollection extends Shape {
 
+	/** List of shapes. */
 	private ArrayList<Shape> shapes;
-	private Point loc;
-	private int height;
-	private int width;
+//	private Point loc;
+//	private int height;
+//	private int width;
 
 	// --------------------------------------------------------------------
 	
+	/**
+	 * Construct an empty collection of shapes. 
+	 */
 	public SCollection() {
 		super();
 		this.shapes = new ArrayList<Shape>();
-		this.loc = new Point();
+//		this.loc = new Point();
 	}
 	
 	// --------------------------------------------------------------------
 	
+	/**
+	 * Returns the list of shapes.
+	 * @return The list of shapes.
+	 */
 	public ArrayList<Shape> getShapes() {
 		return shapes;
 	}
 	
+	/**
+	 * Returns the shape at the specified position in the list of shapes.
+	 * @param i The position of the wanted shape.
+	 * @return The shape at the specified position in the list of shapes.
+	 */
 	public Shape getShape(int i) {
 		Shape s = null;
 		if(i > -1 && i < this.size()) {
@@ -37,20 +50,37 @@ public class SCollection extends Shape {
 		return s;
 	}
 	
+	/**
+	 * Returns a list iterator over the elements in the list of shapes.
+	 * @return A list iterator over the elements in the list of shapes.
+	 */
 	public ListIterator<Shape> iterator() {
 		return this.shapes.listIterator();
 	}
 
+	/**
+	 * Returns a list iterator over the elements in the list of shapes, starting at the specified index.
+	 * An initial call to previous would return the element with the specified index minus one. 
+	 * @param index Theindex of the first element to be returned from the lit iterator.
+	 * @return A list iterator over the elements in the list of shapes, starting at the specified index.
+	 */
 	public ListIterator<Shape> iterator(int index) {
 		return this.shapes.listIterator(index);
 	}
   
+	/**
+	 * Appends the specified shape to the end of the list of shapes.
+	 * @param s Shape to be appened to the end of the list.
+	 */
 	public void add(Shape s) {
 		this.shapes.add(s);
-		this.updateContainer();
+//		this.updateContainer();
 		this.notifyObserver();
 	}
 	
+	/**
+	 * Removes all the elements from the list of shapes. 
+	 */
 	public void remove(Shape s) {
 		this.shapes.remove(s);
 		this.updateContainer();
@@ -59,10 +89,14 @@ public class SCollection extends Shape {
 	
 	public void empty() {
 		this.shapes.clear();
-		this.updateContainer();
+//		this.updateContainer();
 		this.notifyObserver();
 	}
 	
+	/**
+	 * Puts the specified shape closer (in the UI) by setting it farther in the list of shapes. 
+	 * @param s Shape to get closer (on the UI).
+	 */
 	public void closer(Shape s) {
 		if(s != null) {
 			int i = this.shapes.indexOf(s);
@@ -74,6 +108,11 @@ public class SCollection extends Shape {
 
 		this.notifyObserver();
 	}
+	
+	/**
+	 * Puts the specified shape farther (in the UI) by setting it closer in the list of shapes. 
+	 * @param s Shape to get farther (on the UI).
+	 */
 	public void farther(Shape s) {
 		if(s != null) {
 			int i = this.shapes.indexOf(s);
@@ -85,6 +124,11 @@ public class SCollection extends Shape {
 		
 		this.notifyObserver();
 	}
+	
+	/**
+	 * Puts the specified shape on top of all shapes (in the UI) by setting it in the lat position in the list of shapes. 
+	 * @param s Shape to get on top of all shapes (in the UI).
+	 */
 	public void first(Shape s) {
 		if(s != null) {
 			int i = this.shapes.indexOf(s);
@@ -96,28 +140,32 @@ public class SCollection extends Shape {
 		
 		this.notifyObserver();
 	}
-
+	
+	/**
+	 * Returns the number of shapes in the list of shapes.
+	 * @return The number of shapes in the list of shapes.
+	 */
 	public int size() {
 		return shapes.size();
 	}
 	
-	@Override
-	public Point getLoc() {
-		return this.loc;
-	}
+//	@Override
+//	public Point getLoc() {
+//		return this.loc;
+//	}
 
-	@Override
-	public void setLoc(Point p) {
-		this.loc.setLocation(p);
-		this.notifyObserver();
-	}
+//	@Override
+//	public void setLoc(Point p) {
+//		this.loc.setLocation(p);
+//		this.notifyObserver();
+//	}
 
 	@Override
 	public void translate(int dx, int dy) {
 		for(Shape s  : this.shapes) {
 			s.translate(dx, dy);
 		}
-		this.loc.translate(dx, dy);
+//		this.loc.translate(dx, dy);
 		this.notifyObserver();
 	}
 	
@@ -126,7 +174,7 @@ public class SCollection extends Shape {
 		for(Shape s : shapes)
 			s.rotate();
 		
-		this.updateContainer();
+//		this.updateContainer();
 		this.notifyObserver();
 	}
 	
@@ -149,42 +197,42 @@ public class SCollection extends Shape {
 			s.resize(c, dx, dy, handler);
 		}
 		
-		this.updateContainer();
+//		this.updateContainer();
 		this.notifyObserver();
 	}
 
-	@Override
-	public Rectangle getBounds() {
-		 return new Rectangle(this.loc.x, this.loc.y, this.width, this.height);
-	}
+//	@Override
+//	public Rectangle getBounds() {
+//		 return new Rectangle(this.loc.x, this.loc.y, this.width, this.height);
+//	}
 
 	@Override
 	public void accept(ShapeVisitor sv) {
 		sv.visitCollection(this);
 	}
 
-	private void updateContainer() {
-		Point top = new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
-		Point bottom = new Point(0, 0);
-		
-		for(Shape s : this.shapes) {
-			if (s.getLoc().y < top.y) {
-				top.y = s.getLoc().y;
-			}
-			if (s.getLoc().x < top.x) {
-				top.x = s.getLoc().x;
-			}
-			if(s.getLoc().y + s.getBounds().width > bottom.y) {
-				bottom.y = s.getLoc().y + s.getBounds().height;
-			}
-			if (s.getLoc().x + s.getBounds().width > bottom.x) {
-				bottom.x = s.getLoc().x + s.getBounds().width;
-			}
-			this.loc.setLocation(top);
-			this.width = (int) top.distance(bottom.x, top.y);
-			this.height = (int) top.distance(top.x, bottom.y);
-		}
-	}
+//	private void updateContainer() {
+//		Point top = new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
+//		Point bottom = new Point(0, 0);
+//		
+//		for(Shape s : this.shapes) {
+//			if (s.getLoc().y < top.y) {
+//				top.y = s.getLoc().y;
+//			}
+//			if (s.getLoc().x < top.x) {
+//				top.x = s.getLoc().x;
+//			}
+//			if(s.getLoc().y + s.getBounds().width > bottom.y) {
+//				bottom.y = s.getLoc().y + s.getBounds().height;
+//			}
+//			if (s.getLoc().x + s.getBounds().width > bottom.x) {
+//				bottom.x = s.getLoc().x + s.getBounds().width;
+//			}
+//			this.loc.setLocation(top);
+//			this.width = (int) top.distance(bottom.x, top.y);
+//			this.height = (int) top.distance(top.x, bottom.y);
+//		}
+//	}
 
 	@Override
 	public Shape clone() {
@@ -198,9 +246,8 @@ public class SCollection extends Shape {
 		
 		return sc;
 	}
-	
-	/*
-	 @Override
+
+	@Override
 	public Rectangle getBounds() {
 		Iterator<Shape> it = this.iterator();
 		
@@ -255,5 +302,15 @@ public class SCollection extends Shape {
 			
 		return null;
 	}
-	 */
+
+	@Override
+	public void setLoc(Point p) {
+		Point loc = getLoc();
+		for(Shape s : shapes) {
+			Point locShape = s.getLoc();
+			s.setLoc(p);
+			s.translate(locShape.x - loc.x , locShape.y - loc.y);
+		}
+			
+	}
 }
