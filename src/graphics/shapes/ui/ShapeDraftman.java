@@ -1,9 +1,11 @@
 package graphics.shapes.ui;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Stroke;
 
 import graphics.shapes.SOval;
 import graphics.shapes.SCollection;
@@ -16,23 +18,28 @@ import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
 public class ShapeDraftman implements ShapeVisitor {
-
+	/** Default colors. */
 	public static final ColorAttributes DEFAULTCOLORATTRIBUTES = new ColorAttributes();
+	/** Default font. */
 	public static final FontAttributes DEFAULTFONTATTRIBUTES = new FontAttributes();
-	public static final int DEFAULTSELECTIONRECTSIZE = 5;
-	public static final Color DEFAULTCOLORSELECTIONRECT = Color.black;
-	
+	/** Object allowing us to draw on the canvas. */	
 	private Graphics2D g2d;
 
 	// --------------------------------------------------------------------
-
+	 /**
+	  * Constructs a ShapeDraftman object with a specified Graphics object. 
+	  * @param g The specified Graphics object (allowing us to draw on the canvas).
+	  */
 	public ShapeDraftman(Graphics g) {
 		this.g2d =(Graphics2D)g;
 	}
 	
 	// --------------------------------------------------------------------
 
-	
+	/**
+	 * Draws the specified SRectangle according to its attributes.
+	 * @param rect The specified SRectangle.
+	 */
 	@Override
 	public void visitRectangle(SRectangle rect) {
 		Rectangle r = rect.getBounds();
@@ -53,6 +60,10 @@ public class ShapeDraftman implements ShapeVisitor {
 		if(sa.isSelected()) this.drawSelection(rect);
 	}
 
+	/**
+	 * Draws the specified SOval according to its attributes.
+	 * @param rect The specified SOval.
+	 */
 	@Override
 	public void visitOval(SOval oval) {
 		Rectangle r = oval.getBounds();
@@ -73,6 +84,10 @@ public class ShapeDraftman implements ShapeVisitor {
 		if(sa.isSelected()) this.drawSelection(oval);
 	}
 
+	/**
+	 * Draws the specified SText according to its attributes.
+	 * @param rect The specified SText.
+	 */
 	@Override
 	public void visitText(SText text) {
 		Rectangle r = text.getBounds();
@@ -100,6 +115,10 @@ public class ShapeDraftman implements ShapeVisitor {
 		if(sa.isSelected()) this.drawSelection(text);
 	}
 
+	/**
+	 * Draws the specified SCollection according to its attributes.
+	 * @param rect The specified SCollection.
+	 */
 	@Override
 	public void visitCollection(SCollection collection) {
 		for(Shape s : collection.getShapes()) {
@@ -109,16 +128,22 @@ public class ShapeDraftman implements ShapeVisitor {
 		if(sa.isSelected()) this.drawSelection(collection);
 	}
 
+	/**
+	 * Draws the selection part of the specified shape.
+	 * @param s Shape from which to draw the selection.
+	 */
 	private void drawSelection(Shape s) {
-	
 		Rectangle r = s.getBounds();
-//		Stroke tmp = g2d.getStroke();
-		g2d.setColor(Color.LIGHT_GRAY);
-//		float[] dash = { 5F, 5F };
-//		g2d.setStroke( new BasicStroke( 1F, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER, 3F, dash, 0F));
-		g2d.drawRect(r.x - 1, r.y - 1, r.width + 1, r.height + 1);
-//		g2d.setStroke(tmp);
 		
+		// Draws the rectangle selection
+		Stroke tmp = g2d.getStroke();
+		g2d.setColor(Color.LIGHT_GRAY);
+		float[] dash = { 5F, 5F };
+		g2d.setStroke( new BasicStroke( 1F, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER, 3F, dash, 0F));
+		g2d.drawRect(r.x - 1, r.y - 1, r.width + 1, r.height + 1);
+		g2d.setStroke(tmp);
+		
+		// Draws the corners 
 		Rectangle corner = s.getTLhandler(r);
 		g2d.fillRect(corner.x, corner.y, corner.width, corner.height);
 		corner = s.getTRhandler(r);
@@ -129,6 +154,10 @@ public class ShapeDraftman implements ShapeVisitor {
 		g2d.fillRect(corner.x, corner.y, corner.width, corner.height);
 	}
 	
+	/**
+	 * Draws the lasso selector.
+	 * @param lasso The bounds of the lasso selector.
+	 */
 	public void drawLasso(Rectangle lasso) {
 		g2d.setColor(new Color(50, 50, 255, 128));
 		g2d.fillRect(lasso.x, lasso.y, lasso.width, lasso.height);

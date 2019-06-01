@@ -18,7 +18,7 @@ public class SCollection extends Shape {
 	// --------------------------------------------------------------------
 	
 	/**
-	 * Construct an empty collection of shapes. 
+	 * Constructs an empty collection of shapes. 
 	 */
 	public SCollection() {
 		super();
