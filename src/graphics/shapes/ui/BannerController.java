@@ -20,15 +20,24 @@ import graphics.shapes.ui.component.ColorChooser;
 import graphics.ui.Controller;
 
 public class BannerController extends Controller {
-
-	public BannerController(Object newModel) {
-		super(newModel);
+	/**
+	 * Creates the banner controller.
+	 * @param model The model that contains shapes.
+	 */
+	public BannerController(Object model) {
+		super(model);
 	}
-	
+	/**
+	 * Avoid the cast.
+	 */
 	final public BannerView getView() {
 		return (BannerView)super.getView();
 	}
 	
+	/**
+	 * Testing or default action listener. It will just print "print" in the console.
+	 * @return The testing or the default action listener.
+	 */
 	public ActionListener doPrint() {
 		return new ActionListener() {
 			
@@ -75,6 +84,8 @@ public class BannerController extends Controller {
 			public void actionPerformed(ActionEvent e) {
 				SCollection model = ((ShapeModel)getView().getModel()).getData(); 
 				ColorChooser c = (ColorChooser)((Component)e.getSource()).getParent().getParent().getParent().getParent();
+				
+				// if it is the fill color picker.
 				if(c.equals((getView()).getJpopupFill().getComponent(0))) {
 					getView().getJpopupFill().setVisible(false);
 					getView().getFillBtn().setColor(((ColorChooser)getView().getJpopupFill().getComponent(0)).getColor());
@@ -88,6 +99,7 @@ public class BannerController extends Controller {
 					}
 
 				}
+				// if it is the stroke color picker.
 				else if(c.equals(getView().getJpopupStroke().getComponent(0))) {
 					getView().getJpopupStroke().setVisible(false);
 					getView().getStrokeBtn().setColor(((ColorChooser)getView().getJpopupStroke().getComponent(0)).getColor());
@@ -100,6 +112,7 @@ public class BannerController extends Controller {
 						}
 					}
 				}
+				// if it is the text color picker.
 				else if(c.equals(getView().getJpopupText().getComponent(0))) {
 					getView().getJpopupText().setVisible(false);
 					getView().getTextBtn().setColor(((ColorChooser)getView().getJpopupText().getComponent(0)).getColor());
@@ -116,7 +129,11 @@ public class BannerController extends Controller {
 			}
 		};
 	}
-	
+	/**
+	 * Returns the shapes when we clicked.Null if there isn't.
+	 * @param e The mouse event.
+	 * @return The shapes. Null if there isn't.
+	 */
 	private Shape getTarget(MouseEvent e) {
 		for(Shape s: ((SCollection)((ShapeModel) this.getModel()).getData()).getShapes()) {
 			if(s.getBounds().contains(e.getX(),e.getY())) {
@@ -126,6 +143,9 @@ public class BannerController extends Controller {
 		return null;
 	}
 	
+	/**
+	 * Update buttons, checkbox in the banner if we clicked on a shape.
+	 */
 	public void mouseClicked (MouseEvent e) {
 		Shape s = getTarget(e);
 		
@@ -148,6 +168,10 @@ public class BannerController extends Controller {
 		}
 	}
 	
+	/**
+	 * The actionListener which creates a shapes.
+	 * @return The actionListener which creates a shapes.
+	 */
 	public ActionListener createCircle() {
 		return new ActionListener() {
 			@Override
@@ -160,7 +184,10 @@ public class BannerController extends Controller {
 			}
 		};
 	}
-	
+	/**
+	 * The actionListener which creates a rectangle.
+	 * @return The actionListener which creates a rectangle.
+	 */
 	public ActionListener createRectangle() {
 		return new ActionListener() {
 			@Override
@@ -174,7 +201,10 @@ public class BannerController extends Controller {
 			}
 		};
 	}
-
+	/**
+	 * Update the text when the combobox have a new item selected.
+	 * @return The ActionListener which update the text when the combobox have a new item selected.
+	 */
 	public ActionListener updateBox() {
 		return new ActionListener() {
 			@Override

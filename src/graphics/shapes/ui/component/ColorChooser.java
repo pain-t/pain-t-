@@ -13,15 +13,17 @@ import graphics.shapes.ui.BannerController;
 
 public class ColorChooser extends JColorChooser {
 	
-	//TODO add LABEL 
+	/**The button to validate.*/
 	private JButton ok;
+	/**The button to abort.*/
 	private JButton abort;
 	
-	
+	/**The displayed value of the valid button.*/
 	private static final String OK =  "Ok";
+	/**The displayed value of the abort button.*/
 	private static final String ABORT =  "Abort";
 	/**
-	 * Create a colorchooser.
+	 * Creates a colorchooser.
 	 * @param contr The banner controller which have the function for the OK and ABORT button. 
 	 */
 	public ColorChooser(BannerController contr) {
@@ -32,7 +34,7 @@ public class ColorChooser extends JColorChooser {
 	}
 	
 	/**
-	 * Initialize the Color chooser.
+	 * Initializes the Color chooser.
 	 * @param contr The banner controller which have the function for the OK and ABORT button. 
 	 */
 	private void init(BannerController contr) {
@@ -68,6 +70,7 @@ public class ColorChooser extends JColorChooser {
 		c.insets = new Insets(NULLMARGE,NULLMARGE,MARGE_10,MARGE_50);
 		this.getChooserPanels()[0].add(this.abort,c);
 		
+		//set the on click action on the buttons.
 		this.ok.addActionListener(contr.closePopAndSetColor());
 		this.abort.addActionListener(contr.closePop());
 		
