@@ -17,16 +17,25 @@ import utils.Utils;
 
 public class PanelModification extends JPanel{
 	
+	/**The combobox which contains all font family.*/
 	private JComboBox<String> fontFamily;
+	/**The combobox which contains all font size.*/
 	private JComboBox<Integer> fontSize;
+	/**The button which control the color of the font.*/
 	private ButtonColor btnc;
+	/**The popup which will contains the Color picker.*/
     private JPopupMenu jpopupText;
-	private final String DISPLAY_FONT_UNIT = " pt";
+    /**The minimal size displayed in the font  size combobox.*/
 	private final int MINSIZE = 10;
+	/**The maximal size displayed in the font size combobox.*/
 	private final int MAXSIZE = 40;
+	/**The step */
 	private final int STEP = 2;
 
-	
+	/**
+	 * Creates the modification panel.
+	 * @param contr The controller which contains the action to do for the button color. 
+	 */
 	public PanelModification(BannerController contr) {
 		super();
 		this.btnc = new ButtonColor(Utils.getIcon(Utils.TEXT),contr.doPrint());
@@ -35,7 +44,10 @@ public class PanelModification extends JPanel{
 		this.fontSize = new JComboBox<Integer>();
 		this.setInterface(contr);
 	}
-
+	/**
+	 * Sets the modification panel.
+	 * @param contr The controller which contains the action to do for the button color. 
+	 */
 	private void setInterface(BannerController contr) {
 		// get all font
 		GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -70,19 +82,31 @@ public class PanelModification extends JPanel{
 		this.add(text);
 		this.add(color);
 	}
-
+	/**
+	 * Returns the Popup which contains the color picker.
+	 * @return The popup which contains the color picker.
+	 */
 	public JPopupMenu getJpopupText() {
 		return this.jpopupText;
 	}
-
+	/**
+	 * Returns the button which contains the color of the selected shapes.
+	 * @return
+	 */
 	public ButtonColor getBtnc() {
 		return this.btnc;
 	}
-
+	/**
+	 * Returns the combobox which contains all the font family.
+	 * @return The combobox which contains all the font family.
+	 */
 	public JComboBox<String> getFontFamilyBox() {
 		return this.fontFamily;
 	}
-
+	/**
+	 * Returns the combobox which contains all the font size.
+	 * @return The combobox which contains all the font size.
+	 */
 	public JComboBox<Integer> getFontSizeBox() {
 		return this.fontSize;
 	} 

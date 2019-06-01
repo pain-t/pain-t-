@@ -53,6 +53,10 @@ public abstract class Shape implements Observable{
 		return this.attributes;
 	}
 	
+	/**
+	 * Sets the observer for the shapes and all of its attributes.
+	 * @param The observer.
+	 */
 	public void register(Observer o) {
 		observ.add(o);
 		for(Attributes a : this.getAttributes().values()) {
