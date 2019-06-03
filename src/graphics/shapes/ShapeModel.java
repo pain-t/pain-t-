@@ -93,6 +93,10 @@ public class ShapeModel{
 		this.model.add(s);	
 	}
 	
+	/**
+	 * Sauvegarde toutes les formes dans un fichier
+	 * @param filename le nom du fichier de sauvegarde
+	 */
 	public void serializeShapes(String filename) {
 		SCollection shapes = this.model;
 		try
@@ -117,6 +121,10 @@ public class ShapeModel{
 	    } 
 	}
 	
+	/**
+	 * Efface les formes et charge les formes contenu dans un fichier de sauvegarde
+	 * @param f le fichier de sauvegarde
+	 */
 	public void deserializeShapes(File f) {
 		SCollection shapes = this.model;
 		shapes.empty();
