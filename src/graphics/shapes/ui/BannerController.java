@@ -86,6 +86,8 @@ public class BannerController extends Controller {
 					getView().getJpopupFill().setVisible(false);
 				else if(c.equals(getView().getJpopupStroke().getComponent(0)))
 					getView().getJpopupStroke().setVisible(false);
+				else if (c.equals(getView().getJpopupText().getComponent(0)))
+					getView().getJpopupText().setVisible(false);
 			}
 		};
 	}
@@ -111,7 +113,9 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							ColorAttributes co = (ColorAttributes)s.getAttributes(ColorAttributes.ID);
-							co.setFilledColor(c.getColor());
+							if(co!=null)
+								co.setFilledColor(c.getColor());
+							
 						}
 					}
 
@@ -125,7 +129,8 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							ColorAttributes co = (ColorAttributes)s.getAttributes(ColorAttributes.ID);
-							co.setStrokedColor(c.getColor());
+							if(co!=null)
+								co.setStrokedColor(c.getColor());
 						}
 					}
 				}
@@ -138,7 +143,8 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
-							fa.setFontColor(c.getColor());
+							if(fa!=null)
+								fa.setFontColor(c.getColor());
 						}
 					}
 				}
@@ -168,7 +174,8 @@ public class BannerController extends Controller {
 						Color sc;
 						fc = ((Color)((BannerView)getView()).getFillBtnColor());
 						sc = ((Color)((BannerView)getView()).getStrokeBtnColor());
-						t.addAttributes( new FontAttributes());
+						FontAttributes fa = new FontAttributes(new Font((String)getView().getFontFamilyBox().getSelectedItem(),0,(Integer)getView().getFontSizeBox().getSelectedItem()),Color.black);
+						t.addAttributes(fa);
 						t.addAttributes(new SelectionAttributes());
 						t.addAttributes(new ColorAttributes(((BannerView)getView()).getFillBtnBox(),((BannerView)getView()).getStrokeBtnBox(), fc , sc));
 						((ShapeModel)getModel()).add(t);
@@ -193,6 +200,7 @@ public class BannerController extends Controller {
 	
 	/**
 	 * Update buttons, checkbox in the banner if we clicked on a shape.
+	 * @param e The mouse event.
 	 */
 	public void mouseClicked (MouseEvent e) {
 		Shape s = getTarget(e);
@@ -202,6 +210,8 @@ public class BannerController extends Controller {
 			if(co!=null) {
 			    this.getView().getFillBtn().setColor(co.filledColor());
 			    this.getView().getStrokeBtn().setColor(co.strokedColor());
+			    this.getView().getFillBtnBox();
+			    this.getView().getStrokeBtnBox();
 
 			}
 			FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
@@ -220,7 +230,7 @@ public class BannerController extends Controller {
 	 * The actionListener which creates a shapes.
 	 * @return The actionListener which creates a shapes.
 	 */
-	public ActionListener createCircle() {
+	public ActionListener createOval() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -269,7 +279,7 @@ public class BannerController extends Controller {
 				Point p2 = new Point(110,200);
 				SLine l = new SLine(p1.x, p1.y , p2.x - p1.x , p2.y - p1.y);
 				l.addAttributes(new SelectionAttributes());
-				l.addAttributes(new ColorAttributes(false, true, Color.BLACK,((Color)((BannerView)getView()).getStrokeBtnColor()) ));
+				l.addAttributes(new ColorAttributes(false, true, Color.BLACK,((BannerView)getView()).getStrokeBtnColor()));
 				((ShapeModel)getModel()).add(l);
 				
 			}
@@ -289,6 +299,14 @@ public class BannerController extends Controller {
 				
 				TextEntry text = new TextEntry(bc);
 				this.jPopupText = new JPopupMenu();
+				text.getAbort().addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						jPopupText.setVisible(false);
+						
+					}
+				});
 				JPanel j = new JPanel();
 				j.add(text);
 				j.add(text.getOk());
@@ -346,30 +364,7 @@ public class BannerController extends Controller {
 	}
 
 
-	/*public ActionListener createCollection() {
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				SCollection sc = new SCollection();
-				//l.addAttributes(new SelectionAttributes());
-				//l.addAttributes(new ColorAttributes(false, true, Color.BLACK,((Color)((BannerView)getView()).getStrokeBtnColor()) ));
-				SCollection model = (((ShapeModel) getModel()).getData());
-				System.out.println(model);
-				for (ListIterator<Shape> it = model.iterator(model.size()) ; it.hasPrevious();) {
-					Shape s = it.next();
-					System.out.println(s);
-					SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-					if (sa.isSelected()) {
-						Shape clone = s.clone();
-						model.remove(s);
-						sc.add(clone);
-					}
-				}
-				((ShapeModel)getModel()).add(sc);
-				
-			}
-		};
-	}*/
+	
 	
 	/**
 	 * Update the text when the combobox have a new item selected.
@@ -384,7 +379,8 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
-							fa.setFont(new Font((String)getView().getFontFamilyBox().getSelectedItem(),0,fa.font().getSize()));
+							if(fa!=null)
+								fa.setFont(new Font((String)getView().getFontFamilyBox().getSelectedItem(),0,fa.font().getSize()));
 						}
 					}
 				}
@@ -393,7 +389,8 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
-							fa.setFont(new Font(fa.font().getFontName(),0,(int) getView().getFontSizeBox().getSelectedItem()));
+							if(fa!=null)
+								fa.setFont(new Font(fa.font().getFontName(),0,(int) getView().getFontSizeBox().getSelectedItem()));
 						}
 					}
 				}

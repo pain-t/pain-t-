@@ -37,6 +37,7 @@ public class PanelColor extends JPanel {
 	public PanelColor(BannerController controller) {
 		super();
 		init(controller);
+		
 	}
 	
 	/**
@@ -70,9 +71,11 @@ public class PanelColor extends JPanel {
 		});
 		this.fillBox = new JCheckBox(DISPLAYEDCHECKBOXFILL);
 		this.strokeBox = new JCheckBox(DISPLAYEDCHECKBOXSTROKE);
-		this.add(fillBox);
+		this.fillBox.setSelected(true);
+		this.strokeBox.setSelected(true);
+		this.add(this.fillBox);
 		this.add(this.btnc);
-		this.add(strokeBox);
+		this.add(this.strokeBox);
 		this.add(this.btnc2);
 	}
 	/**
@@ -104,18 +107,35 @@ public class PanelColor extends JPanel {
 		return btnc2;
 	}
 	
+	
+	/**
+	 * Returns the filled color.
+	 * @return the filled color.
+	 */
 	public Color getFilledColor() {
 		return ((ColorChooser)this.jpopupFill.getComponent(0)).getColor();
 	}
 	
+	/**
+	 * Returns the stroked color.
+	 * @return the stroked color.
+	 */
 	public Color getStrokedColor () {
 		return ((ColorChooser)this.jpopupStroke.getComponent(0)).getColor();
 	}
 	
+	/**
+	 * Returns the value of the fillbox.
+	 * @return the value of the fillbox.
+	 */
 	public boolean getFillBox () {
 		return this.fillBox.isSelected();
 	}
 	
+	/**
+	 * Returns the value of the strokebox.
+	 * @return the value of the strokebox.
+	 */
 	public boolean getStrokeBox () {
 		return this.strokeBox.isSelected();
 	}

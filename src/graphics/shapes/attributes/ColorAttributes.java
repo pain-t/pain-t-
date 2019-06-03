@@ -104,7 +104,12 @@ public class ColorAttributes extends Attributes {
 		this.strokedColor = color;
 		this.notifyObserver();
 	}
-
+	
+	
+	/**
+	 * clone the color Attributes.
+	 * @return The cloned attributes.
+	 */
 	@Override
 	public Attributes clone() {
 		return new ColorAttributes(this.filled, this.stroked, this.filledColor, this.strokedColor);
