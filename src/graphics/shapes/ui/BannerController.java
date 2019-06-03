@@ -73,7 +73,7 @@ public class BannerController extends Controller {
 	}
 	
 	/**
-	 * The action to do when the OK button is clicked.
+	 * The action to do when the OK button is clicked for color button.
 	 * @return the action to do.
 	 */
 	public ActionListener closePopAndSetColor() {
@@ -129,6 +129,10 @@ public class BannerController extends Controller {
 		};
 	}
 	
+	/**
+	 * The action to do when the OK button is clicked for the text button.
+	 * @return the action to do.
+	 */
 	public ActionListener closePopAndSetText() {
 		return new ActionListener() {
 			
@@ -232,6 +236,10 @@ public class BannerController extends Controller {
 		};
 	}
 	
+	/**
+	 * Returns the actionListener which creates a line.
+	 * @return The actionListener which creates a line.
+	 */
 	public ActionListener createLine() {
 		return new ActionListener() {
 			@Override
@@ -247,7 +255,10 @@ public class BannerController extends Controller {
 		};
 	}
 
-
+	/**
+	 * Returns the actionListener which creates a text.
+	 * @return The actionListener which creates a text.
+	 */
 	public ActionListener createText() {
 		BannerController bc = (BannerController) this;
 		return new ActionListener() {
