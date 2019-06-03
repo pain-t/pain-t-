@@ -5,6 +5,8 @@ import java.awt.Rectangle;
 
 public class SOval extends SRectangle {
 	
+	public static final String ID = "Oval";
+
 	/**
 	 * Construct an Oval.
 	 * @param rect Bounds of the Rectangle.
@@ -38,5 +40,10 @@ public class SOval extends SRectangle {
 	@Override
 	public void accept(ShapeVisitor sv) {
 		sv.visitOval(this);
+	}
+	
+	@Override
+	public String getId() {
+		return SOval.ID;
 	}
 }
