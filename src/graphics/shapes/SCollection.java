@@ -10,10 +10,19 @@ import graphics.shapes.attributes.Attributes;
 public class SCollection extends Shape {
 
 	/** List of shapes. */
+<<<<<<< HEAD
 	private ArrayList<Shape> shapes;
 	
 	public static final String ID = "Collection";
 
+=======
+	private ArrayList<Shape> shapes;	
+	public static final String ID = "Collection";
+
+//	private Point loc;
+//	private int height;
+//	private int width;
+>>>>>>> 8b3327a1be3db89ed2d187e1b45c8996f2a07e1a
 	// --------------------------------------------------------------------
 	
 	/**

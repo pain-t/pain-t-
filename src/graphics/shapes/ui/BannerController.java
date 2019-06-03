@@ -76,6 +76,8 @@ public class BannerController extends Controller {
 					getView().getJpopupFill().setVisible(false);
 				else if(c.equals(getView().getJpopupStroke().getComponent(0)))
 					getView().getJpopupStroke().setVisible(false);
+				else if (c.equals(getView().getJpopupText().getComponent(0)))
+					getView().getJpopupText().setVisible(false);
 			}
 		};
 	}
