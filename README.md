@@ -27,7 +27,7 @@ Voici la liste exhaustive des fonctionnalités :
    * Changement de plan d'un figure ;
 * Sauvegarde :
    * Sauvegarde sous le format d'une image ;
-   * Sauvegarde das un fichier (afin de reprendre l'édition du projet) ;
+   * Sauvegarde dans un fichier (afin de reprendre l'édition du projet) ;
    * Chargement de fichier de sauvegarde ;
 * Outils :
    * Zoom du canevas (pas de modification de la taille des formes)
@@ -51,7 +51,6 @@ Voici la liste exhaustive des fonctionnalités :
 
 ## Choix de l'implantation
 
-un sol assez humide et ensoilleié de préférence
 
 ### Gestion de l'interface
 
