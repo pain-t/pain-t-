@@ -140,7 +140,7 @@ public class ShapesController extends Controller {
 		// Deletion
 		if(evt.getKeyCode() == KeyEvent.VK_DELETE)
 			deleteSelected();
-		// Fivot
+		// Pivot
 		else if(evt.getKeyCode() == KeyEvent.VK_P)
 			rotateSelected();
 		// Up arrow

@@ -7,13 +7,8 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.util.List;
-import java.util.ListIterator;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.text.AttributeSet.FontAttribute;
-
-
 import graphics.shapes.SOval;
 import graphics.shapes.SCollection;
 import graphics.shapes.SLine;
@@ -21,7 +16,6 @@ import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
 import graphics.shapes.Shape;
 import graphics.shapes.ShapeModel;
-import graphics.shapes.attributes.Attributes;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
@@ -69,11 +63,6 @@ public class BannerController extends Controller {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO better way ?
-				//1 ColorChooserPanel
-				//2 gridbagpanel
-				//3 tab panel
-				//4 colorchooser
 				ColorChooser c = (ColorChooser)((Component)e.getSource()).getParent().getParent().getParent().getParent();
 				if(c.equals(getView().getJpopupFill().getComponent(0)))
 					getView().getJpopupFill().setVisible(false);
@@ -141,27 +130,24 @@ public class BannerController extends Controller {
 	}
 	
 	public ActionListener closePopAndSetText() {
-		BannerController bc = (BannerController) this;
 		return new ActionListener() {
 			
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-						//System.out.println("fermer la fenetre de texte");
-						//TextEntry text = new TextEntry(bc);
-						Point p = new Point (50,50);
-						System.out.println(((TextEntry)((Component) e.getSource()).getParent().getComponent(0)).getText());
-						SText  t= new SText (p , ((TextEntry)((Component) e.getSource()).getParent().getComponent(0)).getText());
-						System.out.println(t.getText());
-						Color fc;
-						Color sc;
-						fc = ((Color)((BannerView)getView()).getFillBtnColor());
-						sc = ((Color)((BannerView)getView()).getStrokeBtnColor());
-						t.addAttributes( new FontAttributes());
-						t.addAttributes(new SelectionAttributes());
-						t.addAttributes(new ColorAttributes(((BannerView)getView()).getFillBtnBox(),((BannerView)getView()).getStrokeBtnBox(), fc , sc));
-						((ShapeModel)getModel()).add(t);
-						((JPopupMenu)((Component)e.getSource()).getParent().getParent()).setVisible(false);
+				Point p = new Point (50,50);
+				System.out.println(((TextEntry)((Component) e.getSource()).getParent().getComponent(0)).getText());
+				SText  t= new SText (p , ((TextEntry)((Component) e.getSource()).getParent().getComponent(0)).getText());
+				System.out.println(t.getText());
+				Color fc;
+				Color sc;
+				fc = ((Color)((BannerView)getView()).getFillBtnColor());
+				sc = ((Color)((BannerView)getView()).getStrokeBtnColor());
+				t.addAttributes( new FontAttributes());
+				t.addAttributes(new SelectionAttributes());
+				t.addAttributes(new ColorAttributes(((BannerView)getView()).getFillBtnBox(),((BannerView)getView()).getStrokeBtnBox(), fc , sc));
+				((ShapeModel)getModel()).add(t);
+				((JPopupMenu)((Component)e.getSource()).getParent().getParent()).setVisible(false);
 			}
 		};
 	}
@@ -209,7 +195,7 @@ public class BannerController extends Controller {
 	 * The actionListener which creates a shapes.
 	 * @return The actionListener which creates a shapes.
 	 */
-	public ActionListener createCircle() {
+	public ActionListener createOval() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -277,9 +263,6 @@ public class BannerController extends Controller {
 				j.add(text.getAbort());
 				this.jPopupText.add(j);			
 				this.jPopupText.show((Component) e.getSource(),-100, -100);
-				
-				
-				//System.out.println(text.getText());
 			}
 		};	
 	}
