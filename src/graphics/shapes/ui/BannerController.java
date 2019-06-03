@@ -113,7 +113,8 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							ColorAttributes co = (ColorAttributes)s.getAttributes(ColorAttributes.ID);
-							co.setFilledColor(c.getColor());
+							if(co!=null)
+								co.setFilledColor(c.getColor());
 							
 						}
 					}
@@ -128,7 +129,8 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							ColorAttributes co = (ColorAttributes)s.getAttributes(ColorAttributes.ID);
-							co.setStrokedColor(c.getColor());
+							if(co!=null)
+								co.setStrokedColor(c.getColor());
 						}
 					}
 				}
@@ -141,7 +143,8 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
-							fa.setFontColor(c.getColor());
+							if(fa!=null)
+								fa.setFontColor(c.getColor());
 						}
 					}
 				}
@@ -171,7 +174,8 @@ public class BannerController extends Controller {
 						Color sc;
 						fc = ((Color)((BannerView)getView()).getFillBtnColor());
 						sc = ((Color)((BannerView)getView()).getStrokeBtnColor());
-						t.addAttributes( new FontAttributes());
+						FontAttributes fa = new FontAttributes(new Font((String)getView().getFontFamilyBox().getSelectedItem(),0,(Integer)getView().getFontSizeBox().getSelectedItem()),Color.black);
+						t.addAttributes(fa);
 						t.addAttributes(new SelectionAttributes());
 						t.addAttributes(new ColorAttributes(((BannerView)getView()).getFillBtnBox(),((BannerView)getView()).getStrokeBtnBox(), fc , sc));
 						((ShapeModel)getModel()).add(t);
@@ -283,7 +287,6 @@ public class BannerController extends Controller {
 	}
 
 	/**
-
 	 * Returns the actionListener which creates a text.
 	 * @return The actionListener which creates a text.
 	 */
@@ -376,7 +379,8 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
-							fa.setFont(new Font((String)getView().getFontFamilyBox().getSelectedItem(),0,fa.font().getSize()));
+							if(fa!=null)
+								fa.setFont(new Font((String)getView().getFontFamilyBox().getSelectedItem(),0,fa.font().getSize()));
 						}
 					}
 				}
@@ -385,7 +389,8 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
-							fa.setFont(new Font(fa.font().getFontName(),0,(int) getView().getFontSizeBox().getSelectedItem()));
+							if(fa!=null)
+								fa.setFont(new Font(fa.font().getFontName(),0,(int) getView().getFontSizeBox().getSelectedItem()));
 						}
 					}
 				}
