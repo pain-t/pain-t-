@@ -260,9 +260,12 @@ public class ShapesController extends Controller {
 		}
 		 
 		 else if(evt.getKeyCode() == KeyEvent.VK_V && evt.getModifiersEx() == KeyEvent.CTRL_DOWN_MASK){
-	          for (int i = 0 ; i < selectedShape.size() ; i++) {
+			 unselectAll();
+			 for (int i = 0 ; i < selectedShape.size() ; i++) {
 	        	Shape sh = selectedShape.get(i).clone();
 	        	sh.translate(5, 5);
+	        	
+	        	selection(sh).select();
 	            model.add(sh);
 	            int tmp  = model.getShapes().indexOf(sh);
 	            model.getShapes().get(tmp).register(new ShapesObserver((ShapesView) this.getView()));
