@@ -54,7 +54,7 @@ public class BannerView extends View {
 	 */
 	private void setInterface(){
 		
-		this.initPanelSelect();
+		//this.initPanelSelect();
 		this.initPanelCreate();
 		this.initPanelColor();
 		this.initPanelModification();
@@ -145,19 +145,31 @@ public class BannerView extends View {
 	public JPopupMenu getJpopupStroke() {
 		return ((PanelColor)this.panelColor).getJpopupStroke();
 	}
-	
+	/**
+	 * Returns the fill button color.
+	 * @return The fill button color.
+	 */
 	public Color getFillBtnColor() {
 		return ((PanelColor)this.panelColor).getFilledColor();
 	}
-	
+	/**
+	 * Returns the stroke button color.
+	 * @return The stroke button color.
+	 */
 	public Color getStrokeBtnColor() {
 		return ((PanelColor)this.panelColor).getStrokedColor();
 	}
-	
+	/**
+	 * Returns the fill button color for the text.
+	 * @return The fill button color for the text.
+	 */
 	public boolean getFillBtnBox() {
 		return ((PanelColor)this.panelColor).getFillBox();
 	}
-	
+	/**
+	 * Returns the stroke button color for the text.
+	 * @return The stroke button color for the text.
+	 */
 	public boolean getStrokeBtnBox() {
 		return ((PanelColor)this.panelColor).getStrokeBox();
 	}
