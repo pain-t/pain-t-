@@ -7,15 +7,11 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-<<<<<<< HEAD
-=======
 import java.io.File;
-import java.util.List;
 import java.util.ListIterator;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
->>>>>>> e5ad807fb3d76b16e46a998578f136c786d24ac5
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import graphics.shapes.SOval;
@@ -272,7 +268,7 @@ public class BannerController extends Controller {
 
 	/**
 <<<<<<< HEAD
-	 * Creates une mini fenêtre interactive qui permet de rentrer le texte contenu dans le nouveau SText.
+	 * Creates une mini fenï¿½tre interactive qui permet de rentrer le texte contenu dans le nouveau SText.
 	 * @return 
 =======
 	 * Returns the actionListener which creates a text.
