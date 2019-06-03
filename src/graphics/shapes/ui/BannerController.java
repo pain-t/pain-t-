@@ -265,7 +265,7 @@ public class BannerController extends Controller {
 				Point p2 = new Point(110,200);
 				SLine l = new SLine(p1.x, p1.y , p2.x - p1.x , p2.y - p1.y);
 				l.addAttributes(new SelectionAttributes());
-				l.addAttributes(new ColorAttributes(false, true, Color.BLACK,((Color)((BannerView)getView()).getStrokeBtnColor()) ));
+				l.addAttributes(new ColorAttributes(false, true, Color.BLACK,((BannerView)getView()).getStrokeBtnColor()));
 				((ShapeModel)getModel()).add(l);
 				
 			}
