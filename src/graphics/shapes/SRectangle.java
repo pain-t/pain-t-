@@ -7,25 +7,46 @@ import graphics.shapes.attributes.Attributes;
 
 public class SRectangle extends Shape {
 
+	/**The bounds. */
 	private Rectangle rect;
 
 	// --------------------------------------------------------------------
 
+	/**
+	 * Construct a Rectangle.
+	 * @param rect Bounds of the Rectangle.
+	 */
 	public SRectangle(Rectangle rect) {
 		super();
 		this.rect = rect;
 	}
-	
+	/**
+	 * Construct a Rectangle.
+	 * @param p Location of the bounds.
+	 * @param width Width of the bounds.
+	 * @param height Height of the bounds.
+	 */
 	public SRectangle(Point p, int width, int height) {
 		this(p.x, p.y, width, height);
 	}
 
+	/**
+	 * Construct a Rectangle.
+	 * @param x X position of the bounds.
+	 * @param y Y position of the bounds.
+	 * @param width Width of the bounds.
+	 * @param height Height of the bounds.
+	 */
 	public SRectangle(int x, int y, int width, int height) {
 		this(new Rectangle(x, y, width, height));
 	}
 	
 	// --------------------------------------------------------------------
 
+	/**
+	 * Returns the rectangle (bounds).
+	 * @return
+	 */
 	public Rectangle getRect() {
 		return this.rect;
 	}
@@ -57,11 +78,15 @@ public class SRectangle extends Shape {
 		this.notifyObserver();
 	}
 	
+	/**
+	 * Setthe size of the bounds with the specified width and height.
+	 * @param width New width of the bounds.
+	 * @param height New height of the bounds.
+	 */
 	public void setSize(int width, int height) {
 		this.rect.setSize(width, height);
 		this.notifyObserver();
 	}
-	
 
 	@Override
 	public void resize(Point cursor, int dx, int dy, int handler) {
@@ -71,6 +96,12 @@ public class SRectangle extends Shape {
 		else if(handler == 3) resizeBR(cursor, dx, dy);
 	}
 	
+	/**
+	 * Resizes the Shape by specified x and x offset, by its top left corner.
+	 * @param cursor The position of the cursor.
+	 * @param dx x offset.
+	 * @param dy y offset.
+	 */
 	private void resizeTL(Point cursor, int dx, int dy) {
 		int x = this.rect.x;
 		int y = this.rect.y;
@@ -87,6 +118,13 @@ public class SRectangle extends Shape {
 		
 		this.setBounds(x, y, width, height);
 	}
+	
+	/**
+	 * Resizes the Shape by specified x and x offset, by its top right corner.
+	 * @param cursor The position of the cursor.
+	 * @param dx x offset.
+	 * @param dy y offset.
+	 */
 	private void resizeTR(Point cursor, int dx, int dy) {
 		int x = this.rect.x;
 		int y = this.rect.y;
@@ -102,6 +140,12 @@ public class SRectangle extends Shape {
 		
 		this.setBounds(x, y, width, height);
 	}
+	/**
+	 * Resizes the Shape by specified x and x offset, by its bottom left corner.
+	 * @param cursor The position of the cursor.
+	 * @param dx x offset.
+	 * @param dy y offset.
+	 */
 	private void resizeBL(Point cursor, int dx, int dy) {
 		int x = this.rect.x;
 		int y = this.rect.y;
@@ -117,6 +161,12 @@ public class SRectangle extends Shape {
 		
 		this.setBounds(x, y, width, height);
 	}
+	/**
+	 * Resizes the Shape by specified x and x offset, by its bottom right corner.
+	 * @param cursor The position of the cursor.
+	 * @param dx x offset.
+	 * @param dy y offset.
+	 */
 	private void resizeBR(Point cursor, int dx, int dy) {
 		int x = this.rect.x;
 		int y = this.rect.y;

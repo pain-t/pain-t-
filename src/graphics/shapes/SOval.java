@@ -4,15 +4,31 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 public class SOval extends SRectangle {
-		
+	
+	/**
+	 * Construct an Oval.
+	 * @param rect Bounds of the Rectangle.
+	 */
 	public SOval(Rectangle rect) {
 		super(rect);
 	}
 	
+	/**
+	 * Construct an Oval.
+	 * @param p Location of the bounds.
+	 * @param width Width of the bounds.
+	 * @param height Height of the bounds.
+	 */
 	public SOval(Point p, int width, int height) {
 		super(p, width, height);
 	}
-	
+	/**
+	 * Construct an Oval.
+	 * @param x X position of the bounds.
+	 * @param y Y position of the bounds.
+	 * @param width Width of the bounds.
+	 * @param height Height of the bounds.
+	 */
 	public SOval(int x, int y, int width, int height) {
 		super(x, y, width, height);
 	}
