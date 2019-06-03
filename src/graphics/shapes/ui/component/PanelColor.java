@@ -107,18 +107,35 @@ public class PanelColor extends JPanel {
 		return btnc2;
 	}
 	
+	
+	/**
+	 * Returns the filled color.
+	 * @return the filled color.
+	 */
 	public Color getFilledColor() {
 		return ((ColorChooser)this.jpopupFill.getComponent(0)).getColor();
 	}
 	
+	/**
+	 * Returns the stroked color.
+	 * @return the stroked color.
+	 */
 	public Color getStrokedColor () {
 		return ((ColorChooser)this.jpopupStroke.getComponent(0)).getColor();
 	}
 	
+	/**
+	 * Returns the value of the fillbox.
+	 * @return the value of the fillbox.
+	 */
 	public boolean getFillBox () {
 		return this.fillBox.isSelected();
 	}
 	
+	/**
+	 * Returns the value of the strokebox.
+	 * @return the value of the strokebox.
+	 */
 	public boolean getStrokeBox () {
 		return this.strokeBox.isSelected();
 	}

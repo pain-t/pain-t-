@@ -86,6 +86,8 @@ public class BannerController extends Controller {
 					getView().getJpopupFill().setVisible(false);
 				else if(c.equals(getView().getJpopupStroke().getComponent(0)))
 					getView().getJpopupStroke().setVisible(false);
+				else if (c.equals(getView().getJpopupText().getComponent(0)))
+					getView().getJpopupText().setVisible(false);
 			}
 		};
 	}
@@ -194,6 +196,7 @@ public class BannerController extends Controller {
 	
 	/**
 	 * Update buttons, checkbox in the banner if we clicked on a shape.
+	 * @param e The mouse event.
 	 */
 	public void mouseClicked (MouseEvent e) {
 		Shape s = getTarget(e);
@@ -280,13 +283,9 @@ public class BannerController extends Controller {
 	}
 
 	/**
-<<<<<<< HEAD
-	 * Creates une mini fenêtre interactive qui permet de rentrer le texte contenu dans le nouveau SText.
-	 * @return 
-=======
+
 	 * Returns the actionListener which creates a text.
 	 * @return The actionListener which creates a text.
->>>>>>> f10541e8c95e4f1e1c42da548b661372f38cacd0
 	 */
 	public ActionListener createText() {
 		BannerController bc = (BannerController) this;
@@ -362,30 +361,7 @@ public class BannerController extends Controller {
 	}
 
 
-	public ActionListener createCollection() {
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				SCollection sc = new SCollection();
-				//l.addAttributes(new SelectionAttributes());
-				//l.addAttributes(new ColorAttributes(false, true, Color.BLACK,((Color)((BannerView)getView()).getStrokeBtnColor()) ));
-				SCollection model = (((ShapeModel) getModel()).getData());
-				System.out.println(model);
-				for (ListIterator<Shape> it = model.iterator(model.size()) ; it.hasPrevious();) {
-					Shape s = it.next();
-					System.out.println(s);
-					SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-					if (sa.isSelected()) {
-						Shape clone = s.clone();
-						model.remove(s);
-						sc.add(clone);
-					}
-				}
-				((ShapeModel)getModel()).add(sc);
-				
-			}
-		};
-	}
+	
 	
 	/**
 	 * Update the text when the combobox have a new item selected.
