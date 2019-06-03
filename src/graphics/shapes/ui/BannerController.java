@@ -7,8 +7,12 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.List;
 import java.util.ListIterator;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.text.AttributeSet.FontAttribute;
@@ -44,6 +48,9 @@ public class BannerController extends Controller {
 		return (BannerView)super.getView();
 	}
 	
+	final public ShapesView getSView() {
+		return (ShapesView)super.getView();
+	}
 	/**
 	 * Testing or default action listener. It will just print "print" in the console.
 	 * @return The testing or the default action listener.
@@ -282,6 +289,49 @@ public class BannerController extends Controller {
 				//System.out.println(text.getText());
 			}
 		};	
+	}
+	
+	/**
+	 * The actionListener which saves the current shapes.
+	 * @return The actionListener which saves the current shapes.
+	 */
+	public ActionListener saveShapes() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String filename = JOptionPane.showInputDialog("Nom du fichier ?");
+				if(filename != null) {
+					System.out.println("Sauvegarde de votre dessin dans le fichier : "+filename);
+					((ShapeModel) getModel()).serializeShapes(filename);
+				}
+				else {
+					System.out.println("Annulation de la sauvegarde");
+				}
+			}
+		};
+	}
+	
+	/**
+	 * The actionListener which opens a save files.
+	 * @return The actionListener which opens a save file.
+	 */
+	public ActionListener openShapes() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fc = new JFileChooser();
+				
+				int returnVal = fc.showOpenDialog(null);
+				if(returnVal==JFileChooser.APPROVE_OPTION) {
+		            File file = fc.getSelectedFile();
+					((ShapeModel) getModel()).deserializeShapes(file);
+					System.out.println("Chargement du fichier de sauvegarde : "+file.getAbsolutePath());
+				}
+				else {
+					System.out.println("Ouverture de fichier de sauvegarde annulée");
+				}
+			}
+		};
 	}
 
 

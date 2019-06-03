@@ -4,8 +4,12 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.ListIterator;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import graphics.shapes.SCollection;
 import graphics.shapes.Shape;
@@ -168,9 +172,7 @@ public class ShapesController extends Controller {
 			selection(si).select();
 			model.first(si);
 		}
-			
-		
-	
+				
 		else if(evt.getKeyCode() == KeyEvent.VK_ESCAPE)
 			unselectAll();
 		 
@@ -194,18 +196,44 @@ public class ShapesController extends Controller {
     				model.remove(model.getShape(i));
     			}
     			
-        	
 			}
 		}
 		 
-	 else if(evt.getKeyCode() == KeyEvent.VK_V && evt.getModifiers() == KeyEvent.CTRL_MASK){
-          for (int i = 0 ; i < selectedShape.size() ; i++) {
-        	  Shape sh = selectedShape.get(i).clone();
-            model.add(sh);
-            int tmp  = model.getShapes().indexOf(sh);
-            model.getShapes().get(tmp).register(new ShapesObserver((ShapesView) this.getView()));
-          }
-      }
+		 else if(evt.getKeyCode() == KeyEvent.VK_V && evt.getModifiers() == KeyEvent.CTRL_MASK){
+	          for (int i = 0 ; i < selectedShape.size() ; i++) {
+	        	  Shape sh = selectedShape.get(i).clone();
+	            model.add(sh);
+	            int tmp  = model.getShapes().indexOf(sh);
+	            model.getShapes().get(tmp).register(new ShapesObserver((ShapesView) this.getView()));
+	          }
+	      }
+		 else if(evt.getKeyCode()==KeyEvent.VK_S) {
+			if(evt.isControlDown()) {
+				String filename = JOptionPane.showInputDialog("Nom du fichier ?");
+				if(filename != null) {
+					System.out.println("Sauvegarde de votre dessin dans le fichier : "+filename);
+					this.getModel().serializeShapes(filename);
+				}
+				else {
+					System.out.println("Annulation de la sauvegarde");
+				}
+			}
+		}
+		 else if(evt.getKeyCode()==KeyEvent.VK_O) {
+			if(evt.isControlDown()) {
+				JFileChooser fc = new JFileChooser();
+				
+				int returnVal = fc.showOpenDialog(null);
+				if(returnVal==JFileChooser.APPROVE_OPTION) {
+		            File file = fc.getSelectedFile();
+					this.getModel().deserializeShapes(file);
+					System.out.println("Chargement du fichier de sauvegarde : "+file.getAbsolutePath());
+				}
+				else {
+					System.out.println("Ouverture de fichier de sauvegarde annulée");
+				}
+			}
+		} 
 	}
 		
 

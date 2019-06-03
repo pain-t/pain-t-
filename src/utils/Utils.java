@@ -18,7 +18,9 @@ public class Utils {
 	public final static String MOUSE = "mouse.png";
 	public final static String SELECTION = "selection.png";
 	public static final String DEFAULT_IMAGE = "unknown.jpg";
-	
+	public static final String OPEN = "open.png";
+	public static final String SAVE = "save.jpeg";
+
 	
 	
 	public static ImageIcon getIcon(String s) {
@@ -31,6 +33,7 @@ public class Utils {
 		}
 		catch(Exception e){
 			try {
+				System.out.println("erreur ouverture "+s);
 				input = classLoader.getResourceAsStream(DEFAULT_IMAGE);
 				i = new ImageIcon(ImageIO.read(input));
 			} catch (IOException e1) {
