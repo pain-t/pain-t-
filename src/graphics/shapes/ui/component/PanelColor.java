@@ -73,10 +73,13 @@ public class PanelColor extends JPanel {
 		this.strokeBox = new JCheckBox(DISPLAYEDCHECKBOXSTROKE);
 		this.fillBox.setSelected(true);
 		this.strokeBox.setSelected(true);
+		this.fillBox.addActionListener(contr.toggleBox());
+		this.strokeBox.addActionListener(contr.toggleBox());
 		this.add(this.fillBox);
 		this.add(this.btnc);
 		this.add(this.strokeBox);
 		this.add(this.btnc2);
+		
 	}
 	/**
 	 * Returns the popup with the fill color chooser. 
@@ -138,5 +141,13 @@ public class PanelColor extends JPanel {
 	 */
 	public boolean getStrokeBox () {
 		return this.strokeBox.isSelected();
+	}
+	
+	public void setStrokeBox(boolean b) {
+		this.strokeBox.setSelected(b);
+	}
+	
+	public void setFilledBox(boolean b) {
+		this.fillBox.setSelected(b);
 	}
 }

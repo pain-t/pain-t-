@@ -210,8 +210,8 @@ public class BannerController extends Controller {
 			if(co!=null) {
 			    this.getView().getFillBtn().setColor(co.filledColor());
 			    this.getView().getStrokeBtn().setColor(co.strokedColor());
-			    this.getView().getFillBtnBox();
-			    this.getView().getStrokeBtnBox();
+			    this.getView().setFillBtnBox(co.filled());
+			    this.getView().setStrokeBtnBox(co.stroked());
 
 			}
 			FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
@@ -395,6 +395,26 @@ public class BannerController extends Controller {
 					}
 				}
 			}
+		};
+	}
+	
+	
+	public ActionListener toggleBox() {
+		return new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+					for(Shape s : ((ShapeModel)getModel()).getData().getShapes() ) {
+						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
+						if(sa.isSelected()) {
+							ColorAttributes ca = (ColorAttributes)s.getAttributes(ColorAttributes.ID);
+							if(ca!=null)
+								ca.setFilled(getView().getFillBtnBox());
+								ca.setStroked(getView().getStrokeBtnBox());
+						}
+					}
+				}
 		};
 	}
 }

@@ -114,4 +114,12 @@ public class ColorAttributes extends Attributes {
 	public Attributes clone() {
 		return new ColorAttributes(this.filled, this.stroked, this.filledColor, this.strokedColor);
 	}
+	
+	public void setStroked(boolean b) {
+		this.stroked=b;
+	}
+	
+	public void setFilled(boolean b) {
+		this.filled=b;
+	}
 }
