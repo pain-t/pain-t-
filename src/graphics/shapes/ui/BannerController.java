@@ -55,7 +55,6 @@ public class BannerController extends Controller {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("print");
 			}
 		};
 		
@@ -154,9 +153,7 @@ public class BannerController extends Controller {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 						Point p = new Point (50,50);
-						System.out.println(((TextEntry)((Component) e.getSource()).getParent().getComponent(0)).getText());
 						SText  t= new SText (p , ((TextEntry)((Component) e.getSource()).getParent().getComponent(0)).getText());
-						System.out.println(t.getText());
 						Color fc;
 						Color sc;
 						fc = ((Color)((BannerView)getView()).getFillBtnColor());
@@ -321,11 +318,7 @@ public class BannerController extends Controller {
 			public void actionPerformed(ActionEvent e) {
 				String filename = JOptionPane.showInputDialog("Nom du fichier ?");
 				if(filename != null) {
-					System.out.println("Sauvegarde de votre dessin dans le fichier : "+filename);
 					((ShapeModel) getModel()).serializeShapes(filename);
-				}
-				else {
-					System.out.println("Annulation de la sauvegarde");
 				}
 			}
 		};
@@ -345,10 +338,6 @@ public class BannerController extends Controller {
 				if(returnVal==JFileChooser.APPROVE_OPTION) {
 		            File file = fc.getSelectedFile();
 					((ShapeModel) getModel()).deserializeShapes(file);
-					System.out.println("Chargement du fichier de sauvegarde : "+file.getAbsolutePath());
-				}
-				else {
-					System.out.println("Ouverture de fichier de sauvegarde annulée");
 				}
 			}
 		};
