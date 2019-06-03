@@ -149,10 +149,8 @@ public class ShapesController extends Controller {
 		//else if ((evt.getKeyChar() == KeyEvent.VK_A) && ((evt.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0))
 		//	selectAll();
 		 
-		else if (evt.getKeyCode() == KeyEvent.VK_A){
-			if(evt.isControlDown()) {
-				selectAll();
-			}
+		else if (evt.getKeyCode() == KeyEvent.VK_A && evt.getModifiers() == KeyEvent.CTRL_MASK) {
+			selectAll();
 		}
 		 
 		
@@ -177,20 +175,17 @@ public class ShapesController extends Controller {
 			unselectAll();
 		 
 		 
-		else if(evt.getKeyCode() == KeyEvent.VK_C ){
+		else if(evt.getKeyCode() == KeyEvent.VK_C && evt.getModifiers() == KeyEvent.CTRL_MASK) {
 			System.out.println();
-			if(evt.isControlDown()) {
 				for (ListIterator<Shape> it = model.iterator() ; it.hasNext();) {
 					Shape s = it.next();
 					SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 					if(sa.isSelected()) {
 						selectedShape.add(s.clone());
 					}
-				}
 			}
-    }
-      else if(evt.getKeyCode() == KeyEvent.VK_X){
-        if(evt.isControlDown()) {
+		}
+		else if(evt.getKeyCode() == KeyEvent.VK_X && evt.getModifiers() == KeyEvent.CTRL_MASK){
         	
     		for(int i = model.getShapes().size()-1 ; i > -1  ;i--) {
         		SelectionAttributes sa =(SelectionAttributes)model.getShape(i).getAttributes(SelectionAttributes.ID);
@@ -199,17 +194,17 @@ public class ShapesController extends Controller {
     				model.remove(model.getShape(i));
     			}
     			
-        	}
-        }
-	  }
-      else if(evt.getKeyCode() == KeyEvent.VK_V){
-        if(evt.isControlDown()) {
+        	
+			}
+		}
+		 
+	 else if(evt.getKeyCode() == KeyEvent.VK_V && evt.getModifiers() == KeyEvent.CTRL_MASK){
           for (int i = 0 ; i < selectedShape.size() ; i++) {
-            model.add(selectedShape.get(i).clone());
-            int tmp  = model.getShapes().indexOf(selectedShape.get(i));
+        	  Shape sh = selectedShape.get(i).clone();
+            model.add(sh);
+            int tmp  = model.getShapes().indexOf(sh);
             model.getShapes().get(tmp).register(new ShapesObserver((ShapesView) this.getView()));
           }
-        }
       }
 	}
 		
