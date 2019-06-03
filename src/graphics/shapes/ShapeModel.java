@@ -9,12 +9,19 @@ import graphics.shapes.attributes.SelectionAttributes;
 import graphics.ui.Observer;
 
 public class ShapeModel{
+	/** SCollection containing the exhistive list of all the existing shapes. */
 	private SCollection model;
 	
+	/**
+	 * Construct a ShapeModel by creating default shapes.
+	 */
 	public ShapeModel() {
 		this.buildModel();
 	}
 	
+	/**
+	 * Creates default shapes.
+	 */
 	private void buildModel() {
 		this.model = new SCollection();
 		this.model.addAttributes(new SelectionAttributes());
@@ -54,6 +61,10 @@ public class ShapeModel{
 		this.model.add(sc);
 	}
 	
+	/**
+	 * Returns the SCollection containing the exhaustive list of shapes.
+	 * @return The SCollection containing the exhaustive list of shapes.
+	 */
 	public SCollection getData() {
 		return this.model;
 	}
@@ -68,9 +79,12 @@ public class ShapeModel{
 		}
 	}
 
+	/**
+	 * Adds a shape to the default list of shapes.
+	 * @param s Shape to add to the default list of shapes.
+	 */
 	public void add(Shape s) {
-		this.model.add(s);
-		
+		this.model.add(s);	
 	}
 	
 	

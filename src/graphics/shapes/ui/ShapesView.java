@@ -29,7 +29,8 @@ public class ShapesView extends View{
 
 	@Override
 	public boolean isFocusTraversable() {
-		setFocusTraversalKeysEnabled(false);	// to retrieve the TAB key event (https://stackoverflow.com/questions/8275204/how-can-i-listen-to-a-tab-key-pressed-typed-in-java) 
+		// To retrieve the TAB key event
+		setFocusTraversalKeysEnabled(false);
 		return true;
 	}
 	
