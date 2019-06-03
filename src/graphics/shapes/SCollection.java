@@ -11,6 +11,15 @@ public class SCollection extends Shape {
 
 	/** List of shapes. */
 	private ArrayList<Shape> shapes;
+<<<<<<< HEAD
+	
+	public static final String ID = "Collection";
+
+//	private Point loc;
+//	private int height;
+//	private int width;
+=======
+>>>>>>> f10541e8c95e4f1e1c42da548b661372f38cacd0
 
 	// --------------------------------------------------------------------
 	
@@ -264,5 +273,10 @@ public class SCollection extends Shape {
 			s.setLoc(p);
 			s.translate(locShape.x - loc.x , locShape.y - loc.y);
 		}
+	}
+
+	@Override
+	public String getId() {
+		return ID;
 	}
 }

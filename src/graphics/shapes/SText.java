@@ -12,6 +12,9 @@ public class SText extends Shape {
 	/** Location of the text. */
 	private Point loc;
 	
+	public static final String ID = "Text";
+
+	
 	// --------------------------------------------------------------------
 	
 	/**
@@ -86,5 +89,10 @@ public class SText extends Shape {
 			st.addAttributes(a.clone());
 		
 		return st;
+	}
+
+	@Override
+	public String getId() {
+		return ID;
 	}
 }

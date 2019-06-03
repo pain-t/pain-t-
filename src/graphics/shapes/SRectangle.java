@@ -9,6 +9,9 @@ public class SRectangle extends Shape {
 
 	/**The bounds. */
 	private Rectangle rect;
+	
+	public static final String ID = "Rectangle";
+
 
 	// --------------------------------------------------------------------
 
@@ -200,5 +203,9 @@ public class SRectangle extends Shape {
 			sr.addAttributes(a.clone());
 		
 		return sr;
+	}
+	@Override
+	public String getId() {
+		return ID;
 	}
 }

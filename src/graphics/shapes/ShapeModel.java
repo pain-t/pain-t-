@@ -2,6 +2,12 @@ package graphics.shapes;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
@@ -85,6 +91,66 @@ public class ShapeModel{
 	 */
 	public void add(Shape s) {
 		this.model.add(s);	
+	}
+	
+	public void serializeShapes(String filename) {
+		SCollection shapes = this.model;
+		try
+	    {    
+	        //Saving of object in a file 
+	        FileOutputStream file = new FileOutputStream("saves/"+filename); 
+	        ObjectOutputStream out = new ObjectOutputStream(file); 
+	        
+	        // Method for serialization of object 
+	        out.writeObject(shapes); 
+	              
+	        out.close(); 
+	        file.close(); 
+	          
+	        System.out.println("Object has been serialized"); 
+	
+	    } 
+	      
+	    catch(IOException ex) 
+	    { 
+	        ex.printStackTrace(); 
+	    } 
+	}
+	
+	public void deserializeShapes(File f) {
+		SCollection shapes = this.model;
+		shapes.empty();
+		SCollection newShapes;
+		// Deserialization 
+	    try
+	    {    
+	        // Reading the object from a file 
+	        FileInputStream file = new FileInputStream(f.getAbsolutePath()); 
+	        ObjectInputStream in = new ObjectInputStream(file); 
+	          
+	        // Method for deserialization of object 
+	        newShapes = (SCollection)in.readObject(); 
+	          
+	        in.close(); 
+	        file.close(); 
+	          
+	        System.out.println("Object has been deserialized "); 
+	        
+	        for(Shape s : newShapes.getShapes()) {
+	        	shapes.add(s);
+	        }
+	    } 
+	      
+	    catch(IOException ex) 
+	    { 
+	        ex.printStackTrace(); 
+	    } 
+	      
+	    catch(ClassNotFoundException ex) 
+	    { 
+	        ex.printStackTrace(); 
+	    } 
+	    //this.invalidate();
 	}
 	
 	

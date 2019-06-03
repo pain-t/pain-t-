@@ -2,6 +2,7 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.io.Serializable;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -9,7 +10,7 @@ import graphics.shapes.attributes.Attributes;
 import graphics.ui.Observable;
 import graphics.ui.Observer;
 
-public abstract class Shape implements Observable{
+public abstract class Shape implements Observable, Serializable{
 
 	/** Map of attributes between the attributes and their ids. */
 	private Map<String, Attributes> attributes;
@@ -140,4 +141,10 @@ public abstract class Shape implements Observable{
 	public Rectangle getBLhandler(Rectangle bounds) {
 		return new Rectangle(bounds.x - this.handlerSize / 2, bounds.y + bounds.height - this.handlerSize / 2, this.handlerSize, this.handlerSize);
 	}
+	/**
+	 * Returns the shape's ID
+	 * @return the shape's ID
+	 */
+	public abstract String getId();
+
 }

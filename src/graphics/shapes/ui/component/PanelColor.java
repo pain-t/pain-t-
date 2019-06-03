@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
@@ -37,6 +36,7 @@ public class PanelColor extends JPanel {
 	public PanelColor(BannerController controller) {
 		super();
 		init(controller);
+		
 	}
 	
 	/**
@@ -72,9 +72,9 @@ public class PanelColor extends JPanel {
 		this.strokeBox = new JCheckBox(DISPLAYEDCHECKBOXSTROKE);
 		this.fillBox.setSelected(true);
 		this.strokeBox.setSelected(true);
-		this.add(fillBox);
+		this.add(this.fillBox);
 		this.add(this.btnc);
-		this.add(strokeBox);
+		this.add(this.strokeBox);
 		this.add(this.btnc2);
 	}
 	/**

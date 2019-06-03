@@ -7,6 +7,15 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+<<<<<<< HEAD
+=======
+import java.io.File;
+import java.util.List;
+import java.util.ListIterator;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+>>>>>>> e5ad807fb3d76b16e46a998578f136c786d24ac5
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import graphics.shapes.SOval;
@@ -38,6 +47,9 @@ public class BannerController extends Controller {
 		return (BannerView)super.getView();
 	}
 	
+	final public ShapesView getSView() {
+		return (ShapesView)super.getView();
+	}
 	/**
 	 * Testing or default action listener. It will just print "print" in the console.
 	 * @return The testing or the default action listener.
@@ -94,6 +106,7 @@ public class BannerController extends Controller {
 						if(sa.isSelected()) {
 							ColorAttributes co = (ColorAttributes)s.getAttributes(ColorAttributes.ID);
 							co.setFilledColor(c.getColor());
+							
 						}
 					}
 
@@ -181,6 +194,8 @@ public class BannerController extends Controller {
 			if(co!=null) {
 			    this.getView().getFillBtn().setColor(co.filledColor());
 			    this.getView().getStrokeBtn().setColor(co.strokedColor());
+			    this.getView().getFillBtnBox();
+			    this.getView().getStrokeBtnBox();
 
 			}
 			FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
@@ -248,7 +263,7 @@ public class BannerController extends Controller {
 				Point p2 = new Point(110,200);
 				SLine l = new SLine(p1.x, p1.y , p2.x - p1.x , p2.y - p1.y);
 				l.addAttributes(new SelectionAttributes());
-				l.addAttributes(new ColorAttributes(false, true, Color.BLACK,((Color)((BannerView)getView()).getStrokeBtnColor()) ));
+				l.addAttributes(new ColorAttributes(false, true, Color.BLACK,((BannerView)getView()).getStrokeBtnColor()));
 				((ShapeModel)getModel()).add(l);
 				
 			}
@@ -256,8 +271,13 @@ public class BannerController extends Controller {
 	}
 
 	/**
+<<<<<<< HEAD
+	 * Creates une mini fenÍtre interactive qui permet de rentrer le texte contenu dans le nouveau SText.
+	 * @return 
+=======
 	 * Returns the actionListener which creates a text.
 	 * @return The actionListener which creates a text.
+>>>>>>> f10541e8c95e4f1e1c42da548b661372f38cacd0
 	 */
 	public ActionListener createText() {
 		BannerController bc = (BannerController) this;
@@ -268,6 +288,14 @@ public class BannerController extends Controller {
 				
 				TextEntry text = new TextEntry(bc);
 				this.jPopupText = new JPopupMenu();
+				text.getAbort().addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						jPopupText.setVisible(false);
+						
+					}
+				});
 				JPanel j = new JPanel();
 				j.add(text);
 				j.add(text.getOk());
@@ -277,9 +305,52 @@ public class BannerController extends Controller {
 			}
 		};	
 	}
+	
+	/**
+	 * The actionListener which saves the current shapes.
+	 * @return The actionListener which saves the current shapes.
+	 */
+	public ActionListener saveShapes() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String filename = JOptionPane.showInputDialog("Nom du fichier ?");
+				if(filename != null) {
+					System.out.println("Sauvegarde de votre dessin dans le fichier : "+filename);
+					((ShapeModel) getModel()).serializeShapes(filename);
+				}
+				else {
+					System.out.println("Annulation de la sauvegarde");
+				}
+			}
+		};
+	}
+	
+	/**
+	 * The actionListener which opens a save files.
+	 * @return The actionListener which opens a save file.
+	 */
+	public ActionListener openShapes() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fc = new JFileChooser();
+				
+				int returnVal = fc.showOpenDialog(null);
+				if(returnVal==JFileChooser.APPROVE_OPTION) {
+		            File file = fc.getSelectedFile();
+					((ShapeModel) getModel()).deserializeShapes(file);
+					System.out.println("Chargement du fichier de sauvegarde : "+file.getAbsolutePath());
+				}
+				else {
+					System.out.println("Ouverture de fichier de sauvegarde annul√©e");
+				}
+			}
+		};
+	}
 
 
-	/*public ActionListener createCollection() {
+	public ActionListener createCollection() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -302,7 +373,7 @@ public class BannerController extends Controller {
 				
 			}
 		};
-	}*/
+	}
 	
 	/**
 	 * Update the text when the combobox have a new item selected.
