@@ -37,6 +37,7 @@ public class PanelColor extends JPanel {
 	public PanelColor(BannerController controller) {
 		super();
 		init(controller);
+		
 	}
 	
 	/**
@@ -70,9 +71,11 @@ public class PanelColor extends JPanel {
 		});
 		this.fillBox = new JCheckBox(DISPLAYEDCHECKBOXFILL);
 		this.strokeBox = new JCheckBox(DISPLAYEDCHECKBOXSTROKE);
-		this.add(fillBox);
+		this.fillBox.setSelected(true);
+		this.strokeBox.setSelected(true);
+		this.add(this.fillBox);
 		this.add(this.btnc);
-		this.add(strokeBox);
+		this.add(this.strokeBox);
 		this.add(this.btnc2);
 	}
 	/**

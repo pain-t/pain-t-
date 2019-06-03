@@ -23,7 +23,7 @@ public class TextEntry extends JTextField  {
 		
 		this.setColumns(20);
 		this.ok.addActionListener(contr.closePopAndSetText());
-		this.abort.addActionListener(contr.closePop());
+		
 		
 	}
 	
