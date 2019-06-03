@@ -11,14 +11,20 @@ public class SCollection extends Shape {
 
 	/** List of shapes. */
 	private ArrayList<Shape> shapes;
+<<<<<<< HEAD
+	
+	public static final String ID = "Collection";
+
 //	private Point loc;
 //	private int height;
 //	private int width;
+=======
+>>>>>>> f10541e8c95e4f1e1c42da548b661372f38cacd0
 
 	// --------------------------------------------------------------------
 	
 	/**
-	 * Construct an empty collection of shapes. 
+	 * Constructs an empty collection of shapes. 
 	 */
 	public SCollection() {
 		super();
@@ -74,7 +80,6 @@ public class SCollection extends Shape {
 	 */
 	public void add(Shape s) {
 		this.shapes.add(s);
-//		this.updateContainer();
 		this.notifyObserver();
 	}
 	
@@ -83,13 +88,11 @@ public class SCollection extends Shape {
 	 */
 	public void remove(Shape s) {
 		this.shapes.remove(s);
-		//this.updateContainer();
 		this.notifyObserver();	
 	}
 	
 	public void empty() {
 		this.shapes.clear();
-//		this.updateContainer();
 		this.notifyObserver();
 	}
 	
@@ -148,33 +151,21 @@ public class SCollection extends Shape {
 	public int size() {
 		return shapes.size();
 	}
-	
-//	@Override
-//	public Point getLoc() {
-//		return this.loc;
-//	}
-
-//	@Override
-//	public void setLoc(Point p) {
-//		this.loc.setLocation(p);
-//		this.notifyObserver();
-//	}
 
 	@Override
 	public void translate(int dx, int dy) {
 		for(Shape s  : this.shapes) {
 			s.translate(dx, dy);
 		}
-//		this.loc.translate(dx, dy);
 		this.notifyObserver();
 	}
 	
 	@Override
 	public void rotate() {
-		for(Shape s : shapes)
+		for(Shape s : shapes) {
 			s.rotate();
+		}
 		
-//		this.updateContainer();
 		this.notifyObserver();
 	}
 	
@@ -197,42 +188,13 @@ public class SCollection extends Shape {
 			s.resize(c, dx, dy, handler);
 		}
 		
-//		this.updateContainer();
 		this.notifyObserver();
 	}
-
-//	@Override
-//	public Rectangle getBounds() {
-//		 return new Rectangle(this.loc.x, this.loc.y, this.width, this.height);
-//	}
-
+	
 	@Override
 	public void accept(ShapeVisitor sv) {
 		sv.visitCollection(this);
 	}
-
-//	private void updateContainer() {
-//		Point top = new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
-//		Point bottom = new Point(0, 0);
-//		
-//		for(Shape s : this.shapes) {
-//			if (s.getLoc().y < top.y) {
-//				top.y = s.getLoc().y;
-//			}
-//			if (s.getLoc().x < top.x) {
-//				top.x = s.getLoc().x;
-//			}
-//			if(s.getLoc().y + s.getBounds().width > bottom.y) {
-//				bottom.y = s.getLoc().y + s.getBounds().height;
-//			}
-//			if (s.getLoc().x + s.getBounds().width > bottom.x) {
-//				bottom.x = s.getLoc().x + s.getBounds().width;
-//			}
-//			this.loc.setLocation(top);
-//			this.width = (int) top.distance(bottom.x, top.y);
-//			this.height = (int) top.distance(top.x, bottom.y);
-//		}
-//	}
 
 	@Override
 	public Shape clone() {
@@ -311,6 +273,10 @@ public class SCollection extends Shape {
 			s.setLoc(p);
 			s.translate(locShape.x - loc.x , locShape.y - loc.y);
 		}
-			
+	}
+
+	@Override
+	public String getId() {
+		return ID;
 	}
 }
