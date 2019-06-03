@@ -49,6 +49,8 @@ Voici la liste exhaustive des fonctionnalités :
 
 ## Choix de l'implantation
 
+### Gestion de l'interface
+
 Dans le projet initial, le modèle ne notifiait pas la vue d'un éventuel changement. La première modification a donc été de rajouter cette fonctionnalité. Pour se faire, la classe [**ShapeModel**](./src/graphics/shapes/ShapeModel.java) a été ajoutée. Elle contient notamment la création des différentes formes de base et la récupération de ces formes.
 
 ![](./resources/Observer.png)
@@ -89,18 +91,36 @@ Dans l'onglet restant, il restait les barres contenant la valeur des composantes
 Dans le dernier, il y a tous les modificateurs liés à la police de texte. Comme le JPanel de choix de couleurs, les attributs se mettent à jour automatiquement lors d'un clic sur une forme de type texte. Nous avons la possibilité de modifier trois paramètres de la police.
 
 * La police : toutes les polices disponibles de l'ordinateur y sont présentes.
-* La taille de la police : de 10 a 38px.
+* La taille de la police : de 10 à 38px.
 * La couleur de la police.
 
 La police et la taille sont dans deux listes déroulantes. Une fois un texte selectionné, on peut changer ses attributs. Le changement se fait lors de la selection d'un nouvel élément de la liste à l'aide d'un **ActionListener**.
 
-**Manon, tu écriras ton bordel.<br/>**
-Les formes retenues sont le **SRectangle**, le **SOval**, le **SText** et la **SCollection**. Le SCircle a été remplacé par le SOval, puisque plus logique au niveau du programme. L'objet **Graphics2D** au niveau du **ShapesDraftman** dessine les formes selon leurs limites, selon le cadre les contenant. Ainsi, en implantant le SOval comme une classe fille de SRectangle, SOval peut hériter de ses comportements (comme le redimensionnement via les handlers).
+### Sélection et redimensionnement des formes
 
+#### Formes retenues
+Les formes retenues sont le **SRectangle**, le **SOval**, le **SText**, le **SLine** et la **SCollection**. Le SCircle a été remplacé par le SOval, puisque plus logique au niveau du programme. En effet, l'objet **Graphics2D**, au niveau du **ShapesDraftman**, dessine les formes selon leurs limites, selon le cadre les contenant(*bounds*). Ainsi, en implantant le SOval comme une classe fille de SRectangle, SOval peut hériter de ses comportements (comme le redimensionnement via les handlers).
+
+#### Sélection
+
+Nous avons décidé d'ajouter le lasso afin de pouvoir sélectionner plusieurs formes au clic. Pour faire ceci, il faut créer l'objet spécial lasso, et notifier le ShapesView à chaque fois qu'il y a un redimensionnement. Cet outil a une fonctionnalité dédiée au niveau du ShapesDraftman pour l'afficher. Effectivement, le lasso n'a pas d'attribut de sélection et possède l'affichage différent d'un SRectangle classique.
+
+Lors de son utilisation, il faut faire attention à utiliser la version absolue des limites du lasso, car le rectangle n'est pas valide avec une largeur et/ou une hauteur négatives.
+
+#### Redimensionnement
+
+Chaque forme possède des carrés dans ses coins afin de pouvoir les redimensionner. Les formes redimensionnables sont le **SRectangle**, le **SOval**, le **SLine** et la **SCollection**. Le **SText** n'est pas redimensionnable, puisque la taile passe par l'attribut *Font*.
+
+Au début, nous hésitions entre le redimensionnement propotionnel et non-proportionnel, nous avons choisi la dernière solution. Il est impossible de redimensionner un rectangle avec des dimensions largeur et hauteur non proportionnelles entre elles (exemple: hauteur : 3px, largeur: 10px), puisque le **Graphics2D** du **ShapesDraftman** ne prend en paramètre que des largeurs et hauteurs entières.
+
+Nous sommes donc restés avec la solution de l'application Microsoft Paint, c'est-à-dire redimensionner non-proportionnellement les formes, en les sélectionnant par leurs coins. Comme ladite application, il est impossible de mettre les formes avec des tailels négatives.
+
+### Sauvegarde et lecture des fichiers
 **JN, tu écriras ton bordel.<br/>**
 
 ### <a name="leslie"></a>
 
+### Création des formes et modification des attributs
 **Leslie, tu écriras ton bordel.<br/>**
 
 ## Créateurs
