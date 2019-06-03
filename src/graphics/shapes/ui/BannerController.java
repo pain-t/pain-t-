@@ -224,7 +224,7 @@ public class BannerController extends Controller {
 	}
 
 
-	/*public ActionListener createCollection() {
+	public ActionListener createCollection() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -247,7 +247,7 @@ public class BannerController extends Controller {
 				
 			}
 		};
-	}*/
+	}
 	
 	
 }
