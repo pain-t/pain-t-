@@ -144,8 +144,17 @@ public class ShapesController extends Controller {
 			this.leftDown = true;
 		}
 		
-		else if ((evt.getKeyChar() == KeyEvent.VK_A) && ((evt.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0))
-			selectAll();
+		 
+		//version Manon Ctrl-A
+		//else if ((evt.getKeyChar() == KeyEvent.VK_A) && ((evt.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0))
+		//	selectAll();
+		 
+		else if (evt.getKeyCode() == KeyEvent.VK_A){
+			if(evt.isControlDown()) {
+				selectAll();
+			}
+		}
+		 
 		
 		else if (evt.getKeyChar() == KeyEvent.VK_1) {
 			closer(this.current);
@@ -160,19 +169,22 @@ public class ShapesController extends Controller {
 			Shape si = model.getShape(0); 
 			selection(si).select();
 			model.first(si);
-    }
+		}
 			
 		
 	
 		else if(evt.getKeyCode() == KeyEvent.VK_ESCAPE)
 			unselectAll();
-    else if(evt.getKeyCode() == KeyEvent.VK_C ){
+		 
+		 
+		else if(evt.getKeyCode() == KeyEvent.VK_C ){
+			System.out.println();
 			if(evt.isControlDown()) {
 				for (ListIterator<Shape> it = model.iterator() ; it.hasNext();) {
 					Shape s = it.next();
 					SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 					if(sa.isSelected()) {
-						selectedShape.add(s);
+						selectedShape.add(s.clone());
 					}
 				}
 			}
@@ -183,7 +195,7 @@ public class ShapesController extends Controller {
     		for(int i = model.getShapes().size()-1 ; i > -1  ;i--) {
         		SelectionAttributes sa =(SelectionAttributes)model.getShape(i).getAttributes(SelectionAttributes.ID);
     			if(sa.isSelected()) {
-    	            selectedShape.add(model.getShape(i));
+    	            selectedShape.add(model.getShape(i).clone());
     				model.remove(model.getShape(i));
     			}
     			
@@ -193,7 +205,7 @@ public class ShapesController extends Controller {
       else if(evt.getKeyCode() == KeyEvent.VK_V){
         if(evt.isControlDown()) {
           for (int i = 0 ; i < selectedShape.size() ; i++) {
-            model.add(selectedShape.get(i));
+            model.add(selectedShape.get(i).clone());
             int tmp  = model.getShapes().indexOf(selectedShape.get(i));
             model.getShapes().get(tmp).register(new ShapesObserver((ShapesView) this.getView()));
           }

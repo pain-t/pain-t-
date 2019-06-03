@@ -1,5 +1,6 @@
 package graphics.shapes.ui.component;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,11 +23,12 @@ public class PanelColor extends JPanel {
 	private ButtonColor btnc;
 	/**The stroke button.*/
 	private ButtonColor btnc2;
+	private JCheckBox fillBox;
+	private JCheckBox strokeBox;
 	/**The name displayed on the fill checkbox.*/
 	private static final String DISPLAYEDCHECKBOXFILL = "Fill";
 	/**The name displayed on the stroke checkbox.*/
 	private static final String DISPLAYEDCHECKBOXSTROKE = "Stroke";
-
 	
 	/**
 	 * Creates the panel with the color modification.
@@ -102,4 +104,19 @@ public class PanelColor extends JPanel {
 		return btnc2;
 	}
 	
+	public Color getFilledColor() {
+		return ((ColorChooser)this.jpopupFill.getComponent(0)).getColor();
+	}
+	
+	public Color getStrokedColor () {
+		return ((ColorChooser)this.jpopupStroke.getComponent(0)).getColor();
+	}
+	
+	public boolean getFillBox () {
+		return this.fillBox.isSelected();
+	}
+	
+	public boolean getStrokeBox () {
+		return this.strokeBox.isSelected();
+	}
 }
