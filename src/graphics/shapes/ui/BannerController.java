@@ -271,13 +271,6 @@ public class BannerController extends Controller {
 	}
 
 	/**
-<<<<<<< HEAD
-<<<<<<< HEAD
-	 * Creates une mini fen�tre interactive qui permet de rentrer le texte contenu dans le nouveau SText.
-	 * @return 
-=======
-=======
->>>>>>> 4136d2e1cbc2293edfb3ab1ead9906db692b98b0
 	 * Returns the actionListener which creates a text.
 	 * @return The actionListener which creates a text.
 	 */
@@ -317,7 +310,7 @@ public class BannerController extends Controller {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String filename = JOptionPane.showInputDialog("Nom du fichier ?");
-				if(filename != null) {
+				if(filename != null && !filename.equals("")) {
 					((ShapeModel) getModel()).serializeShapes(filename);
 				}
 			}

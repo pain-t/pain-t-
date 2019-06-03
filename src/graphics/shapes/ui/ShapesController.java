@@ -274,7 +274,7 @@ public class ShapesController extends Controller {
 		 else if(evt.getKeyCode()==KeyEvent.VK_S) {
 			if(evt.isControlDown()) {
 				String filename = JOptionPane.showInputDialog("Nom du fichier ?");
-				if(filename != null) {
+				if(filename != null && !filename.equals("")) {
 					System.out.println("Sauvegarde de votre dessin dans le fichier : "+filename);
 					this.getModel().serializeShapes(filename);
 				}
