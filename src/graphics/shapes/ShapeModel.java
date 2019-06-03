@@ -58,6 +58,10 @@ public class ShapeModel{
 		return this.model;
 	}
 	
+	/**
+	 * Sets the observer for all shapes.
+	 * @param o The observer.
+	 */
 	public void register(Observer o) {
 		for(Shape s:this.getData().getShapes()) {
 			s.register(o);

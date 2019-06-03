@@ -34,7 +34,7 @@ public abstract class View extends JPanel
 		return new Controller(model);
 	}
 
-	final public Controller getController()
+	public Controller getController()
 	{
 		return this.controller;
 	}

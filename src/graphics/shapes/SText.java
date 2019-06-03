@@ -7,12 +7,18 @@ import graphics.shapes.attributes.Attributes;
 import graphics.shapes.attributes.FontAttributes;
 
 public class SText extends Shape {
-	
+	/** Content of the text. */
 	private String text;
+	/** Location of the text. */
 	private Point loc;
 	
 	// --------------------------------------------------------------------
 	
+	/**
+	 * Constructs the text with the specified location and text. 
+	 * @param loc Location of the text.
+	 * @param text Content of the text.
+	 */
 	public SText(Point loc, String text) {
 		super();
 		this.text = text;
@@ -21,15 +27,23 @@ public class SText extends Shape {
 
 	// --------------------------------------------------------------------
 	
+	/**
+	 * Returns the content of the text.
+	 * @return
+	 */
 	public String getText() {
 		return this.text;
 	}
 
+	/**
+	 * Set the content of the text with the given string.
+	 * @param text New content of the text.
+	 */
 	public void setText(String text) {
 		this.text = text;
 		this.notifyObserver();
 	}
-
+	
 	@Override
 	public Point getLoc() {
 		return this.loc;
@@ -49,7 +63,7 @@ public class SText extends Shape {
 	
 	@Override
 	public void resize(Point cursor, int dx, int dy, int handler) {}
-
+	
 	@Override
 	public void rotate() {}
 	

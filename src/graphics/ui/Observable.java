@@ -3,6 +3,7 @@ package graphics.ui;
 import java.util.ArrayList;
 
 public interface Observable {
+	
 	public ArrayList<Observer> observ = new ArrayList<Observer>();
 	public default void notifyObserver() {
 		observ.forEach(o->o.update());
