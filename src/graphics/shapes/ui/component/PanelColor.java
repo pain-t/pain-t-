@@ -68,8 +68,8 @@ public class PanelColor extends JPanel {
 				
 			}
 		});
-		JCheckBox fillBox = new JCheckBox(DISPLAYEDCHECKBOXFILL);
-		JCheckBox strokeBox = new JCheckBox(DISPLAYEDCHECKBOXSTROKE);
+		this.fillBox = new JCheckBox(DISPLAYEDCHECKBOXFILL);
+		this.strokeBox = new JCheckBox(DISPLAYEDCHECKBOXSTROKE);
 		this.add(fillBox);
 		this.add(this.btnc);
 		this.add(strokeBox);
