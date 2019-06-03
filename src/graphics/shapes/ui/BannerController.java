@@ -329,7 +329,7 @@ public class BannerController extends Controller {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String filename = JOptionPane.showInputDialog("Nom du fichier ?");
-				if(filename != null) {
+				if(filename != null && !filename.equals("")) {
 					System.out.println("Sauvegarde de votre dessin dans le fichier : "+filename);
 					((ShapeModel) getModel()).serializeShapes(filename);
 				}

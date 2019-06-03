@@ -12,6 +12,7 @@ public class SCollection extends Shape {
 	/** List of shapes. */
 
 
+
 	private ArrayList<Shape> shapes;	
 	public static final String ID = "Collection";
 
