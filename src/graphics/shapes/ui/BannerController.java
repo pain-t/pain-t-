@@ -401,7 +401,8 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
-							fa.setFont(new Font((String)getView().getFontFamilyBox().getSelectedItem(),0,fa.font().getSize()));
+							if(fa!=null)
+								fa.setFont(new Font((String)getView().getFontFamilyBox().getSelectedItem(),0,fa.font().getSize()));
 						}
 					}
 				}
@@ -410,7 +411,8 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
-							fa.setFont(new Font(fa.font().getFontName(),0,(int) getView().getFontSizeBox().getSelectedItem()));
+							if(fa!=null)
+								fa.setFont(new Font(fa.font().getFontName(),0,(int) getView().getFontSizeBox().getSelectedItem()));
 						}
 					}
 				}
