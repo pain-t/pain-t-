@@ -113,7 +113,8 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							ColorAttributes co = (ColorAttributes)s.getAttributes(ColorAttributes.ID);
-							co.setFilledColor(c.getColor());
+							if(co!=null)
+								co.setFilledColor(c.getColor());
 							
 						}
 					}
@@ -128,7 +129,8 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							ColorAttributes co = (ColorAttributes)s.getAttributes(ColorAttributes.ID);
-							co.setStrokedColor(c.getColor());
+							if(co!=null)
+								co.setStrokedColor(c.getColor());
 						}
 					}
 				}
@@ -141,7 +143,8 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
-							fa.setFontColor(c.getColor());
+							if(fa!=null)
+								fa.setFontColor(c.getColor());
 						}
 					}
 				}
