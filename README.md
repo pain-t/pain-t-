@@ -10,15 +10,15 @@ L'application a été développée selon le cahier des charges et les fonctionna
 
 Voici la liste exhaustive des fonctionnalités :
 * Sélection :
-   * Sélection de la forme au click ;
-   * Sélection de plusieurs formes en appuyant sur **Shift** tout en cliquant sur les formes ;
-   * Sélection des formes au lasso (click and drag) ;
+   * Sélection de la forme au *clic* ;
+   * Sélection de plusieurs formes en appuyant sur **Shift** tout en *cliquant* sur les formes ;
+   * Sélection des formes au lasso (*cliquer et faire glisser*) ;
    * Sélection de toutes les formes via **Ctrl + A** ;
    * Navigation et sélection des formes via **Tab** ;
    * Désélection de toutes les formes sélectionnées via **Echap** ;
 * Déplacement :
-   *  Déplacement des formes sélectionnées au click and drag ;
-   *  Déplacement des formes sélectionnées via les flèches du clavier ;
+   *  Déplacement des formes sélectionnées en *cliquant* et *faisant glisser* ;
+   *  Déplacement des formes sélectionnées via les *flèches du clavier* ;
 * Création des formes à la volée ;
 * Modification :
    * Modification des attributs des formes à la volée ;
@@ -96,7 +96,7 @@ Dans le dernier, il y a tous les modificateurs liés à la police de texte. Comm
 
 La police et la taille sont dans deux listes déroulantes. Une fois un texte selectionné, on peut changer ses attributs. Le changement se fait lors de la selection d'un nouvel élément de la liste à l'aide d'un **ActionListener**.
 
-### Sélection et redimensionnement des formes
+### Sélection et changement des tailles des formes
 
 #### Formes retenues
 Les formes retenues sont le **SRectangle**, le **SOval**, le **SText**, le **SLine** et la **SCollection**. Le SCircle a été remplacé par le SOval, puisque plus logique au niveau du programme. En effet, l'objet **Graphics2D**, au niveau du **ShapesDraftman**, dessine les formes selon leurs limites, selon le cadre les contenant(*bounds*). Ainsi, en implantant le SOval comme une classe fille de SRectangle, SOval peut hériter de ses comportements (comme le redimensionnement via les handlers).
@@ -105,15 +105,22 @@ Les formes retenues sont le **SRectangle**, le **SOval**, le **SText**, le **SLi
 
 Nous avons décidé d'ajouter le lasso afin de pouvoir sélectionner plusieurs formes au clic. Pour faire ceci, il faut créer l'objet spécial lasso, et notifier le ShapesView à chaque fois qu'il y a un redimensionnement. Cet outil a une fonctionnalité dédiée au niveau du ShapesDraftman pour l'afficher. Effectivement, le lasso n'a pas d'attribut de sélection et possède l'affichage différent d'un SRectangle classique.
 
-Lors de son utilisation, il faut faire attention à utiliser la version absolue des limites du lasso, car le rectangle n'est pas valide avec une largeur et/ou une hauteur négatives.
+Lors de son utilisation, il faut faire attention à utiliser la version absolue des limites du lasso, car le rectangle n'est pas valide avec une largeur et/ou une hauteur négatives. Après, il suffit de récupérer les formes dont la limite (*bounds*) possède une interction avec le lasso.
 
 #### Redimensionnement
 
 Chaque forme possède des carrés dans ses coins afin de pouvoir les redimensionner. Les formes redimensionnables sont le **SRectangle**, le **SOval**, le **SLine** et la **SCollection**. Le **SText** n'est pas redimensionnable, puisque la taile passe par l'attribut *Font*.
 
 Au début, nous hésitions entre le redimensionnement propotionnel et non-proportionnel, nous avons choisi la dernière solution. Il est impossible de redimensionner un rectangle avec des dimensions largeur et hauteur non proportionnelles entre elles (exemple: hauteur : 3px, largeur: 10px), puisque le **Graphics2D** du **ShapesDraftman** ne prend en paramètre que des largeurs et hauteurs entières.
+Nous sommes donc restés avec la solution de l'application Microsoft Paint, c'est-à-dire redimensionner non-proportionnellement les formes, en les sélectionnant par leurs coins. Comme ladite application, il est impossible de mettre les formes en taille négative.
 
-Nous sommes donc restés avec la solution de l'application Microsoft Paint, c'est-à-dire redimensionner non-proportionnellement les formes, en les sélectionnant par leurs coins. Comme ladite application, il est impossible de mettre les formes avec des tailels négatives.
+#### Pivot
+
+Au début, nous utilisions la fonction **rotate** du **Graphics2D** du **ShapesDraftman** pour pivoter les formes, mais il était impossible de sélectionner les formes aux zones changeantes. Ce problème a été réglé en changeant les dimensions de formes (exemple: un rectangle de 3px de haut et 10px de large devient un rectangle de 3px de large et 10px de haut). Il est impossible de pivoter proprement les SText. Il est possible de donner l'illusion du pivot à 180° en passant la taille de la police en négatif. Toutefois, toutes les versions de Java ne supportent pas la taille de police négative, et ce n'est pas convenable.
+
+#### Changement de plan d'une figure
+
+Etant donné que les formes s'affichent dans l'ordre de la liste **model** (premier index : forme au dernier plan, ..., dernier index : forme au premier plan), il suffit de changer l'ordre dans la liste pour pouvoir passer les formes à un certain plan.
 
 ### Sauvegarde et lecture des fichiers
 **JN, tu écriras ton bordel.<br/>**
