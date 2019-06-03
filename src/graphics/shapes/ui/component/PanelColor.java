@@ -1,5 +1,6 @@
 package graphics.shapes.ui.component;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +19,8 @@ public class PanelColor extends JPanel {
 	private JPopupMenu jpopupStroke;
 	private ButtonColor btnc;
 	private ButtonColor btnc2;
+	private JCheckBox fillBox;
+	private JCheckBox strokeBox;
 	
 	public PanelColor(BannerController controller) {
 		super();
@@ -47,8 +50,8 @@ public class PanelColor extends JPanel {
 				
 			}
 		});
-		JCheckBox fillBox = new JCheckBox("Fill");
-		JCheckBox strokeBox = new JCheckBox("Stroke");
+		fillBox = new JCheckBox("Fill");
+		strokeBox = new JCheckBox("Stroke");
 		this.add(fillBox);
 		this.add(this.btnc);
 		this.add(strokeBox);
@@ -70,6 +73,25 @@ public class PanelColor extends JPanel {
 	public ButtonColor getBtnc2() {
 		return btnc2;
 	}
+	
+	public Color getFilledColor() {
+		return ((ColorChooser)this.jpopupFill.getComponent(0)).getColor();
+	}
+	
+	public Color getStrokedColor () {
+		return ((ColorChooser)this.jpopupStroke.getComponent(0)).getColor();
+	}
+	
+	public boolean getFillBox () {
+		return this.fillBox.isSelected();
+	}
+	
+	public boolean getStrokeBox () {
+		return this.strokeBox.isSelected();
+	}
+	
+	
+	
 	
 	// TODO : ajouter accesseur sur colorchooser
 }
