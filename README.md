@@ -58,7 +58,6 @@ Dans le projet initial, le modèle ne notifiait pas la vue d'un éventuel change
 La classe **Shape** et la classe **Attributes** implémentent toutes les deux l'interface **Observable**, celle-ci permettant d'ajouter des observateurs.
 Les méthodes de modification de ces classes appellent la méthode **notifyObservers()**, qui appelle à son tour la méthode **notify()** de l'observer, qui raffraichit la fenêtre pour mettre à jour la vue.
 
-**Nico, tu écriras ton bordel.<br/>**
 Afin de supporter les nouvelles fonctionnalités, l'interface a subit de nombreux changements (développement par *Nicolas Herr*).
 Pour pouvoir modifier plus facilement les shapes, un bandeau de contrôle a été ajouté.
 
