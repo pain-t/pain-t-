@@ -129,6 +129,10 @@ public class ShapeDraftman implements ShapeVisitor {
 		if(sa.isSelected()) this.drawSelection(collection);
 	}
 	
+	/**
+	 * Draws the specified SLine according to its attributes.
+	 * @param rect The specified SLine.
+	 */
 	@Override
 	public void visitLine(SLine line) {
 		Rectangle r = line.getBounds();

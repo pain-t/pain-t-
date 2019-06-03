@@ -214,7 +214,7 @@ public class ShapesController extends Controller {
 		}
 
 		// Selection of all shapes
-		else if (evt.getKeyCode() == KeyEvent.VK_A && evt.getModifiers() == KeyEvent.CTRL_MASK) {
+		else if (evt.getKeyCode() == KeyEvent.VK_A && evt.getModifiersEx() == KeyEvent.CTRL_DOWN_MASK) {
 			selectAll();
 		}
 		// More in the foreground
@@ -239,32 +239,30 @@ public class ShapesController extends Controller {
 			unselectAll();
 		 
 		 
-		else if(evt.getKeyCode() == KeyEvent.VK_C && evt.getModifiers() == KeyEvent.CTRL_MASK) {
+		else if(evt.getKeyCode() == KeyEvent.VK_C && evt.getModifiersEx() == KeyEvent.CTRL_DOWN_MASK) {
 			System.out.println();
-				for (ListIterator<Shape> it = model.iterator() ; it.hasNext();) {
-					Shape s = it.next();
-					SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
-					if(sa.isSelected()) {
-						selectedShape.add(s.clone());
-					}
+			selectedShape = new ArrayList<Shape>();
+			for (ListIterator<Shape> it = model.iterator() ; it.hasNext();) {
+				Shape s = it.next();
+				if(selection(s).isSelected()) {
+					selectedShape.add(s);
+				}
 			}
 		}
-		else if(evt.getKeyCode() == KeyEvent.VK_X && evt.getModifiers() == KeyEvent.CTRL_MASK){
-        	
+		else if(evt.getKeyCode() == KeyEvent.VK_X && evt.getModifiersEx() == KeyEvent.CTRL_DOWN_MASK){
+			selectedShape = new ArrayList<Shape>();
     		for(int i = model.getShapes().size()-1 ; i > -1  ;i--) {
-        		SelectionAttributes sa =(SelectionAttributes)model.getShape(i).getAttributes(SelectionAttributes.ID);
-    			if(sa.isSelected()) {
-    	            selectedShape.add(model.getShape(i).clone());
+    			if(selection(model.getShape(i)).isSelected()) {
+    	            selectedShape.add(model.getShape(i));
     				model.remove(model.getShape(i));
     			}
-    			
-
 			}
 		}
 		 
-		 else if(evt.getKeyCode() == KeyEvent.VK_V && evt.getModifiers() == KeyEvent.CTRL_MASK){
+		 else if(evt.getKeyCode() == KeyEvent.VK_V && evt.getModifiersEx() == KeyEvent.CTRL_DOWN_MASK){
 	          for (int i = 0 ; i < selectedShape.size() ; i++) {
-	        	  Shape sh = selectedShape.get(i).clone();
+	        	Shape sh = selectedShape.get(i).clone();
+	        	sh.translate(5, 5);
 	            model.add(sh);
 	            int tmp  = model.getShapes().indexOf(sh);
 	            model.getShapes().get(tmp).register(new ShapesObserver((ShapesView) this.getView()));

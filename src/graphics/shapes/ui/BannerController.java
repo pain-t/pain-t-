@@ -187,6 +187,7 @@ public class BannerController extends Controller {
 	
 	/**
 	 * Update buttons, checkbox in the banner if we clicked on a shape.
+	 * @param e The mouse event.
 	 */
 	public void mouseClicked (MouseEvent e) {
 		Shape s = getTarget(e);
@@ -354,30 +355,7 @@ public class BannerController extends Controller {
 	}
 
 
-	public ActionListener createCollection() {
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				SCollection sc = new SCollection();
-				//l.addAttributes(new SelectionAttributes());
-				//l.addAttributes(new ColorAttributes(false, true, Color.BLACK,((Color)((BannerView)getView()).getStrokeBtnColor()) ));
-				SCollection model = (((ShapeModel) getModel()).getData());
-				System.out.println(model);
-				for (ListIterator<Shape> it = model.iterator(model.size()) ; it.hasPrevious();) {
-					Shape s = it.next();
-					System.out.println(s);
-					SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-					if (sa.isSelected()) {
-						Shape clone = s.clone();
-						model.remove(s);
-						sc.add(clone);
-					}
-				}
-				((ShapeModel)getModel()).add(sc);
-				
-			}
-		};
-	}
+	
 	
 	/**
 	 * Update the text when the combobox have a new item selected.
@@ -392,7 +370,8 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
-							fa.setFont(new Font((String)getView().getFontFamilyBox().getSelectedItem(),0,fa.font().getSize()));
+							if(fa!=null)
+								fa.setFont(new Font((String)getView().getFontFamilyBox().getSelectedItem(),0,fa.font().getSize()));
 						}
 					}
 				}
@@ -401,7 +380,8 @@ public class BannerController extends Controller {
 						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
 						if(sa.isSelected()) {
 							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
-							fa.setFont(new Font(fa.font().getFontName(),0,(int) getView().getFontSizeBox().getSelectedItem()));
+							if(fa!=null)
+								fa.setFont(new Font(fa.font().getFontName(),0,(int) getView().getFontSizeBox().getSelectedItem()));
 						}
 					}
 				}

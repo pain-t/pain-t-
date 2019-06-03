@@ -43,4 +43,13 @@ public class SLine extends SRectangle{
 		sv.visitLine(this);
 	}
 	
+	@Override
+	public Shape clone() {
+		SLine sl = new SLine((Rectangle) this.getBounds().clone());
+		
+		for(Attributes a : this.getAttributes().values())
+			sl.addAttributes(a.clone());
+		
+		return sl;
+	}
 }
