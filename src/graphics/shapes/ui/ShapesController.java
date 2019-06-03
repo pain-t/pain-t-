@@ -58,6 +58,11 @@ public class ShapesController extends Controller {
     // -----------------------------------------------------------------------------------------------------------------------
 	
 	@Override
+	public void mouseEntered(MouseEvent e) {
+		getView().requestFocus();
+	}
+	
+	@Override
 	public void mouseDragged(MouseEvent evt) {
 		if(this.lasso == null) {
 			int dx = evt.getX() - this.lastPoint.x;
