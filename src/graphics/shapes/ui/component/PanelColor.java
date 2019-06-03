@@ -1,5 +1,6 @@
 package graphics.shapes.ui.component;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,15 +14,25 @@ import graphics.shapes.ui.BannerController;
 import utils.Utils;
 
 public class PanelColor extends JPanel {
-
+	
+	/**The popup when we clicked on the fill button.*/
 	private JPopupMenu jpopupFill;
+	/**the popup when we clicked on the stroke btn.*/
 	private JPopupMenu jpopupStroke;
+	/**tThe fill button.*/
 	private ButtonColor btnc;
+	/**The stroke button.*/
 	private ButtonColor btnc2;
+	private JCheckBox fillBox;
+	private JCheckBox strokeBox;
+	/**The name displayed on the fill checkbox.*/
+	private static final String DISPLAYEDCHECKBOXFILL = "Fill";
+	/**The name displayed on the stroke checkbox.*/
+	private static final String DISPLAYEDCHECKBOXSTROKE = "Stroke";
 	
 	/**
-	 * Create the panel with the color modification.
-	 * @param controller
+	 * Creates the panel with the color modification.
+	 * @param contr The banner controller which have the function when we clicked on the button. 
 	 */
 	public PanelColor(BannerController controller) {
 		super();
@@ -29,8 +40,8 @@ public class PanelColor extends JPanel {
 	}
 	
 	/**
-	 * Initilaize the panel.
-	 * @param contr
+	 * Initializes the panel.
+	 * @param contr The banner controller which have the function when we clicked on the button. 
 	 */
 	private void init(BannerController contr) {
 		
@@ -57,41 +68,55 @@ public class PanelColor extends JPanel {
 				
 			}
 		});
-		JCheckBox fillBox = new JCheckBox("Fill");
-		JCheckBox strokeBox = new JCheckBox("Stroke");
+		JCheckBox fillBox = new JCheckBox(DISPLAYEDCHECKBOXFILL);
+		JCheckBox strokeBox = new JCheckBox(DISPLAYEDCHECKBOXSTROKE);
 		this.add(fillBox);
 		this.add(this.btnc);
 		this.add(strokeBox);
 		this.add(this.btnc2);
 	}
 	/**
-	 * Return the popup with the fill color chooser. 
+	 * Returns the popup with the fill color chooser. 
 	 * @return the popup with the fill color chooser.
 	 */
 	public JPopupMenu getJpopupFill() {
 		return jpopupFill;
 	}
 	/**
-	 * Return the popup with the stroke color chooser.
+	 * Returns the popup with the stroke color chooser.
 	 * @return the popup with the stroke color chooser.
 	 */
 	public JPopupMenu getJpopupStroke() {
 		return jpopupStroke;
 	}
 	/**
-	 * Return the fill color button.
+	 * Returns the fill color button.
 	 * @return the fill color button.
 	 */
 	public ButtonColor getBtnc() {
 		return btnc;
 	}
 	/**
-	 * Return the stroke color button.
+	 * Returns the stroke color button.
 	 * @return the stroke color button.
 	 */
 	public ButtonColor getBtnc2() {
 		return btnc2;
 	}
 	
-	// TODO : ajouter accesseur sur colorchooser
+	public Color getFilledColor() {
+		return ((ColorChooser)this.jpopupFill.getComponent(0)).getColor();
+	}
+	
+	public Color getStrokedColor () {
+		return ((ColorChooser)this.jpopupStroke.getComponent(0)).getColor();
+	}
+	
+	public boolean getFillBox () {
+		return this.fillBox.isSelected();
+	}
+	
+	public boolean getStrokeBox () {
+		return this.strokeBox.isSelected();
+	}
 }

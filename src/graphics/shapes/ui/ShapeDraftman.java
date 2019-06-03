@@ -9,6 +9,7 @@ import java.awt.Stroke;
 
 import graphics.shapes.SOval;
 import graphics.shapes.SCollection;
+import graphics.shapes.SLine;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
 import graphics.shapes.Shape;
@@ -127,6 +128,19 @@ public class ShapeDraftman implements ShapeVisitor {
 		SelectionAttributes sa = (SelectionAttributes) collection.getAttributes(SelectionAttributes.ID);
 		if(sa.isSelected()) this.drawSelection(collection);
 	}
+	
+	@Override
+	public void visitLine(SLine line) {
+		Rectangle r = line.getBounds();
+		//line.getAttributes(ColorAttributes.ID) = ColorAttributes(false, true,  Color.BLACK, Color.BLACK);
+		line.addAttributes(new ColorAttributes(false,true,Color.BLACK,Color.BLACK));
+		
+		this.g2d.drawLine(line.getLoc().x , line.getLoc().y , line.getLoc().x + line.getRect().width , line.getLoc().y + line.getRect().height);
+		
+		SelectionAttributes sa = (SelectionAttributes) line.getAttributes(SelectionAttributes.ID);
+		if(sa.isSelected()) this.drawSelection(line);
+		
+	}
 
 	/**
 	 * Draws the selection part of the specified shape.
@@ -164,4 +178,6 @@ public class ShapeDraftman implements ShapeVisitor {
 		g2d.setColor(Color.BLUE);
 		g2d.drawRect(lasso.x, lasso.y, lasso.width, lasso.height);
 	}
+
+	
 }

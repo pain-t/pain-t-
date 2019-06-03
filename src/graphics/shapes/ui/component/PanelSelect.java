@@ -6,12 +6,12 @@ import graphics.shapes.ui.BannerController;
 import utils.Utils;
 
 public class PanelSelect extends JPanel {
-	// NOT USED
+	@Deprecated
 	public PanelSelect(BannerController controller) {
 		super();
 		init(controller);
 	}
-	
+	@Deprecated
 	private void init(BannerController controller) {
 		this.add(new ButtonShape(Utils.getIcon(Utils.MOUSE),controller.doPrint()));
 		this.add(new ButtonShape(Utils.getIcon(Utils.SELECTION),controller.doPrint()));

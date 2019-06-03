@@ -203,6 +203,7 @@ public class ShapesController extends Controller {
 			}
 			this.leftPressed = true;
 		}
+
 		// Selection of all shapes
 		else if (evt.getKeyCode() == KeyEvent.VK_A && evt.getModifiers() == KeyEvent.CTRL_MASK) {
 			selectAll();
@@ -223,38 +224,40 @@ public class ShapesController extends Controller {
 			selection(si).select();
 			model.first(si);
 		}
-		// Deselection of all shapes
+
 		else if(evt.getKeyCode() == KeyEvent.VK_ESCAPE)
 			unselectAll();
-		// Copy
-		else if(evt.getKeyCode() == KeyEvent.VK_C && evt.getModifiers() == KeyEvent.CTRL_MASK){
-			for (ListIterator<Shape> it = model.iterator() ; it.hasNext();) {
-				Shape s = it.next();
-				SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
-				if(sa.isSelected()) {
-					selectedShape.add(s);
-				}
+		 
+		 
+		else if(evt.getKeyCode() == KeyEvent.VK_C && evt.getModifiers() == KeyEvent.CTRL_MASK) {
+			System.out.println();
+				for (ListIterator<Shape> it = model.iterator() ; it.hasNext();) {
+					Shape s = it.next();
+					SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
+					if(sa.isSelected()) {
+						selectedShape.add(s.clone());
+					}
 			}
 		}
-		// Cut
 		else if(evt.getKeyCode() == KeyEvent.VK_X && evt.getModifiers() == KeyEvent.CTRL_MASK){
-			for(int i = model.getShapes().size()-1 ; i > -1  ;i--) {
-	    		SelectionAttributes sa =(SelectionAttributes)model.getShape(i).getAttributes(SelectionAttributes.ID);
-				if(sa.isSelected()) {
-		            selectedShape.add(model.getShape(i));
-					model.remove(model.getShape(i));
-				}
-				
-	    	}
+        	
+    		for(int i = model.getShapes().size()-1 ; i > -1  ;i--) {
+        		SelectionAttributes sa =(SelectionAttributes)model.getShape(i).getAttributes(SelectionAttributes.ID);
+    			if(sa.isSelected()) {
+    	            selectedShape.add(model.getShape(i).clone());
+    				model.remove(model.getShape(i));
+    			}        	
+			}
 		}
-		// Paste
-		 else if(evt.getKeyCode() == KeyEvent.VK_V && evt.getModifiers() == KeyEvent.CTRL_MASK){
-			 for (int i = 0 ; i < selectedShape.size() ; i++) {
-				 model.add(selectedShape.get(i));
-				 int tmp  = model.getShapes().indexOf(selectedShape.get(i));
-				 model.getShapes().get(tmp).register(new ShapesObserver((ShapesView) this.getView()));
-			 }
-		 }
+		 
+	 else if(evt.getKeyCode() == KeyEvent.VK_V && evt.getModifiers() == KeyEvent.CTRL_MASK){
+          for (int i = 0 ; i < selectedShape.size() ; i++) {
+        	  Shape sh = selectedShape.get(i).clone();
+            model.add(sh);
+            int tmp  = model.getShapes().indexOf(sh);
+            model.getShapes().get(tmp).register(new ShapesObserver((ShapesView) this.getView()));
+          }
+      }
 	}
 		
 

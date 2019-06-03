@@ -15,7 +15,7 @@ public class ButtonShape extends JButton {
 	private static final String CURS_NAME = "CURSOR";
 
 	/**
-	 * Construct a shapebutton.
+	 * Constructs a shapebutton.
 	 * @param icon The icon of the button.
 	 * @param action The action to do when it is pressed.
 	 */
