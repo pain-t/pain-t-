@@ -310,6 +310,10 @@ public class ShapesController extends Controller {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date date = new Date();
 			try {
+			    File directory = new File("screenshots");
+			    if (! directory.exists()){
+			        directory.mkdir();
+			    }
 				ImageIO.write(screenshotImage, "png", new File("screenshots/screenshot-" + dateFormat.format(date) + ".png"));
 			} catch (IOException ex) {
 				ex.printStackTrace();
