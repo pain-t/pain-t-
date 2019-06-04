@@ -27,7 +27,7 @@ import graphics.shapes.attributes.FontAttributes;
 import graphics.ui.Controller;
 import graphics.ui.View;
 
-public class ShapesView extends View{
+public class ShapesView extends View {
 
 	private ShapeDraftman sdm;
 
@@ -48,26 +48,31 @@ public class ShapesView extends View{
 		setFocusTraversalKeysEnabled(false);
 		return true;
 	}
-	
-    public ShapeModel getModel() {
-    	return (ShapeModel)super.getModel();
-    }
-    
+
+	public ShapeModel getModel() {
+		return (ShapeModel) super.getModel();
+	}
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		sdm = new ShapeDraftman(g);
 		getModel().getData().accept(sdm);
-		
+
 		Rectangle lasso = ((ShapesController) this.getController()).getLasso();
-		if(lasso != null) this.sdm.drawLasso(lasso);
+		if (lasso != null)
+			this.sdm.drawLasso(lasso);
 	}
-	
+
 	@Override
 	public void invalidate() {
 		this.paintImmediately(getBounds());
 	}
 	
+	public ShapeDraftman getDraftman() {
+		return this.sdm;
+	}
+
 	@Deprecated
 	public void saveShapes() throws FileNotFoundException, UnsupportedEncodingException {
 		PrintWriter writer = new PrintWriter("/home/balanche/AOO/shapes/saves/test1.txt", "UTF-8");
@@ -76,52 +81,52 @@ public class ShapesView extends View{
 		saveShapeCollection((SCollection) this.getModel().getData(), writer);
 		writer.close();
 	}
-	
+
 	@Deprecated
 	public void saveShapeCollection(SCollection collection, PrintWriter writer) {
-		for(Shape s : collection.getShapes()) {
-			String line = s.getLoc().getX()+" "+s.getLoc().getY()+" ";
+		for (Shape s : collection.getShapes()) {
+			String line = s.getLoc().getX() + " " + s.getLoc().getY() + " ";
 			switch (s.getId()) {
-				case SCollection.ID:
-					writer.println("Collection");
-					saveShapeCollection((SCollection)s,writer);
-					break;
-					
-				case SRectangle.ID:
-					SRectangle rectangle = (SRectangle)s;
-					line += "Rectangle " + rectangle.getRect().getWidth() + rectangle.getRect().getHeight()
-							+ ((ColorAttributes)(s.getAttributes(ColorAttributes.ID))).filled() +" "
-							+ ((ColorAttributes)(s.getAttributes(ColorAttributes.ID))).stroked() +" "
-							+ ((ColorAttributes)(s.getAttributes(ColorAttributes.ID))).filledColor() +" "
-							+ ((ColorAttributes)(s.getAttributes(ColorAttributes.ID))).strokedColor();
-					writer.println(line);
-					break;
-					
-				case SOval.ID:
-					SOval circle = (SOval)s;
-					line += "Circle " + circle.getRect().getWidth()/2+" "
-							+ ((ColorAttributes)(s.getAttributes(ColorAttributes.ID))).filled() +" "
-							+ ((ColorAttributes)(s.getAttributes(ColorAttributes.ID))).stroked() +" "
-							+ ((ColorAttributes)(s.getAttributes(ColorAttributes.ID))).filledColor() +" "
-							+ ((ColorAttributes)(s.getAttributes(ColorAttributes.ID))).strokedColor();
-					writer.println(line);
-					break;
-				case SText.ID:
-					SText txt = (SText)s;
-					line += "Text " + txt.getText()+" "
-							+ ((ColorAttributes)(s.getAttributes(ColorAttributes.ID))).filled() +" "
-							+ ((ColorAttributes)(s.getAttributes(ColorAttributes.ID))).stroked() +" "
-							+ ((ColorAttributes)(s.getAttributes(ColorAttributes.ID))).filledColor() +" "
-							+ ((ColorAttributes)(s.getAttributes(ColorAttributes.ID))).strokedColor()+" "
-							+ ((FontAttributes)(s.getAttributes(FontAttributes.ID))).font() +" "
-							+ ((FontAttributes)(s.getAttributes(FontAttributes.ID))).fontColor();
-					writer.println(line);
-					break;
-					
-				default:
-					break;
+			case SCollection.ID:
+				writer.println("Collection");
+				saveShapeCollection((SCollection) s, writer);
+				break;
+
+			case SRectangle.ID:
+				SRectangle rectangle = (SRectangle) s;
+				line += "Rectangle " + rectangle.getRect().getWidth() + rectangle.getRect().getHeight()
+						+ ((ColorAttributes) (s.getAttributes(ColorAttributes.ID))).filled() + " "
+						+ ((ColorAttributes) (s.getAttributes(ColorAttributes.ID))).stroked() + " "
+						+ ((ColorAttributes) (s.getAttributes(ColorAttributes.ID))).filledColor() + " "
+						+ ((ColorAttributes) (s.getAttributes(ColorAttributes.ID))).strokedColor();
+				writer.println(line);
+				break;
+
+			case SOval.ID:
+				SOval circle = (SOval) s;
+				line += "Circle " + circle.getRect().getWidth() / 2 + " "
+						+ ((ColorAttributes) (s.getAttributes(ColorAttributes.ID))).filled() + " "
+						+ ((ColorAttributes) (s.getAttributes(ColorAttributes.ID))).stroked() + " "
+						+ ((ColorAttributes) (s.getAttributes(ColorAttributes.ID))).filledColor() + " "
+						+ ((ColorAttributes) (s.getAttributes(ColorAttributes.ID))).strokedColor();
+				writer.println(line);
+				break;
+			case SText.ID:
+				SText txt = (SText) s;
+				line += "Text " + txt.getText() + " "
+						+ ((ColorAttributes) (s.getAttributes(ColorAttributes.ID))).filled() + " "
+						+ ((ColorAttributes) (s.getAttributes(ColorAttributes.ID))).stroked() + " "
+						+ ((ColorAttributes) (s.getAttributes(ColorAttributes.ID))).filledColor() + " "
+						+ ((ColorAttributes) (s.getAttributes(ColorAttributes.ID))).strokedColor() + " "
+						+ ((FontAttributes) (s.getAttributes(FontAttributes.ID))).font() + " "
+						+ ((FontAttributes) (s.getAttributes(FontAttributes.ID))).fontColor();
+				writer.println(line);
+				break;
+
+			default:
+				break;
 			}
-			
+
 		}
 	}
 }

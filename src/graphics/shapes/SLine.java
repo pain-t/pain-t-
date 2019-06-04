@@ -35,9 +35,9 @@ public class SLine extends SRectangle{
 	public SLine(int x, int y, int width, int height) {
 		super(x, y, width, height);
 	}
-	
+
 	// --------------------------------------------------------------------
-	
+
 	@Override
 	public void accept(ShapeVisitor sv) {
 		sv.visitLine(this);

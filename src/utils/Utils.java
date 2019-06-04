@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class Utils {
-	
+
 	public final static String RECTANGLE = "rectangle.png";
 	public final static String CIRCLE = "circle.png";
 	public final static String TEXT = "text.png";
@@ -21,43 +21,41 @@ public class Utils {
 	public static final String OPEN = "open.png";
 	public static final String SAVE = "save.jpeg";
 
-	
-	
 	public static ImageIcon getIcon(String s) {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		InputStream input = classLoader.getResourceAsStream(s);
 		ImageIcon i = null;
 
 		try {
-			 i = new ImageIcon(ImageIO.read(input));
-		}
-		catch(Exception e){
+			i = new ImageIcon(ImageIO.read(input));
+		} catch (Exception e) {
 			try {
-				System.out.println("erreur ouverture "+s);
+				System.out.println("erreur ouverture " + s);
 				input = classLoader.getResourceAsStream(DEFAULT_IMAGE);
 				i = new ImageIcon(ImageIO.read(input));
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 		}
-		
+
 		return i;
 	}
-	
+
 	public static Rectangle getAbsoluteBounds(Rectangle rect) {
-		if(rect == null) return null;
-				
+		if (rect == null)
+			return null;
+
 		Rectangle r = (Rectangle) rect.clone();
 
 		int width = r.width;
 		int height = r.height;
 		int x = r.x;
 		int y = r.y;
-		if(width < 0) {
+		if (width < 0) {
 			width *= -1;
 			x -= width;
 		}
-		if(height < 0) {
+		if (height < 0) {
 			height *= -1;
 			y -= height;
 		}

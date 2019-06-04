@@ -6,28 +6,31 @@ public class SelectionAttributes extends Attributes {
 	public final static String ID = "SelectionAttributes";
 	/** True if the shape is selected, false otherwise. */
 	private boolean selected;
-	
+
 	// --------------------------------------------------------------------
-	
+
 	/**
 	 * Constructs a SelectionAttribute.
-	 * @param selected True if the shape is selected, false otherwise.
+	 * 
+	 * @param selected
+	 *            True if the shape is selected, false otherwise.
 	 */
 	public SelectionAttributes(boolean selected) {
 		this.selected = selected;
 	}
-	
+
 	/**
 	 * Constructs a default SelectionAttribute (selection set to false).
 	 */
 	public SelectionAttributes() {
 		this(false);
 	}
-	
+
 	// --------------------------------------------------------------------
-	
+
 	/**
 	 * Returns true if the shape is selected, false otherwise.
+	 * 
 	 * @return True if the shape is selected, false otherwise.
 	 */
 	public boolean isSelected() {
