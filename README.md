@@ -47,6 +47,8 @@ Voici la liste exhaustive des fonctionnalités :
    * **2** : Met la dernière forme sélectionnée à un plan plus éloigné ;
    * **Ctrl + S** : Sauvegarde le dessin dans un fichier dans le dossier saves ;
    * **Ctrl + O** : Charge un fichier de sauvegarde ;
+   * **F2** : Enregistre une image au format png des formes
+   * **Ctrl+molette** : Redimensionne les formes
 
 
 ## Choix de l'implantation
@@ -116,6 +118,8 @@ Chaque forme possède des carrés dans ses coins afin de pouvoir les redimension
 Au début, nous hésitions entre le redimensionnement propotionnel et non-proportionnel, nous avons choisi la dernière solution. Il est impossible de redimensionner un rectangle avec des dimensions largeur et hauteur non proportionnelles entre elles (exemple: hauteur : 3px, largeur: 10px), puisque le **Graphics2D** du **ShapesDraftman** ne prend en paramètre que des largeurs et hauteurs entières.
 Nous sommes donc restés avec la solution de l'application Microsoft Paint, c'est-à-dire redimensionner non-proportionnellement les formes, en les sélectionnant par leurs coins. Comme ladite application, il est impossible de mettre les formes en taille négative.
 
+De plus nous avons également ajouté une fonction permettant de redimensionner toutes les formes en même temps à l'aide de la molette de la souris et en maintenant la touche **Ctrl**. Les formes **SText** ne sont par contre pas redimensionnées pour la même raison expliquée précédement.
+
 #### Pivot
 
 Au début, nous utilisions la fonction **rotate** du **Graphics2D** du **ShapesDraftman** pour pivoter les formes, mais il était impossible de sélectionner les formes aux zones changeantes. Ce problème a été réglé en changeant les dimensions de formes (exemple: un rectangle de 3px de haut et 10px de large devient un rectangle de 3px de large et 10px de haut). Il est impossible de pivoter proprement les SText. Il est possible de donner l'illusion du pivot à 180° en passant la taille de la police en négatif. Toutefois, toutes les versions de Java ne supportent pas la taille de police négative, et ce n'est pas convenable.
@@ -126,11 +130,13 @@ Etant donné que les formes s'affichent dans l'ordre de la liste **model** (prem
 
 ### Sauvegarde et lecture des fichiers
 
-Dans un premier temps nous voulions créer nos propres fichiers de sauvegarde fait nous même à l'aide de la fonction **toString()** etc mais cette solution n'était pas satisfaisante car elle posait trop de problèmes et ne permettait aucune souplesse lors de l'ajout de nouvelles **Shapes** ou de nouveaux **Attributes** dans le code.
+Dans un premier temps nous voulions créer nos propres fichiers de sauvegarde créés nous même mais cette solution n'était pas satisfaisante car elle posait trop de problèmes pour lire les fichiers et ne permettait aucune souplesse lors de l'ajout de nouvelles **Shapes** ou de nouveaux **Attributes** dans le code.
 
 Nous avons donc recherché de meilleures solutions et nous avons trouvé l'interface **Serializable**. Celle çi permet de sauvegarder une ou plusieurs instances de n'importe quelle classe dès lors que celle-çi implemente l'interface. Nous nous en sommes donc servi pour sauvegarder l'ensemble des **Shapes** dans un fichier. Ce fichier peut ensuite être chargé pour récupérer les formes et les afficher.
 
 La sauvegarde et l'ouverture de fichier peuvent se faire via 2 boutons dans l'interface graphiques ou via 2 raccourcis clavier **Ctrl+S** et **Ctrl+O**. La sauvegarde ouvre une **JOptionPane** pour permettre de choisir le nom du fichier de sauvegarde et l'ouverture de fichier ouvre un **JFileChooser** qui permet de parcourir les fichiers du PC pour sélectionner le fichier de sauvegarde. Ces fichiers sont créés par défaut dans le dossier **saves** de l'application.
+
+Nous avons également ajouté une fonction permettant d'enregistrer une image de toutes les formes actuelles au format PNG. Pour cela nous créons une **BufferedImage** dans laquelle nous enregistrons le contenu actuel des la scène. Puis à l'aide des la librairie **ImageIO** nous sauvegardons l'image dans un fichier PNG. Cette fonction est déclenché par la touche **F2**.
 
 ### Création des formes et modification des attributs
 **Leslie, tu écriras ton bordel.<br/>**
