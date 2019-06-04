@@ -107,6 +107,10 @@ public class ShapeModel {
 	public void serializeShapes(String filename) {
 		SCollection shapes = this.model;
 		try {
+			File directory = new File("saves");
+		    if (! directory.exists()){
+		        directory.mkdir();
+		    }
 			// Saving of object in a file
 			FileOutputStream file = new FileOutputStream("saves/" + filename);
 			ObjectOutputStream out = new ObjectOutputStream(file);
