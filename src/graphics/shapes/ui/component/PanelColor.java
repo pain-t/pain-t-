@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
@@ -40,6 +39,7 @@ public class PanelColor extends JPanel {
 	public PanelColor(BannerController controller) {
 		super();
 		init(controller);
+		
 	}
 
 	/**
@@ -76,10 +76,15 @@ public class PanelColor extends JPanel {
 		});
 		this.fillBox = new JCheckBox(DISPLAYEDCHECKBOXFILL);
 		this.strokeBox = new JCheckBox(DISPLAYEDCHECKBOXSTROKE);
-		this.add(fillBox);
+		this.fillBox.setSelected(true);
+		this.strokeBox.setSelected(true);
+		this.fillBox.addActionListener(contr.toggleBox());
+		this.strokeBox.addActionListener(contr.toggleBox());
+		this.add(this.fillBox);
 		this.add(this.btnc);
-		this.add(strokeBox);
+		this.add(this.strokeBox);
 		this.add(this.btnc2);
+		
 	}
 
 	/**
@@ -118,19 +123,44 @@ public class PanelColor extends JPanel {
 		return btnc2;
 	}
 
+	/**
+	 * Returns the filled color.
+	 * @return the filled color.
+	 */
 	public Color getFilledColor() {
 		return ((ColorChooser) this.jpopupFill.getComponent(0)).getColor();
 	}
 
-	public Color getStrokedColor() {
-		return ((ColorChooser) this.jpopupStroke.getComponent(0)).getColor();
+	
+	/**
+	 * Returns the stroked color.
+	 * @return the stroked color.
+	 */
+	public Color getStrokedColor () {
+		return ((ColorChooser)this.jpopupStroke.getComponent(0)).getColor();
 	}
-
-	public boolean getFillBox() {
+	
+	/**
+	 * Returns the value of the fillbox.
+	 * @return the value of the fillbox.
+	 */
+	public boolean getFillBox () {
 		return this.fillBox.isSelected();
 	}
-
-	public boolean getStrokeBox() {
+	
+	/**
+	 * Returns the value of the strokebox.
+	 * @return the value of the strokebox.
+	 */
+	public boolean getStrokeBox () {
 		return this.strokeBox.isSelected();
+	}
+	
+	public void setStrokeBox(boolean b) {
+		this.strokeBox.setSelected(b);
+	}
+	
+	public void setFilledBox(boolean b) {
+		this.fillBox.setSelected(b);
 	}
 }

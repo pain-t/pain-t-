@@ -230,4 +230,12 @@ public class BannerView extends View {
 	public JComboBox<String> getFontFamilyBox() {
 		return ((PanelModification) this.panelModification).getFontFamilyBox();
 	}
+	
+	public void setFillBtnBox(boolean b) {
+		((PanelColor)this.panelColor).setFilledBox(b);
+	}
+	
+	public void setStrokeBtnBox(boolean b) {
+		((PanelColor)this.panelColor).setStrokeBox(b);
+	}
 }

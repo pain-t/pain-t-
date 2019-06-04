@@ -1,10 +1,12 @@
 package graphics.shapes.ui;
 
+import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -162,8 +164,8 @@ public class ShapesController extends Controller {
 		// Deletion
 		if (evt.getKeyCode() == KeyEvent.VK_DELETE)
 			deleteSelected();
-		// Fivot
-		else if (evt.getKeyCode() == KeyEvent.VK_P)
+		// Pivot
+		else if(evt.getKeyCode() == KeyEvent.VK_P)
 			rotateSelected();
 		// Up arrow
 		else if (evt.getKeyCode() == KeyEvent.VK_UP) {
@@ -223,7 +225,7 @@ public class ShapesController extends Controller {
 		}
 
 		// Selection of all shapes
-		else if (evt.getKeyCode() == KeyEvent.VK_A && evt.getModifiers() == KeyEvent.CTRL_MASK) {
+		else if (evt.getKeyCode() == KeyEvent.VK_A && evt.getModifiersEx() == KeyEvent.CTRL_DOWN_MASK) {
 			selectAll();
 		}
 		// More in the foreground
@@ -245,37 +247,40 @@ public class ShapesController extends Controller {
 
 		else if (evt.getKeyCode() == KeyEvent.VK_ESCAPE)
 			unselectAll();
-
-		else if (evt.getKeyCode() == KeyEvent.VK_C && evt.getModifiers() == KeyEvent.CTRL_MASK) {
+		else if(evt.getKeyCode() == KeyEvent.VK_C && evt.getModifiersEx() == KeyEvent.CTRL_DOWN_MASK) {
 			System.out.println();
-			for (ListIterator<Shape> it = model.iterator(); it.hasNext();) {
+			selectedShape = new ArrayList<Shape>();
+			for (ListIterator<Shape> it = model.iterator() ; it.hasNext();) {
 				Shape s = it.next();
-				SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-				if (sa.isSelected()) {
-					selectedShape.add(s.clone());
+				if(selection(s).isSelected()) {
+					selectedShape.add(s);
 				}
-			}
-		} else if (evt.getKeyCode() == KeyEvent.VK_X && evt.getModifiers() == KeyEvent.CTRL_MASK) {
-
-			for (int i = model.getShapes().size() - 1; i > -1; i--) {
-				SelectionAttributes sa = (SelectionAttributes) model.getShape(i).getAttributes(SelectionAttributes.ID);
-				if (sa.isSelected()) {
-					selectedShape.add(model.getShape(i).clone());
-					model.remove(model.getShape(i));
-				}
-
 			}
 		}
-
-		else if (evt.getKeyCode() == KeyEvent.VK_V && evt.getModifiers() == KeyEvent.CTRL_MASK) {
-			for (int i = 0; i < selectedShape.size(); i++) {
-				Shape sh = selectedShape.get(i).clone();
-				model.add(sh);
-				int tmp = model.getShapes().indexOf(sh);
-				model.getShapes().get(tmp).register(new ShapesObserver((ShapesView) this.getView()));
+		else if(evt.getKeyCode() == KeyEvent.VK_X && evt.getModifiersEx() == KeyEvent.CTRL_DOWN_MASK){
+			selectedShape = new ArrayList<Shape>();
+    		for(int i = model.getShapes().size()-1 ; i > -1  ;i--) {
+    			if(selection(model.getShape(i)).isSelected()) {
+    	            selectedShape.add(model.getShape(i));
+    				model.remove(model.getShape(i));
+    			}
 			}
-		} else if (evt.getKeyCode() == KeyEvent.VK_S) {
-			if (evt.isControlDown()) {
+		}
+		 
+		 else if(evt.getKeyCode() == KeyEvent.VK_V && evt.getModifiersEx() == KeyEvent.CTRL_DOWN_MASK){
+			 unselectAll();
+			 for (int i = 0 ; i < selectedShape.size() ; i++) {
+	        	Shape sh = selectedShape.get(i).clone();
+	        	sh.translate(5, 5);
+	        	
+	        	selection(sh).select();
+	            model.add(sh);
+	            int tmp  = model.getShapes().indexOf(sh);
+	            model.getShapes().get(tmp).register(new ShapesObserver((ShapesView) this.getView()));
+	          }
+	      }
+		 else if(evt.getKeyCode()==KeyEvent.VK_S) {
+			if(evt.isControlDown()) {
 				String filename = JOptionPane.showInputDialog("Nom du fichier ?");
 				if (filename != null && !filename.equals("")) {
 					System.out.println("Sauvegarde de votre dessin dans le fichier : " + filename);
@@ -309,6 +314,17 @@ public class ShapesController extends Controller {
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
+		}
+	}
+	
+	@Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+		if(e.isControlDown()) {
+		      int notches = e.getWheelRotation();
+		
+		      for(Shape s : ((ShapesView) this.getView()).getModel().getData().getShapes()) {
+		    	  s.resize(new Point(Integer.MAX_VALUE,Integer.MAX_VALUE), notches, notches, 3);
+		      }
 		}
 	}
 

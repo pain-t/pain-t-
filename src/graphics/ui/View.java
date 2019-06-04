@@ -13,6 +13,7 @@ public abstract class View extends JPanel {
 		this.addMouseListener(this.controller);
 		this.addMouseMotionListener(this.controller);
 		this.addKeyListener(this.controller);
+		this.addMouseWheelListener(this.controller);
 	}
 
 	public void setModel(Object model) {

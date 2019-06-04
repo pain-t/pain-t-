@@ -27,8 +27,8 @@ Voici la liste exhaustive des fonctionnalités :
    * Changement de plan d'un figure ;
 * Sauvegarde :
    * Sauvegarde sous le format d'une image ;
-   * Sauvegarde sous l'image d'un script (afin de reprendre l'édition du projet) ;
-   * Chargement du script ;
+   * Sauvegarde dans un fichier (afin de reprendre l'édition du projet) ;
+   * Chargement de fichier de sauvegarde ;
 * Outils :
    * Zoom du canevas (pas de modification de la taille des formes)
 
@@ -45,9 +45,12 @@ Voici la liste exhaustive des fonctionnalités :
    * **P** : Pivot de 90° des formes sélectionnées ;
    * **1** : Met la dernière forme sélectionnée à un plan plus proche ;
    * **2** : Met la dernière forme sélectionnée à un plan plus éloigné ;
+   * **Ctrl + S** : Sauvegarde le dessin dans un fichier dans le dossier saves ;
+   * **Ctrl + O** : Charge un fichier de sauvegarde ;
 
 
 ## Choix de l'implantation
+
 
 ### Gestion de l'interface
 
@@ -122,9 +125,12 @@ Au début, nous utilisions la fonction **rotate** du **Graphics2D** du **ShapesD
 Etant donné que les formes s'affichent dans l'ordre de la liste **model** (premier index : forme au dernier plan, ..., dernier index : forme au premier plan), il suffit de changer l'ordre dans la liste pour pouvoir passer les formes à un certain plan.
 
 ### Sauvegarde et lecture des fichiers
-**JN, tu écriras ton bordel.<br/>**
 
-### <a name="leslie"></a>
+Dans un premier temps nous voulions créer nos propres fichiers de sauvegarde fait nous même à l'aide de la fonction **toString()** etc mais cette solution n'était pas satisfaisante car elle posait trop de problèmes et ne permettait aucune souplesse lors de l'ajout de nouvelles **Shapes** ou de nouveaux **Attributes** dans le code.
+
+Nous avons donc recherché de meilleures solutions et nous avons trouvé l'interface **Serializable**. Celle çi permet de sauvegarder une ou plusieurs instances de n'importe quelle classe dès lors que celle-çi implemente l'interface. Nous nous en sommes donc servi pour sauvegarder l'ensemble des **Shapes** dans un fichier. Ce fichier peut ensuite être chargé pour récupérer les formes et les afficher.
+
+La sauvegarde et l'ouverture de fichier peuvent se faire via 2 boutons dans l'interface graphiques ou via 2 raccourcis clavier **Ctrl+S** et **Ctrl+O**. La sauvegarde ouvre une **JOptionPane** pour permettre de choisir le nom du fichier de sauvegarde et l'ouverture de fichier ouvre un **JFileChooser** qui permet de parcourir les fichiers du PC pour sélectionner le fichier de sauvegarde. Ces fichiers sont créés par défaut dans le dossier **saves** de l'application.
 
 ### Création des formes et modification des attributs
 **Leslie, tu écriras ton bordel.<br/>**

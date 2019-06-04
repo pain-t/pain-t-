@@ -146,17 +146,27 @@ public class ShapeDraftman implements ShapeVisitor {
 		if (sa.isSelected())
 			this.drawSelection(collection);
 	}
-
+	
+	/**
+	 * Draws the specified SLine according to its attributes.
+	 * @param rect The specified SLine.
+	 */
 	@Override
 	public void visitLine(SLine line) {
 		Rectangle r = line.getBounds();
-		// line.getAttributes(ColorAttributes.ID) = ColorAttributes(false, true,
-		// Color.BLACK, Color.BLACK);
-		line.addAttributes(new ColorAttributes(false, true, Color.BLACK, Color.BLACK));
-
-		this.g2d.drawLine(line.getLoc().x, line.getLoc().y, line.getLoc().x + line.getRect().width,
-				line.getLoc().y + line.getRect().height);
-
+		ColorAttributes fc = (ColorAttributes) line.getAttributes(ColorAttributes.ID);
+		if(fc == null) fc = DEFAULTCOLORATTRIBUTES;
+		//line.getAttributes(ColorAttributes.ID) = ColorAttributes(false, true,  Color.BLACK, Color.BLACK);
+		line.addAttributes(new ColorAttributes(false,true,Color.BLACK,Color.BLACK));
+		if(fc.stroked()) {
+			g2d.setColor(fc.strokedColor());
+			this.g2d.drawLine(line.getLoc().x , line.getLoc().y , line.getLoc().x + line.getRect().width , line.getLoc().y + line.getRect().height);
+		}
+		
+		else {
+			this.g2d.drawLine(line.getLoc().x , line.getLoc().y , line.getLoc().x + line.getRect().width , line.getLoc().y + line.getRect().height);
+			
+		}
 		SelectionAttributes sa = (SelectionAttributes) line.getAttributes(SelectionAttributes.ID);
 		if (sa.isSelected())
 			this.drawSelection(line);
@@ -202,6 +212,10 @@ public class ShapeDraftman implements ShapeVisitor {
 		g2d.fillRect(lasso.x, lasso.y, lasso.width, lasso.height);
 		g2d.setColor(Color.BLUE);
 		g2d.drawRect(lasso.x, lasso.y, lasso.width, lasso.height);
+	}
+	
+	public void scale(double d) {
+		this.g2d.scale(d,d);
 	}
 
 }

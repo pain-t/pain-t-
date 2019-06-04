@@ -3,6 +3,8 @@ package graphics.shapes;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import graphics.shapes.attributes.Attributes;
+
 public class SOval extends SRectangle {
 
 	public static final String ID = "Oval";
@@ -57,5 +59,15 @@ public class SOval extends SRectangle {
 	@Override
 	public String getId() {
 		return SOval.ID;
+	}
+	
+	@Override
+	public Shape clone() {
+		SOval so = new SOval((Rectangle) this.getBounds().clone());
+		
+		for(Attributes a : this.getAttributes().values())
+			so.addAttributes(a.clone());
+		
+		return so;
 	}
 }

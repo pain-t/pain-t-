@@ -68,6 +68,10 @@ public class ShapesView extends View {
 	public void invalidate() {
 		this.paintImmediately(getBounds());
 	}
+	
+	public ShapeDraftman getDraftman() {
+		return this.sdm;
+	}
 
 	@Deprecated
 	public void saveShapes() throws FileNotFoundException, UnsupportedEncodingException {

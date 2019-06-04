@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.util.List;
 import java.util.ListIterator;
 
 import javax.swing.JFileChooser;
@@ -16,7 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.text.AttributeSet.FontAttribute;
-
 import graphics.shapes.SOval;
 import graphics.shapes.SCollection;
 import graphics.shapes.SLine;
@@ -24,7 +22,6 @@ import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
 import graphics.shapes.Shape;
 import graphics.shapes.ShapeModel;
-import graphics.shapes.attributes.Attributes;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
@@ -65,7 +62,6 @@ public class BannerController extends Controller {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("print");
 			}
 		};
 
@@ -81,20 +77,17 @@ public class BannerController extends Controller {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO better way ?
-				// 1 ColorChooserPanel
-				// 2 gridbagpanel
-				// 3 tab panel
-				// 4 colorchooser
-				ColorChooser c = (ColorChooser) ((Component) e.getSource()).getParent().getParent().getParent()
-						.getParent();
-				if (c.equals(getView().getJpopupFill().getComponent(0)))
+				ColorChooser c = (ColorChooser)((Component)e.getSource()).getParent().getParent().getParent().getParent();
+				if(c.equals(getView().getJpopupFill().getComponent(0)))
 					getView().getJpopupFill().setVisible(false);
 				else if (c.equals(getView().getJpopupStroke().getComponent(0)))
 					getView().getJpopupStroke().setVisible(false);
+				else if (c.equals(getView().getJpopupText().getComponent(0)))
+					getView().getJpopupText().setVisible(false);
 			}
 		};
 	}
+
 
 	/**
 	 * The action to do when the OK button is clicked for color button.
@@ -103,24 +96,20 @@ public class BannerController extends Controller {
 	 */
 	public ActionListener closePopAndSetColor() {
 		return new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				SCollection model = ((ShapeModel) getView().getModel()).getData();
-				ColorChooser c = (ColorChooser) ((Component) e.getSource()).getParent().getParent().getParent()
-						.getParent();
-
+				ColorChooser c = (ColorChooser) ((Component) e.getSource()).getParent().getParent().getParent().getParent();
 				// if it is the fill color picker.
 				if (c.equals((getView()).getJpopupFill().getComponent(0))) {
 					getView().getJpopupFill().setVisible(false);
-					getView().getFillBtn()
-							.setColor(((ColorChooser) getView().getJpopupFill().getComponent(0)).getColor());
-
-					for (Shape s : model.getShapes()) {
-						SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-						if (sa.isSelected()) {
-							ColorAttributes co = (ColorAttributes) s.getAttributes(ColorAttributes.ID);
-							co.setFilledColor(c.getColor());
+					getView().getFillBtn().setColor(((ColorChooser)getView().getJpopupFill().getComponent(0)).getColor());
+					for(Shape s : model.getShapes() ) {
+						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
+						if(sa.isSelected()) {
+							ColorAttributes co = (ColorAttributes)s.getAttributes(ColorAttributes.ID);
+							if(co!=null)
+								co.setFilledColor(c.getColor());
 						}
 					}
 
@@ -128,28 +117,28 @@ public class BannerController extends Controller {
 				// if it is the stroke color picker.
 				else if (c.equals(getView().getJpopupStroke().getComponent(0))) {
 					getView().getJpopupStroke().setVisible(false);
-					getView().getStrokeBtn()
-							.setColor(((ColorChooser) getView().getJpopupStroke().getComponent(0)).getColor());
-
-					for (Shape s : model.getShapes()) {
-						SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-						if (sa.isSelected()) {
-							ColorAttributes co = (ColorAttributes) s.getAttributes(ColorAttributes.ID);
-							co.setStrokedColor(c.getColor());
+					getView().getStrokeBtn().setColor(((ColorChooser)getView().getJpopupStroke().getComponent(0)).getColor());
+					
+					for(Shape s : model.getShapes() ) {
+						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
+						if(sa.isSelected()) {
+							ColorAttributes co = (ColorAttributes)s.getAttributes(ColorAttributes.ID);
+							if(co!=null)
+								co.setStrokedColor(c.getColor());
 						}
 					}
 				}
 				// if it is the text color picker.
 				else if (c.equals(getView().getJpopupText().getComponent(0))) {
 					getView().getJpopupText().setVisible(false);
-					getView().getTextBtn()
-							.setColor(((ColorChooser) getView().getJpopupText().getComponent(0)).getColor());
-
-					for (Shape s : model.getShapes()) {
-						SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-						if (sa.isSelected()) {
-							FontAttributes fa = (FontAttributes) s.getAttributes(FontAttributes.ID);
-							fa.setFontColor(c.getColor());
+					getView().getTextBtn().setColor(((ColorChooser)getView().getJpopupText().getComponent(0)).getColor());
+					
+					for(Shape s : model.getShapes() ) {
+						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
+						if(sa.isSelected()) {
+							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
+							if(fa!=null)
+								fa.setFontColor(c.getColor());
 						}
 					}
 				}
@@ -164,27 +153,22 @@ public class BannerController extends Controller {
 	 * @return the action to do.
 	 */
 	public ActionListener closePopAndSetText() {
-		BannerController bc = (BannerController) this;
 		return new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// System.out.println("fermer la fenetre de texte");
-				// TextEntry text = new TextEntry(bc);
-				Point p = new Point(50, 50);
-				System.out.println(((TextEntry) ((Component) e.getSource()).getParent().getComponent(0)).getText());
-				SText t = new SText(p, ((TextEntry) ((Component) e.getSource()).getParent().getComponent(0)).getText());
-				System.out.println(t.getText());
-				Color fc;
-				Color sc;
-				fc = ((Color) ((BannerView) getView()).getFillBtnColor());
-				sc = ((Color) ((BannerView) getView()).getStrokeBtnColor());
-				t.addAttributes(new FontAttributes());
-				t.addAttributes(new SelectionAttributes());
-				t.addAttributes(new ColorAttributes(((BannerView) getView()).getFillBtnBox(),
-						((BannerView) getView()).getStrokeBtnBox(), fc, sc));
-				((ShapeModel) getModel()).add(t);
-				((JPopupMenu) ((Component) e.getSource()).getParent().getParent()).setVisible(false);
+						Point p = new Point (50,50);
+						SText  t= new SText (p , ((TextEntry)((Component) e.getSource()).getParent().getComponent(0)).getText());
+						Color fc;
+						Color sc;
+						fc = ((Color)((BannerView)getView()).getFillBtnColor());
+						sc = ((Color)((BannerView)getView()).getStrokeBtnColor());
+						FontAttributes fa = new FontAttributes(new Font((String)getView().getFontFamilyBox().getSelectedItem(),0,(Integer)getView().getFontSizeBox().getSelectedItem()),Color.black);
+						t.addAttributes(fa);
+						t.addAttributes(new SelectionAttributes());
+						t.addAttributes(new ColorAttributes(((BannerView)getView()).getFillBtnBox(),((BannerView)getView()).getStrokeBtnBox(), fc , sc));
+						((ShapeModel)getModel()).add(t);
+						((JPopupMenu)((Component)e.getSource()).getParent().getParent()).setVisible(false);
 			}
 		};
 	}
@@ -207,16 +191,18 @@ public class BannerController extends Controller {
 
 	/**
 	 * Update buttons, checkbox in the banner if we clicked on a shape.
+	 * @param e The mouse event.
 	 */
 	public void mouseClicked(MouseEvent e) {
 		Shape s = getTarget(e);
 
 		if (s != null) {
 			ColorAttributes co = (ColorAttributes) s.getAttributes(ColorAttributes.ID);
-			if (co != null) {
-				this.getView().getFillBtn().setColor(co.filledColor());
-				this.getView().getStrokeBtn().setColor(co.strokedColor());
-
+			if(co!=null) {
+			    this.getView().getFillBtn().setColor(co.filledColor());
+			    this.getView().getStrokeBtn().setColor(co.strokedColor());
+			    this.getView().setFillBtnBox(co.filled());
+			    this.getView().setStrokeBtnBox(co.stroked());
 			}
 			FontAttributes fa = (FontAttributes) s.getAttributes(FontAttributes.ID);
 			if (fa != null) {
@@ -234,7 +220,7 @@ public class BannerController extends Controller {
 	 * 
 	 * @return The actionListener which creates a shapes.
 	 */
-	public ActionListener createCircle() {
+	public ActionListener createOval() {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -288,10 +274,9 @@ public class BannerController extends Controller {
 				Point p2 = new Point(110, 200);
 				SLine l = new SLine(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
 				l.addAttributes(new SelectionAttributes());
-				l.addAttributes(new ColorAttributes(false, true, Color.BLACK,
-						((Color) ((BannerView) getView()).getStrokeBtnColor())));
-				((ShapeModel) getModel()).add(l);
-
+				l.addAttributes(new ColorAttributes(false, true, Color.BLACK,((BannerView)getView()).getStrokeBtnColor()));
+				((ShapeModel)getModel()).add(l);
+				
 			}
 		};
 	}
@@ -311,14 +296,20 @@ public class BannerController extends Controller {
 
 				TextEntry text = new TextEntry(bc);
 				this.jPopupText = new JPopupMenu();
+				text.getAbort().addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						jPopupText.setVisible(false);
+						
+					}
+				});
 				JPanel j = new JPanel();
 				j.add(text);
 				j.add(text.getOk());
 				j.add(text.getAbort());
-				this.jPopupText.add(j);
-				this.jPopupText.show((Component) e.getSource(), -100, -100);
-
-				// System.out.println(text.getText());
+				this.jPopupText.add(j);			
+				this.jPopupText.show((Component) e.getSource(),-100, -100);
 			}
 		};
 	}
@@ -394,26 +385,48 @@ public class BannerController extends Controller {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (e.getSource().equals(getView().getFontFamilyBox())) {
-					for (Shape s : ((ShapeModel) getModel()).getData().getShapes()) {
-						SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-						if (sa.isSelected()) {
-							FontAttributes fa = (FontAttributes) s.getAttributes(FontAttributes.ID);
-							fa.setFont(new Font((String) getView().getFontFamilyBox().getSelectedItem(), 0,
-									fa.font().getSize()));
+				if(e.getSource().equals(getView().getFontFamilyBox())) {
+					for(Shape s : ((ShapeModel)getModel()).getData().getShapes() ) {
+						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
+						if(sa.isSelected()) {
+							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
+							if(fa!=null)
+								fa.setFont(new Font((String)getView().getFontFamilyBox().getSelectedItem(),0,fa.font().getSize()));
 						}
 					}
-				} else if (e.getSource().equals(getView().getFontSizeBox())) {
-					for (Shape s : ((ShapeModel) getModel()).getData().getShapes()) {
-						SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-						if (sa.isSelected()) {
-							FontAttributes fa = (FontAttributes) s.getAttributes(FontAttributes.ID);
-							fa.setFont(new Font(fa.font().getFontName(), 0,
-									(int) getView().getFontSizeBox().getSelectedItem()));
+				}
+				else if(e.getSource().equals(getView().getFontSizeBox())) {
+					for(Shape s : ((ShapeModel)getModel()).getData().getShapes()) {
+						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
+						if(sa.isSelected()) {
+							FontAttributes fa = (FontAttributes)s.getAttributes(FontAttributes.ID);
+							if(fa!=null)
+								fa.setFont(new Font(fa.font().getFontName(),0,(int) getView().getFontSizeBox().getSelectedItem()));
 						}
 					}
 				}
 			}
+		};
+	}
+	
+	
+	public ActionListener toggleBox() {
+		return new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+					for(Shape s : ((ShapeModel)getModel()).getData().getShapes() ) {
+						SelectionAttributes sa = (SelectionAttributes)s.getAttributes(SelectionAttributes.ID);
+						if(sa.isSelected()) {
+							ColorAttributes ca = (ColorAttributes)s.getAttributes(ColorAttributes.ID);
+							if(ca!=null) {
+								ca.setFilled(getView().getFillBtnBox());
+								ca.setStroked(getView().getStrokeBtnBox());
+							}
+						}
+					}
+				}
 		};
 	}
 }
