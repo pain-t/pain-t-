@@ -11,9 +11,10 @@ public class PanelSelect extends JPanel {
 		super();
 		init(controller);
 	}
+
 	@Deprecated
 	private void init(BannerController controller) {
-		this.add(new ButtonShape(Utils.getIcon(Utils.MOUSE),controller.doPrint()));
-		this.add(new ButtonShape(Utils.getIcon(Utils.SELECTION),controller.doPrint()));
+		this.add(new ButtonShape(Utils.getIcon(Utils.MOUSE), controller.doPrint()));
+		this.add(new ButtonShape(Utils.getIcon(Utils.SELECTION), controller.doPrint()));
 	}
 }

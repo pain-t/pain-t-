@@ -2,7 +2,6 @@ package graphics.shapes.attributes;
 
 import java.awt.Color;
 
-
 public class ColorAttributes extends Attributes {
 
 	/** Id of the ColorAttributes. */
@@ -22,13 +21,18 @@ public class ColorAttributes extends Attributes {
 	private Color strokedColor;
 
 	// --------------------------------------------------------------------
-	
+
 	/**
 	 * Construct a ColorAttribute.
-	 * @param filled True if the shape is filled, false otherwise.
-	 * @param stroked True if the shape is stroked, false otherwise.
-	 * @param filledColor Color with which to fill the shape.
-	 * @param strokedColor Color with which to stroke the shape.
+	 * 
+	 * @param filled
+	 *            True if the shape is filled, false otherwise.
+	 * @param stroked
+	 *            True if the shape is stroked, false otherwise.
+	 * @param filledColor
+	 *            Color with which to fill the shape.
+	 * @param strokedColor
+	 *            Color with which to stroke the shape.
 	 */
 	public ColorAttributes(boolean filled, boolean stroked, Color filledColor, Color strokedColor) {
 		this.filled = filled;
@@ -46,9 +50,8 @@ public class ColorAttributes extends Attributes {
 		this.filledColor = FILLED_DEFAULT_COLOR;
 		this.strokedColor = STROKED_DEFAULT_COLOR;
 	}
-	
+
 	// --------------------------------------------------------------------
-	
 
 	@Override
 	public String getId() {
@@ -57,6 +60,7 @@ public class ColorAttributes extends Attributes {
 
 	/**
 	 * Returns true if the shape is filled, false otherwise.
+	 * 
 	 * @return true if the shape is filled, false otherwise.
 	 */
 	public boolean filled() {
@@ -65,6 +69,7 @@ public class ColorAttributes extends Attributes {
 
 	/**
 	 * Returns true if the shape is stroked, false otherwise.
+	 * 
 	 * @return true if the shape is stroked, false otherwise.
 	 */
 	public boolean stroked() {
@@ -73,6 +78,7 @@ public class ColorAttributes extends Attributes {
 
 	/**
 	 * Returns the color with which to fill the shape.
+	 * 
 	 * @return The color with which to fill the shape.
 	 */
 	public Color filledColor() {
@@ -81,6 +87,7 @@ public class ColorAttributes extends Attributes {
 
 	/**
 	 * Returns the color with which to stroke the shape.
+	 * 
 	 * @return The color with which to stroke the shape.
 	 */
 	public Color strokedColor() {
@@ -89,15 +96,17 @@ public class ColorAttributes extends Attributes {
 
 	/**
 	 * Set the color with which to fill the shape, with the specified color.
+	 * 
 	 * @return The new color with which to fill the shape.
 	 */
 	public void setFilledColor(Color color) {
 		this.filledColor = color;
 		this.notifyObserver();
 	}
-	
+
 	/**
 	 * Set the color with which to stroke the shape, with the specified color.
+	 * 
 	 * @return The new color with which to stroke the shape.
 	 */
 	public void setStrokedColor(Color color) {

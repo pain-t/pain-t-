@@ -6,9 +6,8 @@ import java.awt.FontMetrics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+public class FontAttributes extends Attributes {
 
-public class FontAttributes extends Attributes{
-	
 	/** Id of the FontAttributes. */
 	public static final String ID = "FontAttributes";
 	/** Default font. */
@@ -29,11 +28,14 @@ public class FontAttributes extends Attributes{
 	public FontAttributes() {
 		this(DEFAULT_FONT, DEFAULT_COLOR);
 	}
-	
+
 	/**
 	 * Constructs a FontAttribute.
-	 * @param font Font.
-	 * @param fontColor Font color.
+	 * 
+	 * @param font
+	 *            Font.
+	 * @param fontColor
+	 *            Font color.
 	 */
 	public FontAttributes(Font font, Color fontColor) {
 		this.font = font;
@@ -44,23 +46,27 @@ public class FontAttributes extends Attributes{
 
 	/**
 	 * Returns the font.
+	 * 
 	 * @return The font.
 	 */
 	public Font font() {
 		return this.font;
 	}
-	
+
 	/**
 	 * Return the color font.
+	 * 
 	 * @return The color font.
 	 */
 	public Color fontColor() {
 		return this.fontColor;
 	}
-	
+
 	/**
 	 * Return the bounds with the specified text with this font configuration.
-	 * @param str Text with which to compute the bounds.
+	 * 
+	 * @param str
+	 *            Text with which to compute the bounds.
 	 * @return The bounds with the specified text with this font configuration.
 	 */
 	public Rectangle getBounds(String str) {
@@ -83,7 +89,7 @@ public class FontAttributes extends Attributes{
 		this.fontColor = fontColor;
 		this.notifyObserver();
 	}
-	
+
 	public void setFont(Font font) {
 		this.font = font;
 		this.notifyObserver();
